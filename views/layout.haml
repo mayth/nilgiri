@@ -1,7 +1,12 @@
 !!! 5
 %html
   %head
-    %title Nilgiri
+    %title= @page_title ? @page_title + ' - Nilgiri' : 'Nilgiri'
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0'}
+    %link{rel: 'stylesheet', type: 'text/css', href: stylesheet_path('application')}
   %body
-    != yield
+    .container-fluid
+      != yield
+
+    %script{src: javascript_path('application')}
 

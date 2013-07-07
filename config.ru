@@ -1,3 +1,13 @@
+require 'bundler'
+require 'sinatra'
+Bundler.require(:default, Sinatra::Application.environment)
+
 require './app.rb'
 
-run Sinatra::Application
+map '/assets' do
+  run Sinatra::Application.sprockets
+end
+
+map '/' do
+  run Sinatra::Application
+end

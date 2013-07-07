@@ -1,14 +1,21 @@
-%header
-  %h1 Nilgiri
-  %p TEA party Score Registration Tool
+%header.hero-unit
+  %h1 Nilgiri <small>TEA party Score Registration Tool</small>
 
-%article
-  %section
-    %h1 Score Registration
+%article.row-fluid
+  %section.span4.offset2
+    %h1
+      %a{href: '/score/register'} Score Registration
+    %p Upload your score.
+  %section.span4
+    %h1
+      %a{href: '/signup'} Sign up
     %p
-      %a{href: '/score/register'} -> Score Registration
-  %section
-    %h1 Sign up
-    %p
-      If you have no accounts, please sign up first!
-      %a{href: '/signup'} -> Sign up
+      Please sign up first if you have no accounts yet.
+
+%article.row-fluid
+  %section.span4
+    %h1 NEWS
+  %section.span4
+    %h1 Recent Score
+  %section.span4
+    %h1 Current Rank

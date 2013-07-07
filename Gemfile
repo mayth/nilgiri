@@ -4,7 +4,13 @@ gem 'unicorn'
 gem 'sinatra'
 gem 'haml'
 gem 'mongoid'
+gem 'sprockets'
+gem 'sprockets-helpers'
+gem 'yui-compressor', require: 'yui/compressor'
+gem 'sass'
+gem 'compass'
+gem 'sprockets-sass'
 
 group :development do
-    gem 'sinatra-reloader'
+    gem 'sinatra-reloader', require: 'sinatra/reloader'
 end
