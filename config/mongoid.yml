@@ -1,0 +1,16 @@
+development:
+  sessions:
+    default:
+      database: nilgiri_dev
+      hosts:
+        - localhost
+test:
+  sessions:
+    default:
+      database: nilgiri_dev
+      hosts:
+        - localhost
+production:
+  sessions:
+    default:
+      uri: <%= ENV['MONGOHQ_URL'] %>
