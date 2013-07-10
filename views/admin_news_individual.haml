@@ -1,0 +1,25 @@
+%header.page-header
+  %h1 Edit Article <small>#{@post.title}</small>
+
+%section
+  %form.form-horizontal{action: "/admin/news/#{@post.id}", method: 'POST'}
+    .control-group
+      %label.control-label{for: 'title'} Title
+      .controls
+        %input{type: 'text', id: 'title', name: 'title', required: true, value: @post.title}
+    .control-group
+      %label.control-label{for: 'body'} Body
+      .controls
+        %textarea.span4{id: 'body', name: 'body', required: true, rows: 8}= @post.body
+    .control-group
+      .controls
+        %button.btn.btn-primary{type: 'submit'} Submit
+        %button.btn{type: 'reset'} Clear
+
+%section
+  %h1 Delete Article
+  %p.well.well-large
+    DANGER!
+  %form{action: "/admin/news/#{@post.id}", method: 'POST'}
+    %input{type: 'hidden', name: '_method', value: 'DELETE'}
+    %button.btn.btn-danger{type: 'submit'} Delete

@@ -1,5 +1,6 @@
 require 'digest/sha2'
 require 'cgi/util'
+require 'json'
 
 class ValidationError < StandardError; end
 
@@ -36,6 +37,9 @@ DIFFICULTIES = {
 }
 
 configure do
+  set :admin_id, (ENV['ADMIN_ID'] || 'admin')
+  set :admin_pass, (ENV['ADMIN_PASS'] ||'admin123')
+
   Mongoid.load!('./config/mongoid.yml')
   Sprockets::Helpers.configure do |config|
     config.environment = settings.sprockets
@@ -74,6 +78,8 @@ end
 Dir.glob('./models/*.rb').each do |s|
   require_relative s
 end
+
+require './admin.rb'
 
 get '/' do
   @page_id = 'index'

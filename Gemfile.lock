@@ -24,6 +24,7 @@ GEM
       tilt
     hike (1.2.3)
     i18n (0.6.1)
+    json (1.8.0)
     kgio (2.8.0)
     mongoid (3.1.4)
       activemodel (~> 3.2)
@@ -81,6 +82,7 @@ PLATFORMS
 DEPENDENCIES
   compass
   haml
+  json
   mongoid
   sass
   sinatra

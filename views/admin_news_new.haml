@@ -1,0 +1,16 @@
+%header.page-header
+  %h1 New Article <small>Post a new article</small>
+
+%form.form-horizontal{action: '/admin/news/new', method: 'POST'}
+  .control-group
+    %label.control-label{for: 'title'} Title
+    .controls
+      %input{type: 'text', id: 'title', name: 'title', required: true}
+  .control-group
+    %label.control-label{for: 'body'} Body
+    .controls
+      %textarea.span4{id: 'body', name: 'body', required: true, rows: 8}
+  .control-group
+    .controls
+      %button.btn.btn-primary{type: 'submit'} Submit
+      %button.btn{type: 'reset'} Clear
