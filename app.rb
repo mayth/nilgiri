@@ -8,33 +8,37 @@ class ValidationError < StandardError; end
 set :sprockets, Sprockets::Environment.new
 
 MACHINES = {
-  iidx: 'beatmania IIDX 20 tricoro',
-  popn: "pop'n music Sunny Park",
-  gfg:  'GITADORA GuitarFreaks (GUITAR)',
-  gfb:  'GITADORA GuitarFreaks (BASS)',
-  dm:   'GITADORA DrumMania',
-  ddr:  'DanceDanceRevolution',
-  jb:   'jubeat saucer',
-  rb:   'REFLEC BEAT colette',
-  sdvx: 'SOUND VOLTEX II -infinite infection-',
-  dea:  'DanceEvolution ARCADE',
-  ftt:  'ミライダガッキ',
-  mm:   'maimai GreeN'
+  iidxsp:'beatmania IIDX 20 tricoro (SP)',
+  iidxdp:'beatmania IIDX 20 tricoro (DP)',
+  popn:  "pop'n music Sunny Park",
+  gfg:   'GITADORA GuitarFreaks (GUITAR)',
+  gfb:   'GITADORA GuitarFreaks (BASS)',
+  dm:    'GITADORA DrumMania',
+  ddrsp: 'DanceDanceRevolution (SP)',
+  ddrdp: 'DanceDanceRevolution (DP)',
+  jb:    'jubeat saucer',
+  rb:    'REFLEC BEAT colette',
+  sdvx:  'SOUND VOLTEX II -infinite infection-',
+  dea:   'DanceEvolution ARCADE',
+  ftt:   'ミライダガッキ',
+  mm:    'maimai GreeN'
 }
 
 DIFFICULTIES = {
-  iidx: %w(NORMAL HYPER ANOTHER),
-  popn: %w(NORMAL HYPER EX),
-  gfg:  %w(BASIC ADVANCED EXTREME MASTER),
-  gfb:  %w(BASIC ADVANCED EXTREME MASTER),
-  dm:   %w(BASIC ADVANCED EXTREME MASTER),
-  ddr:  %w(BEGINNER BASIC DIFFICULT EXPERT CHALLENGE),
-  jb:   %w(BASIC ADVANCED EXTREME),
-  rb:   %w(BASIC MEDIUM HARD),
-  sdvx: %w(NOVICE ADVANCED EXHAUST INFINITE),
-  dea:  %w(LIGHT STANDARD EXTREME MASTER STEALTH),
-  ftt:  %w(ベーシック スーパー ウルトラ),
-  mm:   %w(EASY BASIC ADVANCED EXPERT MASTER)
+  iidxsp: %w(NORMAL HYPER ANOTHER),
+  iidxdp: %w(NORMAL HYPER ANOTHER),
+  popn:   %w(NORMAL HYPER EX),
+  gfg:    %w(BASIC ADVANCED EXTREME MASTER),
+  gfb:    %w(BASIC ADVANCED EXTREME MASTER),
+  dm:     %w(BASIC ADVANCED EXTREME MASTER),
+  ddrsp:  %w(BEGINNER BASIC DIFFICULT EXPERT CHALLENGE),
+  ddrdp:  %w(BASIC DIFFICULT EXPERT CHALLENGE),
+  jb:     %w(BASIC ADVANCED EXTREME),
+  rb:     %w(BASIC MEDIUM HARD),
+  sdvx:   %w(NOVICE ADVANCED EXHAUST INFINITE),
+  dea:    %w(LIGHT STANDARD EXTREME MASTER STEALTH),
+  ftt:    %w(ベーシック スーパー ウルトラ),
+  mm:     %w(EASY BASIC ADVANCED EXPERT MASTER)
 }
 
 configure do

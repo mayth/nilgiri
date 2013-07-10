@@ -1,11 +1,13 @@
 /***** register form *****/
 var machine_params = {
-  'iidx': {'type': 'int', 'diff': ['NORMAL', 'HYPER', 'ANOTHER']},
+  'iidxsp': {'type': 'int', 'diff': ['NORMAL', 'HYPER', 'ANOTHER']},
+  'iidxdp': {'type': 'int', 'diff': ['NORMAL', 'HYPER', 'ANOTHER']},
   'popn': {'type': 'int', 'diff': ['NORMAL', 'HYPER', 'EX']},
   'gfg': {'type': 'perc', 'diff': ['BASIC', 'ADVANCED', 'EXTREME', 'MASTER']},
   'gfb': {'type': 'perc', 'diff': ['BASIC', 'ADVANCED', 'EXTREME', 'MASTER']},
   'dm': {'type': 'perc', 'diff': ['BASIC', 'ADVANCED', 'EXTREME', 'MASTER']},
-  'ddr': {'type': 'int', 'diff': ['BEGINNER', 'BASIC', 'DIFFICULT', 'EXPERT', 'CHALLENGE']},
+  'ddrsp': {'type': 'int', 'diff': ['BEGINNER', 'BASIC', 'DIFFICULT', 'EXPERT', 'CHALLENGE']},
+  'ddrdp': {'type': 'int', 'diff': ['BASIC', 'DIFFICULT', 'EXPERT', 'CHALLENGE']},
   'jb': {'type': 'int', 'diff': ['BASIC', 'ADVANCED', 'EXTREME']},
   'rb': {'type': 'perc', 'diff': ['BASIC', 'MEDIUM', 'HARD']},
   'sdvx': {'type': 'int', 'diff': ['NOVICE', 'ADVANCED', 'EXHAUST', 'INFINITE']},
