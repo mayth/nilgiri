@@ -2,7 +2,8 @@
 var machine_params = {
   'iidx': {'type': 'int', 'diff': ['NORMAL', 'HYPER', 'ANOTHER']},
   'popn': {'type': 'int', 'diff': ['NORMAL', 'HYPER', 'EX']},
-  'gf': {'type': 'perc', 'diff': ['GUITAR/BASIC', 'GUITAR/ADVANCED', 'GUITAR/EXTREME', 'GUITAR/MASTER', 'BASS/BASIC', 'BASS/ADVANCED', 'BASS/EXTREME', 'BASS/MASTER']},
+  'gfg': {'type': 'perc', 'diff': ['BASIC', 'ADVANCED', 'EXTREME', 'MASTER']},
+  'gfb': {'type': 'perc', 'diff': ['BASIC', 'ADVANCED', 'EXTREME', 'MASTER']},
   'dm': {'type': 'perc', 'diff': ['BASIC', 'ADVANCED', 'EXTREME', 'MASTER']},
   'ddr': {'type': 'int', 'diff': ['BEGINNER', 'BASIC', 'DIFFICULT', 'EXPERT', 'CHALLENGE']},
   'jb': {'type': 'int', 'diff': ['BASIC', 'ADVANCED', 'EXTREME']},

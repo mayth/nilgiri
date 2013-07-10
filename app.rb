@@ -8,7 +8,8 @@ set :sprockets, Sprockets::Environment.new
 MACHINES = {
   iidx: 'beatmania IIDX 20 tricoro',
   popn: "pop'n music Sunny Park",
-  gf:   'GITADORA GuitarFreaks',
+  gfg:  'GITADORA GuitarFreaks (GUITAR)',
+  gfb:  'GITADORA GuitarFreaks (BASS)',
   dm:   'GITADORA DrumMania',
   ddr:  'DanceDanceRevolution',
   jb:   'jubeat saucer',
@@ -17,6 +18,21 @@ MACHINES = {
   dea:  'DanceEvolution ARCADE',
   ftt:  'ミライダガッキ',
   mm:   'maimai GreeN'
+}
+
+DIFFICULTIES = {
+  iidx: %w(NORMAL HYPER ANOTHER),
+  popn: %w(NORMAL HYPER EX),
+  gfg:  %w(BASIC ADVANCED EXTREME MASTER),
+  gfb:  %w(BASIC ADVANCED EXTREME MASTER),
+  dm:   %w(BASIC ADVANCED EXTREME MASTER),
+  ddr:  %w(BEGINNER BASIC DIFFICULT EXPERT CHALLENGE),
+  jb:   %w(BASIC ADVANCED EXTREME),
+  rb:   %w(BASIC MEDIUM HARD),
+  sdvx: %w(NOVICE ADVANCED EXHAUST INFINITE),
+  dea:  %w(LIGHT STANDARD EXTREME MASTER STEALTH),
+  ftt:  %w(ベーシック スーパー ウルトラ),
+  mm:   %w(EASY BASIC ADVANCED EXPERT MASTER)
 }
 
 configure do
@@ -41,6 +57,17 @@ helpers do
     id_hash = Digest::SHA256.hexdigest(id)
     pass_hash = Digest::SHA256.hexdigest(pass)
     Digest::SHA256.hexdigest(id_hash + pass_hash)
+  end
+
+  def print_score(score)
+    case score.score_type
+    when :int
+      Integer(score.score).to_s
+    when :perc
+      "#{Float(score.score)} %"
+    else
+      Float(score.score).to_s
+    end
   end
 end
 

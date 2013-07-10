@@ -1,3 +1,5 @@
+- current_term = Time.now.strftime('%Y%m')
+
 %header.hero-unit
   %h1 Nilgiri <small>TEA party Score Registration Tool</small>
 
@@ -12,25 +14,44 @@
     %p
       Please sign up first if you have no accounts yet.
 
-%article.row-fluid
-  %section.span4
-    %h1 NEWS
-  %section.span4
-    %h1 Recent Score
-    - if Score.exists?
-      - Score.desc(:registered_at).each do |score|
-        %section
-          %p= score.player.screen_name
-          %p= MACHINES[score.machine]
-          %p
-            - case score.score_type
-            - when :int
-              = Integer(score.score)
-            - when :perc
-              == #{Float(score.score)} %
-            - else
-              = Float(score.score)
-    - else
-      %p Not registered yet.
-  %section.span4
-    %h1 Current Rank
+%article
+  .row-fluid
+    %section.span6
+      %h1 NEWS
+    %section.span6
+      %h1 Recent Updates
+      - if Score.exists?
+        .row-fluid
+          - Score.desc(:registered_at).limit(4).each do |score|
+            %section.span3.well
+              %p= score.player.screen_name
+              %p= MACHINES[score.machine]
+              %p= print_score(score)
+      - else
+        %p Not registered yet.
+  .row-fluid
+    %section
+      %h1 Current Rank
+      .tabbable
+        %ul.nav.nav-pills
+          - MACHINES.each do |k, name|
+            %li
+              %a{href: "#rank_#{k}", 'data-toggle' => 'tab'}= name
+        .tab-content
+          - MACHINES.each do |k, name|
+            .tab-pane{id: "rank_#{k}"}
+              %h1.machine-title= name
+              %p
+                %a{href: "/score/machine/#{k}"} Show More
+              .row-fluid
+                - DIFFICULTIES[k].each do |difficulty|
+                  - col = Integer(12.0 / DIFFICULTIES[k].size)
+                  %section{class: "span#{col}"}
+                    %h1.difficulty= difficulty
+                    %table.table
+                      %tbody
+                        - Score.where(machine: k, difficulty: difficulty, registration_target: current_term).limit(3).each_with_index do |score, idx|
+                          %tr
+                            %td= idx + 1
+                            %td= score.player.screen_name
+                            %td= print_score(score)
