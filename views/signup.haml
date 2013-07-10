@@ -3,9 +3,9 @@
 
 %form.form-horizontal{action: '/signup', method: 'POST'}
   .control-group
-    %label.control-label{for: 'name'} User ID
+    %label.control-label{for: 'id'} User ID
     .controls
-      %input{id: 'name', name: 'name', type: 'text', required: true, pattern: '[0-9a-zA-Z_]+'}
+      %input{id: 'id', name: 'id', type: 'text', required: true, pattern: '[0-9a-zA-Z_]+'}
       .help-block
         This ID is only used for score registration.<br>
         You can use letters(abc...ABC...), numerals(012...789), and underscore(_).

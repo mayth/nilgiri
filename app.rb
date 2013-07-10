@@ -22,6 +22,13 @@ configure do
 end
 
 helpers Sprockets::Helpers
+helpers do
+  def pass_hash(id, pass)
+    id_hash = Digest::SHA256.hexdigest(id)
+    pass_hash = Digest::SHA256.hexdigest(pass)
+    Digest::SHA256.hexdigest(id_hash + pass_hash)
+  end
+end
 
 Dir.glob('./models/*.rb').each do |s|
   require_relative s
@@ -44,25 +51,23 @@ end
 
 post '/signup' do
   ### Validation
-  raise ValidationError, 'Invalid character in ID' unless params[:name] =~ /^[0-9a-zA-Z_]+$/
+  raise ValidationError, 'Invalid character in ID' unless params[:id] =~ /^[0-9a-zA-Z_]+$/
   raise ValidationError, 'Password must not be empty' if params[:pass].empty?
   raise ValidationError, 'Invalid character in Twitter ID' unless params[:twitter_id].empty? || params[:twitter_id] =~ /^[0-9a-zA-Z_]+$/
   begin
-    p = Player.find_by(name: params[:name])
+    p = Player.find_by(name: params[:id])
   rescue
   end
   halt 500, 'Your ID is already taken...' if p
 
   ### Escape
-  @screen_name = CGI.escapeHTML(params[:screen_name].empty? ? params[:name] : params[:screen_name])
+  @screen_name = CGI.escapeHTML(params[:screen_name].empty? ? params[:id] : params[:screen_name])
 
   # Calculate digest
-  name_hash = Digest::SHA256.hexdigest(params[:name])
-  pass_hash = Digest::SHA256.hexdigest(params[:pass])
-  pass = Digest::SHA256.hexdigest(name_hash + pass_hash)
+  pass = pass_hash(params[:id], params[:pass])
 
   # Registration
-  p = Player.new(name: params[:name], screen_name: @screen_name, pass: pass, twitter_id: params[:twitter_id])
+  p = Player.new(id: params[:id], screen_name: @screen_name, pass: pass, twitter_id: params[:twitter_id])
   p.save!
 
   haml :signup_ok
