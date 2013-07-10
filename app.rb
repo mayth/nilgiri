@@ -126,6 +126,12 @@ post '/score/register' do
   haml :registered
 end
 
+get '/score/machine/:machine' do
+  @machine = params[:machine].to_sym
+  @season = Time.now.strftime('%Y%m')
+  haml :score_machine
+end
+
 get '/signup' do
   haml :signup
 end

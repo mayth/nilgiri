@@ -65,7 +65,7 @@
                     %h1.difficulty= difficulty
                     %table.table
                       %tbody
-                        - Score.where(machine: k, difficulty: difficulty, registration_target: current_season).limit(3).each_with_index do |score, idx|
+                        - Score.where(machine: k, difficulty: difficulty, registration_target: current_season).desc(:score).limit(3).each_with_index do |score, idx|
                           %tr
                             %td= idx + 1
                             %td= score.player.screen_name
