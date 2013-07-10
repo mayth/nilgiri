@@ -14,6 +14,7 @@ gem 'compass'
 gem 'sprockets-sass'
 gem 'sprockets-strict-mode'
 gem 'json'
+gem 'kramdown'
 
 group :development do
     gem 'sinatra-reloader', require: 'sinatra/reloader'

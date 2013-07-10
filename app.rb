@@ -1,6 +1,7 @@
 require 'digest/sha2'
 require 'cgi/util'
 require 'json'
+require 'kramdown'
 
 class ValidationError < StandardError; end
 
@@ -166,6 +167,11 @@ post '/signup' do
   p.save!
 
   haml :signup_ok
+end
+
+get '/news/:id' do
+  @post = Post.find(params[:id])
+  haml :news_individual, locals: {body: Kramdown::Document.new(@post.body).to_html}
 end
 
 error ValidationError do

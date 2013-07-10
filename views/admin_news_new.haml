@@ -9,7 +9,9 @@
   .control-group
     %label.control-label{for: 'body'} Body
     .controls
-      %textarea.span4{id: 'body', name: 'body', required: true, rows: 8}
+      %textarea.span6{id: 'body', name: 'body', required: true, rows: 12}
+      .help-block
+        You can use kramdown syntax (it is superset of Markdown syntax). See <a href="http://kramdown.rubyforge.org/syntax.html">kramdown Syntax</a> or <a href="http://kramdown.rubyforge.org/quickref.html">Quick Reference</a>.
   .control-group
     .controls
       %button.btn.btn-primary{type: 'submit'} Submit
