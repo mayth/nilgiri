@@ -16,11 +16,6 @@
 
 %article
   .row-fluid
-    %section
-      %h1 Information
-      %section
-        %p I'm testing Nilgiri now... Please report any bugs if you find, and any other feedbacks are welcome!
-  .row-fluid
     %section.span6
       %h1 News
       - unless Post.exists?
@@ -33,17 +28,9 @@
               %p= post.body
               %p.updated_at= post.updated_at.strftime('%Y-%m-%d %H:%M')
     %section.span6
-      %h1 Recent Updates
-      - if Score.exists?
-        .row-fluid
-          - Score.desc(:registered_at).limit(4).each do |score|
-            %section.span3.well
-              %p= score.player.screen_name
-              %p== #{MACHINES[score.machine]} / #{score.difficulty}
-              %p= print_score(score)
-              %p= score.registered_at.strftime('%Y-%m-%d %H:%M')
-      - else
-        %p Not registered yet.
+      %h1 Information
+      %section
+        %p I'm testing Nilgiri now... Please report any bugs if you find, and any other feedbacks are welcome!
   .row-fluid
     %section
       %h1 Current Rank <small>for #{current_season}</small>
