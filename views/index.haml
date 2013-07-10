@@ -1,4 +1,4 @@
-- current_term = Time.now.strftime('%Y%m')
+- current_season = Time.now.strftime('%Y%m')
 
 %header.hero-unit
   %h1 Nilgiri <small>TEA party Score Registration Tool</small>
@@ -19,7 +19,7 @@
     %section
       %h1 Information
       %section
-        %p.well Current Season: #{current_term}
+        %p I'm testing Nilgiri now... Please report any bugs if you find, and any other feedbacks are welcome!
   .row-fluid
     %section.span6
       %h1 News
@@ -45,7 +45,7 @@
         %p Not registered yet.
   .row-fluid
     %section
-      %h1 Current Rank
+      %h1 Current Rank <small>for #{current_season}</small>
       .tabbable
         %ul.nav.nav-pills
           - MACHINES.each do |k, name|
@@ -64,7 +64,7 @@
                     %h1.difficulty= difficulty
                     %table.table
                       %tbody
-                        - Score.where(machine: k, difficulty: difficulty, registration_target: current_term).limit(3).each_with_index do |score, idx|
+                        - Score.where(machine: k, difficulty: difficulty, registration_target: current_season).limit(3).each_with_index do |score, idx|
                           %tr
                             %td= idx + 1
                             %td= score.player.screen_name
