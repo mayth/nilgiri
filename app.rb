@@ -116,13 +116,21 @@ post '/score/register' do
   score = Float(s_score)
   score_type = s_score_type.to_sym
   regist_tag = s_regist_tag.to_sym
-  player.scores.create(
-    registration_target: regist_tag,
-    registered_at: registered_at,
-    machine: machine,
-    difficulty: difficulty,
-    score: score,
-    score_type: score_type)
+  c = player.scores.where(registration_target: regist_tag, machine: machine, difficulty: difficulty)
+  if c.exists?
+    s = c.first
+    s.registered_at = registered_at
+    s.score = score
+    s.save!
+  else 
+    player.scores.create(
+      registration_target: regist_tag,
+      registered_at: registered_at,
+      machine: machine,
+      difficulty: difficulty,
+      score: score,
+      score_type: score_type)
+  end
   haml :registered
 end
 
