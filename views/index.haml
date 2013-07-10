@@ -39,8 +39,9 @@
           - Score.desc(:registered_at).limit(4).each do |score|
             %section.span3.well
               %p= score.player.screen_name
-              %p= MACHINES[score.machine]
+              %p== #{MACHINES[score.machine]} / #{score.difficulty}
               %p= print_score(score)
+              %p= score.registered_at.strftime('%Y-%m-%d %H:%M')
       - else
         %p Not registered yet.
   .row-fluid
