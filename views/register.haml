@@ -1,0 +1,44 @@
+%header.page-header
+  %h1 Score Registration
+
+%form.form-horizontal{action: '/score/register', method: 'POST'}
+  .control-group
+    %label.control-label{for: 'id'} User ID
+    .controls
+      %input{id: 'id', name: 'id', type: 'text', required: true}
+  .control-group
+    %label.control-label{for: 'pass'} Password
+    .controls
+      %input{id: 'pass', name: 'pass', type: 'password', required: true}
+  .control-group
+    %label.control-label{for: 'machine'} Machine
+    .controls
+      %select{id: 'machine', name: 'machine'}
+        :ruby
+          machines = {
+            'iidx' => 'beatmania IIDX 20 tricoro',
+            'popn' => "pop'n music Sunny Park",
+            'gf'   => 'GITADORA GuitarFreaks',
+            'dm'   => 'GITADORA DrumMania',
+            'ddr'  => 'DanceDanceRevolution',
+            'jb'   => 'jubeat saucer',
+            'rb'   => 'REFLEC BEAT colette',
+            'sdvx' => 'SOUND VOLTEX II -infinite infection-',
+            'dea'  => 'DanceEvolution ARCADE',
+            'ftt'  => 'ミライダガッキ',
+            'mm'   => 'maimai GreeN'
+          }
+        - machines.each do |k, v|
+          %option{value: k}= v
+  .control-group
+    %label.control-label{for: 'difficulty'} Difficulty
+    .controls
+      %select{id: 'difficulty', name: 'difficulty'}
+  .control-group
+    %label.control-label{for: 'score'} Score
+    .controls
+      %input{type: 'text', id: 'score', name: 'score', required: true}
+  .control-group
+    .controls
+      %button.btn.btn-primary{type: 'submit'} Submit
+      %button.btn{type: 'reset'} Clear
