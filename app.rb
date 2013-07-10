@@ -28,10 +28,10 @@ configure do
   end
   settings.sprockets.append_path 'assets/javascripts'
   settings.sprockets.append_path 'assets/stylesheets'
+  settings.sprockets.register_postprocessor('application/javascript', Sprockets::StrictMode) if development?
   if production?
     settings.sprockets.js_compressor = YUI::JavaScriptCompressor.new(munge: true, optimize: true)
     settings.sprockets.css_compressor = YUI::CssCompressor.new
-    settings.sprockets.register_postprocessor('application/javascript', Sprockets::StrictMode) if development?
   end
 end
 
