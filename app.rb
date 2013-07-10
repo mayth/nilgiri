@@ -5,6 +5,20 @@ class ValidationError < StandardError; end
 
 set :sprockets, Sprockets::Environment.new
 
+MACHINES = {
+  iidx: 'beatmania IIDX 20 tricoro',
+  popn: "pop'n music Sunny Park",
+  gf:   'GITADORA GuitarFreaks',
+  dm:   'GITADORA DrumMania',
+  ddr:  'DanceDanceRevolution',
+  jb:   'jubeat saucer',
+  rb:   'REFLEC BEAT colette',
+  sdvx: 'SOUND VOLTEX II -infinite infection-',
+  dea:  'DanceEvolution ARCADE',
+  ftt:  'ミライダガッキ',
+  mm:   'maimai GreeN'
+}
+
 configure do
   Mongoid.load!('./config/mongoid.yml')
   Sprockets::Helpers.configure do |config|
@@ -35,14 +49,48 @@ Dir.glob('./models/*.rb').each do |s|
 end
 
 get '/' do
+  @page_id = 'index'
   haml :index
 end
 
 get '/score/register' do
+  @page_id = 'score_register'
   haml :register
 end
 
 post '/score/register' do
+  registered_at = Time.now
+
+  id = params[:id] || ''
+  pass = params[:pass] || ''
+  s_machine = params[:machine] || ''
+  s_difficulty = params[:difficulty] || ''
+  s_score = params[:score] || ''
+  s_score_type = params[:score_type] || ''
+  s_regist_tag = params[:target] || ''
+  raise ValidationError, 'ID must not be empty.' if id.empty?
+  raise ValidationError, 'Password must not be empty.' if pass.empty?
+  raise ValidationError, 'Machine type must be chosen.' if s_machine.empty?
+  raise ValidationError, 'Difficulty must be chosen.' if s_difficulty.empty?
+  raise ValidationError, 'Score must not be empty.' if s_score.empty?
+  raise ValidationError, 'Score type must not be empty.' if s_score_type.empty?
+  raise ValidationError, 'Registration tag must be given.' if s_regist_tag.empty?
+  ip_hash = pass_hash(id, pass)
+  player = Player.find_by(pid: id)
+  halt 500, "Player ID or Password is wrong." if !player || player.pass != ip_hash
+  machine = s_machine.to_sym
+  difficulty = s_difficulty.to_sym
+  score = Float(s_score)
+  score_type = s_score_type.to_sym
+  regist_tag = s_regist_tag.to_sym
+  player.scores.create(
+    registration_target: regist_tag,
+    registered_at: registered_at,
+    machine: machine,
+    difficulty: difficulty,
+    score: score,
+    score_type: score_type)
+  haml :registered
 end
 
 get '/signup' do
@@ -55,7 +103,7 @@ post '/signup' do
   raise ValidationError, 'Password must not be empty' if params[:pass].empty?
   raise ValidationError, 'Invalid character in Twitter ID' unless params[:twitter_id].empty? || params[:twitter_id] =~ /^[0-9a-zA-Z_]+$/
   begin
-    p = Player.find_by(name: params[:id])
+    p = Player.find_by(pid: params[:id])
   rescue
   end
   halt 500, 'Your ID is already taken...' if p
@@ -67,7 +115,7 @@ post '/signup' do
   pass = pass_hash(params[:id], params[:pass])
 
   # Registration
-  p = Player.new(id: params[:id], screen_name: @screen_name, pass: pass, twitter_id: params[:twitter_id])
+  p = Player.new(pid: params[:id], screen_name: @screen_name, pass: pass, twitter_id: params[:twitter_id])
   p.save!
 
   haml :signup_ok

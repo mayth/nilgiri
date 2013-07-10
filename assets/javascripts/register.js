@@ -26,6 +26,7 @@ function setDifficulty(diff_name) {
 }
 
 function changeToIntegerForm($score_form) {
+  $('#score_type').val('int');
   $score_form.attr('pattern', type_patterns['int']);
   if ($score_form.parent().hasClass('input-append')) {
     $score_form.unwrap();
@@ -34,6 +35,7 @@ function changeToIntegerForm($score_form) {
 }
 
 function changeToPercentForm($score_form) {
+  $('#score_type').val('perc');
   $score_form.attr('pattern', type_patterns['perc']);
   $score_form.wrap($('<div>').addClass('input-append'));
   $score_form.parent().append($('<span>').addClass('add-on').text('%'));
@@ -57,11 +59,13 @@ function setupForm() {
 }
 
 $(document).ready(function() {
-  // events
-  $('#machine').change(function() {
-    setupForm();
-  });
+  if ($('body').attr('id') === 'score_register') {
+    // events
+    $('#machine').change(function() {
+      setupForm();
+    });
 
-  // init
-  setupForm();
+    // init
+    setupForm();
+  }
 });

@@ -14,21 +14,7 @@
     %label.control-label{for: 'machine'} Machine
     .controls
       %select{id: 'machine', name: 'machine'}
-        :ruby
-          machines = {
-            'iidx' => 'beatmania IIDX 20 tricoro',
-            'popn' => "pop'n music Sunny Park",
-            'gf'   => 'GITADORA GuitarFreaks',
-            'dm'   => 'GITADORA DrumMania',
-            'ddr'  => 'DanceDanceRevolution',
-            'jb'   => 'jubeat saucer',
-            'rb'   => 'REFLEC BEAT colette',
-            'sdvx' => 'SOUND VOLTEX II -infinite infection-',
-            'dea'  => 'DanceEvolution ARCADE',
-            'ftt'  => 'ミライダガッキ',
-            'mm'   => 'maimai GreeN'
-          }
-        - machines.each do |k, v|
+        - MACHINES.each do |k, v|
           %option{value: k}= v
   .control-group
     %label.control-label{for: 'difficulty'} Difficulty
@@ -38,6 +24,11 @@
     %label.control-label{for: 'score'} Score
     .controls
       %input{type: 'text', id: 'score', name: 'score', required: true}
+      %input{type: 'hidden', id: 'score_type', name: 'score_type', required: true}
+  .control-group
+    %label.control-label Registering For
+    .controls
+      %input{type: 'text', id: 'target', name: 'target', readonly: true, value: Time.now.strftime('%Y%m')}
   .control-group
     .controls
       %button.btn.btn-primary{type: 'submit'} Submit

@@ -17,5 +17,20 @@
     %h1 NEWS
   %section.span4
     %h1 Recent Score
+    - if Score.exists?
+      - Score.desc(:registered_at).each do |score|
+        %section
+          %p= score.player.screen_name
+          %p= MACHINES[score.machine]
+          %p
+            - case score.score_type
+            - when :int
+              = Integer(score.score)
+            - when :perc
+              == #{Float(score.score)} %
+            - else
+              = Float(score.score)
+    - else
+      %p Not registered yet.
   %section.span4
     %h1 Current Rank

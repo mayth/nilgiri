@@ -1,7 +1,7 @@
 class Player
   include Mongoid::Document
 
-  field :id, type: String
+  field :pid, type: String
   field :screen_name, type: String
   field :pass, type: String
   field :twitter_id, type: String
