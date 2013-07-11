@@ -40,8 +40,10 @@ function changeToIntegerForm($score_form) {
 function changeToPercentForm($score_form) {
   $('#score_type').val('perc');
   $score_form.attr('pattern', type_patterns['perc']);
-  $score_form.wrap($('<div>').addClass('input-append'));
-  $score_form.parent().append($('<span>').addClass('add-on').text('%'));
+  if (! $score_form.parent().hasClass('input-append')) {
+    $score_form.wrap($('<div>').addClass('input-append'));
+    $score_form.parent().append($('<span>').addClass('add-on').text('%'));
+  }
 }
 
 function setScoreType(type) {
