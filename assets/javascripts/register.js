@@ -9,7 +9,7 @@ var machine_params = {
   'ddrsp': {'type': 'int', 'diff': ['BEGINNER', 'BASIC', 'DIFFICULT', 'EXPERT', 'CHALLENGE']},
   'ddrdp': {'type': 'int', 'diff': ['BASIC', 'DIFFICULT', 'EXPERT', 'CHALLENGE']},
   'jb': {'type': 'int', 'diff': ['BASIC', 'ADVANCED', 'EXTREME']},
-  'rb': {'type': 'perc', 'diff': ['BASIC', 'MEDIUM', 'HARD']},
+  'rb': {'type': 'int', 'diff': ['BASIC', 'MEDIUM', 'HARD']},
   'sdvx': {'type': 'int', 'diff': ['NOVICE', 'ADVANCED', 'EXHAUST', 'INFINITE']},
   'dea': {'type': 'int', 'diff': ['LIGHT', 'STANDARD', 'EXTREME', 'MASTER', 'STEALTH']},
   'ftt': {'type': 'int', 'diff': ['ベーシック', 'スーパー', 'ウルトラ']},
