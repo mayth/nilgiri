@@ -27,7 +27,7 @@
             %section.span4.well
               %h1
                 %a{href: "/news/#{post.id}"}= post.title
-              %p= post.body
+              %p= summerize(post.body)
               %p.updated_at= post.updated_at.strftime('%Y-%m-%d %H:%M')
     %section.span6
       %h1 Information

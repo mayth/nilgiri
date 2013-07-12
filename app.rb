@@ -78,6 +78,14 @@ helpers do
       Float(score.score).to_s
     end
   end
+
+  def summerize(text, len = 80)
+    if text.length < len
+      text
+    else
+      text.strip.gsub(/\s+/, ' ').slice(0, len - 4) + ' ...'
+    end
+  end
 end
 
 Dir.glob('./models/*.rb').each do |s|
