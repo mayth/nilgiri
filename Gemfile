@@ -4,6 +4,7 @@ ruby '2.0.0'
 
 gem 'unicorn'
 gem 'sinatra'
+gem 'newrelic_rpm'
 gem 'haml'
 gem 'mongoid'
 gem 'sprockets'
