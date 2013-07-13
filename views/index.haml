@@ -42,7 +42,7 @@
         %ul.nav.nav-pills
           - MACHINES.each do |k, name|
             %li
-              %a{href: "#rank_#{k}", 'data-toggle' => 'tab'}= name
+              %a{href: "#rank_#{k}", data: {toggle: 'pill'}}= name
         .tab-content
           - MACHINES.each do |k, name|
             .tab-pane{id: "rank_#{k}"}
