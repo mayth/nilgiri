@@ -39,11 +39,11 @@
     %section
       %h1 Current Top 3 <small>for #{current_season}</small>
       .tabbable
-        %ul.nav.nav-pills
+        %ul.nav.nav-pills.nav-stacked.span3
           - MACHINES.each do |k, name|
             %li
               %a{href: "#rank_#{k}", data: {toggle: 'pill'}}= name
-        .tab-content
+        .tab-content.span9
           - MACHINES.each do |k, name|
             .tab-pane{id: "rank_#{k}"}
               %h1.machine-title= name
