@@ -58,6 +58,14 @@ configure do
     settings.sprockets.js_compressor = YUI::JavaScriptCompressor.new(munge: true, optimize: true)
     settings.sprockets.css_compressor = YUI::CssCompressor.new
   end
+
+  s = Setting.find_by(key: :season) rescue nil
+  set :season, s ? s.value : Time.now.strftime('%Y%m')
+
+  use Rack::Session::Cookie,
+    key: 'nilgiri',
+    expire_after: 108000,  # 60 * 60 * 30
+    secret: ENV['SESSION_SECRET'] || 'BB*;#Fk.L|\"!k7Oa'
 end
 
 helpers Sprockets::Helpers
@@ -101,26 +109,27 @@ end
 
 get '/score/register' do
   @page_id = 'score_register'
+  session[:register_season] = settings.season
   haml :register
 end
 
 post '/score/register' do
   registered_at = Time.now
 
-  id = params[:id] || ''
-  pass = params[:pass] || ''
-  s_machine = params[:machine] || ''
-  s_difficulty = params[:difficulty] || ''
-  s_score = params[:score] || ''
-  s_score_type = params[:score_type] || ''
-  s_regist_tag = params[:target] || ''
+  id = (params[:id] || '').strip
+  pass = (params[:pass] || '').strip
+  s_machine = (params[:machine] || '').strip
+  s_difficulty = (params[:difficulty] || '').strip
+  s_score = (params[:score] || '').strip
+  s_score_type = (params[:score_type] || '').strip
+  season = (session[:register_season] || '').strip
   raise ValidationError, 'ID must not be empty.' if id.empty?
   raise ValidationError, 'Password must not be empty.' if pass.empty?
   raise ValidationError, 'Machine type must be chosen.' if s_machine.empty?
   raise ValidationError, 'Difficulty must be chosen.' if s_difficulty.empty?
   raise ValidationError, 'Score must not be empty.' if s_score.empty?
   raise ValidationError, 'Score type must not be empty.' if s_score_type.empty?
-  raise ValidationError, 'Registration tag must be given.' if s_regist_tag.empty?
+  raise ValidationError, 'Season must be given.' if season.empty?
   ip_hash = pass_hash(id, pass)
   player = Player.find_by(pid: id)
   halt 500, "Player ID or Password is wrong." if !player || player.pass != ip_hash
@@ -128,8 +137,7 @@ post '/score/register' do
   difficulty = s_difficulty.to_sym
   score = Float(s_score)
   score_type = s_score_type.to_sym
-  regist_tag = s_regist_tag.to_sym
-  c = player.scores.where(registration_target: regist_tag, machine: machine, difficulty: difficulty)
+  c = player.scores.where(season: season, machine: machine, difficulty: difficulty)
   if c.exists?
     s = c.first
     s.registered_at = registered_at
@@ -137,19 +145,20 @@ post '/score/register' do
     s.save!
   else 
     player.scores.create(
-      registration_target: regist_tag,
+      season: season,
       registered_at: registered_at,
       machine: machine,
       difficulty: difficulty,
       score: score,
       score_type: score_type)
   end
+  session.delete(:register_season)
   haml :registered
 end
 
-get '/score/machine/:machine' do
+get '/score/machine/:machine/?:season?' do
   @machine = params[:machine].to_sym
-  @season = Time.now.strftime('%Y%m')
+  @season = params[:season] || Time.now.strftime('%Y%m')
   haml :score_machine
 end
 

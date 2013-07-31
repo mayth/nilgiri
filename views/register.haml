@@ -1,5 +1,7 @@
 %header.page-header
-  %h1 Score Registration
+  %h1
+    Score Registration
+    <small>for #{settings.season}</small>
 
 %form.form-horizontal{action: '/score/register', method: 'POST'}
   .control-group
@@ -25,10 +27,6 @@
     .controls
       %input{type: 'text', id: 'score', name: 'score', required: true}
       %input{type: 'hidden', id: 'score_type', name: 'score_type', required: true}
-  .control-group
-    %label.control-label Registering For
-    .controls
-      %input{type: 'text', id: 'target', name: 'target', readonly: true, value: Time.now.strftime('%Y%m')}
   .control-group
     .controls
       %button.btn.btn-primary{type: 'submit'} Submit

@@ -10,3 +10,8 @@
     %li
       %a{href: '/admin/news/list'} List
       .small Show the list of articles, or edit/delete an article.
+  %h1 Season
+  %p Current Season: #{settings.season}
+  %form{action: '/admin/season', method: 'POST'}
+    %input#season{type: 'text', name: 'season', value: Time.now.strftime('%Y%m'), required: true}
+    %button.btn{type: 'submit'} Set

@@ -67,3 +67,12 @@ delete '/admin/news/:id' do
   post.destroy
   redirect '/admin/news/list'
 end
+
+post '/admin/season' do
+  halt 500, 'No season given.' if (!params[:season] || params[:season].strip.empty?)
+  season = Setting.find_or_create_by(key: :season)
+  season.value = params[:season]
+  settings.season = params[:season]
+  season.save!
+  redirect '/admin'
+end

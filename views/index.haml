@@ -1,5 +1,3 @@
-- current_season = Time.now.strftime('%Y%m')
-
 %header.page-header.hero-unit
   %h1
     Nilgiri
@@ -20,14 +18,14 @@
 
 %article
   .row-fluid
-    %section.span6
+    %section#news.span6
       %h1 News
       - unless Post.exists?
         %p No news articles are available.
       - else
         .row-fluid
           - Post.desc(:updated_at).limit(3).each do |post|
-            %section.span4.well
+            %section.news-item.span4.well
               %h1
                 %a{href: "/news/#{post.id}"}= post.title
               %p= summerize(post.body)
@@ -38,7 +36,7 @@
         %p I'm testing Nilgiri now... Please report any bugs if you find, and any other feedbacks are welcome!
   .row-fluid
     %section
-      %h1 Current Top 3 <small>for #{current_season}</small>
+      %h1 Current Top 3 <small>for #{settings.season}</small>
       .tabbable
         %ul.nav.nav-pills.nav-stacked.span3
           - MACHINES.each do |k, name|
@@ -57,7 +55,7 @@
                     %h1.difficulty= difficulty
                     %table.table
                       %tbody
-                        - Score.where(machine: k, difficulty: difficulty, registration_target: current_season).desc(:score).limit(3).each_with_index do |score, idx|
+                        - Score.where(machine: k, difficulty: difficulty, season: settings.season).desc(:score).limit(3).each_with_index do |score, idx|
                           %tr
                             %td= idx + 1
                             %td= score.player.screen_name
