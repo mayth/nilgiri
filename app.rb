@@ -65,7 +65,7 @@ configure do
   use Rack::Session::Cookie,
     key: 'nilgiri',
     expire_after: 108000,  # 60 * 60 * 30
-    secret: ENV['SESSION_SECRET'] || 'BB*;#Fk.L|\"!k7Oa'
+    secret: ENV['SESSION_SECRET'] || (0..15).map{|_| rand(32..127).chr}.join
 end
 
 helpers Sprockets::Helpers
