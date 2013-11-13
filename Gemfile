@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# specify Ruby version
+ruby '2.0.0'
+
 # Server requirements
 gem 'unicorn'
 
