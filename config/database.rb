@@ -25,7 +25,8 @@ ActiveRecord::Base.configurations[:production] = {
   :database  => postgres.path[1..-1],
   :username  => postgres.user,
   :password  => postgres.password,
-  :host      => postgres.host
+  :host      => postgres.host,
+  :port      => postgres.port
 }
 
 ActiveRecord::Base.configurations[:test] = {
