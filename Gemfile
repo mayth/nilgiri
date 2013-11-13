@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Server requirements
-# gem 'thin' # or mongrel
+gem 'unicorn'
 
 # Optional JSON codec (faster performance)
 gem 'oj'
