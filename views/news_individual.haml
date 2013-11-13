@@ -1,9 +1,0 @@
-- dt_format = '%Y-%m-%d %H:%M'
-%header.page-header
-  %h1== #{@post.title} <small>at #{@post.updated_at.strftime(dt_format)}</small>
-
-%article
-  %p
-    != body
-
-  %p Original posted at: #{@post.posted_at.strftime(dt_format)}
