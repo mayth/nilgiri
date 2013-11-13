@@ -14,13 +14,8 @@
 #   }
 #
 ActiveRecord::Base.configurations[:development] = {
-  :adapter   => 'postgresql',
-  :database  => 'nilgiri_development',
-  :username  => 'root',
-  :password  => '',
-  :host      => 'localhost',
-  :port      => 5432
-
+  :adapter   => 'sqlite3',
+  :database  => Padrino.root('db', 'nilgiri_development.db')
 }
 
 ActiveRecord::Base.configurations[:production] = {
@@ -34,13 +29,8 @@ ActiveRecord::Base.configurations[:production] = {
 }
 
 ActiveRecord::Base.configurations[:test] = {
-  :adapter   => 'postgresql',
-  :database  => 'nilgiri_test',
-  :username  => 'root',
-  :password  => '',
-  :host      => 'localhost',
-  :port      => 5432
-
+  :adapter   => 'sqlite3',
+  :database  => ':memory:'
 }
 
 # Setup our logger
