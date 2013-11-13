@@ -3,6 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
 
 RSpec.configure do |conf|
   conf.include Rack::Test::Methods
+  conf.before :suite do
+    load Padrino.root('db', 'schema.rb')
+    load Padrino.root('db', 'seeds.rb')
+  end
 end
 
 # You can use this method to custom specify a Rack app
