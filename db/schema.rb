@@ -11,13 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 4) do
+ActiveRecord::Schema.define(:version => 7) do
 
   create_table "machines", :force => true do |t|
     t.string   "name"
     t.text     "difficulties"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "musics", :force => true do |t|
+    t.string   "name"
+    t.integer  "machine_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "players", :force => true do |t|
@@ -44,6 +51,8 @@ ActiveRecord::Schema.define(:version => 4) do
     t.integer  "player_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "playstyle"
+    t.integer  "music_id"
   end
 
 end
