@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 7) do
+ActiveRecord::Schema.define(:version => 8) do
 
   create_table "machines", :force => true do |t|
     t.string   "name"
@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(:version => 7) do
 
   create_table "scores", :force => true do |t|
     t.string   "season"
-    t.string   "machine"
     t.string   "difficulty"
     t.float    "score"
     t.integer  "player_id"
