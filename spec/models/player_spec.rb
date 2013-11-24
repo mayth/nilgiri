@@ -23,4 +23,45 @@ describe Player do
       end
     end
   end
+  describe '#register_score' do
+    before do
+      Music.create(
+        name: 'sample',
+        machine: Machine.find_by_name('beatmania IIDX 21 SPADA')
+      )
+      @music = Music.find_by_name('sample')
+      @player = Player.find_by_name('maytheplic')
+      season = '201311'
+      difficulty = 'HYPER'
+      score = 334
+      playstyle = 'SP'
+      @player.register_score(season, @music, difficulty, score, playstyle)
+      @score = Score.where(player_id: @player.id, season: season, music_id: @music.id, difficulty: difficulty, playstyle: playstyle).first
+    end
+    subject { @score }
+    context 'when no scores are registered' do
+      it 'correctly adds score' do
+        expect(subject).not_to be nil
+        expect(subject.season).to eq '201311'
+        expect(subject.music).to eq @music
+        expect(subject.difficulty).to eq 'HYPER'
+        expect(subject.playstyle).to eq 'SP'
+        expect(subject.score).to eq 334
+      end
+    end
+    context 'when scores for the same music is registered' do
+      before do
+        @player.register_score('201311', @music, 'HYPER', 668, 'SP')
+        @score = Score.where(player_id: @player.id, season: '201311', music_id: @music.id, difficulty: 'HYPER', playstyle: 'SP').first
+      end
+      it 'correctly updates score' do
+        expect(subject.score).to eq 668
+      end
+      it 'does nothing for lower score' do
+        @player.register_score('201311', @music, 'HYPER', 1, 'SP')
+        @score = Score.where(player_id: @player.id, season: '201311', music_id: @music.id, difficulty: 'HYPER', playstyle: 'SP').first
+        expect(subject.score).to eq 668
+      end
+    end
+  end
 end
