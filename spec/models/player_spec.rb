@@ -1,14 +1,16 @@
 require 'spec_helper'
 
 describe Player do
+  before do
+    Player.create(
+      name: 'maytheplic',
+      screen_name: 'Mei Akizuru',
+      password: 'HASHED_PASSWORD',
+      twitter_id: '@maytheplic'
+    )
+  end
   describe 'create' do
     before do
-      Player.create(
-        name: 'maytheplic',
-        screen_name: 'Mei Akizuru',
-        password: 'HASHED_PASSWORD',
-        twitter_id: '@maytheplic'
-      )
       @player = Player.find_by_name('maytheplic')
     end
     subject { @player }
