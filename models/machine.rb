@@ -6,4 +6,8 @@ class Machine < ActiveRecord::Base
   def valid_difficulty?(difficulty)
     difficulties.include? difficulty
   end
+
+  def valid_playstyle?(playstyle)
+    playstyles && playstyles.any? && playstyles.include?(playstyle)
+  end
 end
