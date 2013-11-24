@@ -1,12 +1,14 @@
 require 'spec_helper'
 
 describe Machine do
+  before do
+    Machine.create(
+      name: 'sample',
+      difficulties: %w(BASIC MEDIUM HARD)
+    )
+  end
   describe 'create' do
     before do
-      Machine.create(
-        name: 'sample',
-        difficulties: %w(BASIC MEDIUM HARD)
-      )
       @machine = Machine.find_by_name('sample')
     end
     subject { @machine }
