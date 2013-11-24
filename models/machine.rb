@@ -8,6 +8,10 @@ class Machine < ActiveRecord::Base
   end
 
   def valid_playstyle?(playstyle)
-    playstyles && playstyles.any? && playstyles.include?(playstyle)
+    if playstyles && playstyles.any?
+      playstyles.include?(playstyle)
+    else
+      !playstyle || playstyle.empty?
+    end
   end
 end

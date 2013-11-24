@@ -48,21 +48,31 @@ describe Machine do
     end
   end
   describe '#valid_playstyle?' do
-    before do
-      @machine = Machine.find_by_name('sample')
-    end
     subject { @machine }
-    it 'returns true when correct playstyle is passed' do
-      expect(subject.valid_playstyle? 'SP').to be true
-      expect(subject.valid_playstyle? 'DP').to be true
+    context 'when the machine has some playstyles' do
+      before do
+        @machine = Machine.find_by_name('sample')
+      end
+      it 'returns true when correct playstyle is passed' do
+        expect(subject.valid_playstyle? 'SP').to be true
+        expect(subject.valid_playstyle? 'DP').to be true
+      end
+      it 'returns false when invalid playstyle is passed' do
+        expect(subject.valid_playstyle? 'GUITAR').to be false
+        expect(subject.valid_playstyle? 'BASS').to be false
+      end
     end
-    it 'returns false when invalid playstyle is passed' do
-      expect(subject.valid_playstyle? 'GUITAR').to be false
-      expect(subject.valid_playstyle? 'BASS').to be false
-    end
-    it 'returns false when no playstyles available' do
-      machine = Machine.create(name: 'sample2')
-      expect(machine.valid_playstyle? 'SP').to be false
+    context 'when the machine has no playstyles' do
+      before do
+        @machine = Machine.create(name: 'sample2')
+      end
+      it 'returns false if some playstyle is passed' do
+        expect(subject.valid_playstyle? 'SP').to be false
+      end
+      it 'returns true if no playstyle is passed' do
+        expect(subject.valid_playstyle? '').to be true
+        expect(subject.valid_playstyle? nil).to be true
+      end
     end
   end
 end
