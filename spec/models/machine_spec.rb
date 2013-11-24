@@ -24,4 +24,21 @@ describe Machine do
       end
     end
   end
+
+  describe '#valid_difficulty?' do
+    before do
+      @machine = Machine.find_by_name('sample')
+    end
+    subject { @machine }
+    it 'returns true when correct difficulty is passed' do
+      expect(subject.valid_difficulty? 'BASIC').to be true
+      expect(subject.valid_difficulty? 'MEDIUM').to be true
+      expect(subject.valid_difficulty? 'HARD').to be true
+    end
+    it 'returns false when invalid difficulty is passed' do
+      expect(subject.valid_difficulty? 'NORMAL').to be false
+      expect(subject.valid_difficulty? 'HYPER').to be false
+      expect(subject.valid_difficulty? 'ANOTHER').to be false
+    end
+  end
 end
