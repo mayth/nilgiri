@@ -22,6 +22,12 @@ describe Player do
         expect(subject.twitter_id).to eq '@maytheplic'
       end
     end
+    context 'when validation is not passed' do
+      it 'fails to save' do
+        expect(Player.new(name: nil).save).to be false
+        expect(Player.new(name: 'ok').save).to be false # password must be specified
+      end
+    end
   end
   describe '#register_score' do
     before do

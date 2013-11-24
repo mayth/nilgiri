@@ -9,10 +9,10 @@ describe Score do
         machine: @machine
       )
       @player = Player.create(
-        name: 'maytheplic',
-        screen_name: 'Mei Akizuru',
+        name: 'scorespec',
+        screen_name: 'ScoreSpec',
         password: 'PASSWORD',
-        twitter_id: '@maytheplic'
+        twitter_id: '@scorespec'
       )
       Score.create(
         season: '201311',
