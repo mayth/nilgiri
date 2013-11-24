@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 9) do
+ActiveRecord::Schema.define(:version => 10) do
 
   create_table "machines", :force => true do |t|
     t.string   "name"
@@ -29,13 +29,15 @@ ActiveRecord::Schema.define(:version => 9) do
   end
 
   create_table "players", :force => true do |t|
-    t.string   "name"
+    t.string   "name",        :null => false
     t.string   "screen_name"
-    t.string   "password"
+    t.string   "password",    :null => false
     t.string   "twitter_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "players", ["name"], :name => "index_players_on_name", :unique => true
 
   create_table "posts", :force => true do |t|
     t.string   "title"
