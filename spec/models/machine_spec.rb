@@ -4,7 +4,8 @@ describe Machine do
   before do
     Machine.create(
       name: 'sample',
-      difficulties: %w(BASIC MEDIUM HARD)
+      difficulties: %w(BASIC MEDIUM HARD),
+      playstyles: %w(SP DP)
     )
   end
   describe 'create' do
@@ -21,6 +22,11 @@ describe Machine do
         subject.difficulties[0].should eq('BASIC')
         subject.difficulties[1].should eq('MEDIUM')
         subject.difficulties[2].should eq('HARD')
+      end
+      it 'has correct playstyles' do
+        expect(subject.playstyles.size).to eq 2
+        expect(subject.playstyles).to include 'SP'
+        expect(subject.playstyles).to include 'DP'
       end
     end
   end
