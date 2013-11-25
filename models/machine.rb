@@ -3,6 +3,9 @@ class Machine < ActiveRecord::Base
   serialize :playstyles, Array
   has_many :musics
 
+  validates :name, presence: true
+  validates :difficulties, presence: true
+
   def valid_difficulty?(difficulty)
     difficulties.include? difficulty
   end
