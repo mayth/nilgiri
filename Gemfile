@@ -16,7 +16,6 @@ gem 'rake'
 gem 'sass'
 gem 'slim'
 gem 'activerecord', '>= 3.1', :require => 'active_record'
-gem 'pg', :group => 'production' # require pg only for production
 
 # Padrino Stable Gem
 gem 'padrino', '0.11.4'
@@ -28,6 +27,7 @@ gem 'scrypt'
 gem 'padrino-sprockets', require: 'padrino/sprockets'
 
 group :production do
+  gem 'pg'  # require pg only for production
   gem 'uglifier'
   gem 'yui-compressor'
 end
