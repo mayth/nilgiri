@@ -24,6 +24,14 @@ gem 'padrino', '0.11.4'
 # Key Derivation Function
 gem 'scrypt'
 
+### assets pipeline
+gem 'padrino-sprockets', require: 'padrino/sprockets'
+
+group :production do
+  gem 'uglifier'
+  gem 'yui-compressor'
+end
+
 group :development, :test do
   gem 'sqlite3' # use sqlite3 for development/test
 end
