@@ -5,7 +5,7 @@ describe "BaseController" do
     get "/"
   end
 
-  it "returns hello world" do
-    last_response.body.should == "Hello World"
+  it "returns welcome message" do
+    expect(last_response.body).to include('Welcome to nilgiri')
   end
 end
