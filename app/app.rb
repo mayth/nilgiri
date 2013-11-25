@@ -7,9 +7,5 @@ module Nilgiri
     register Padrino::Helpers
 
     enable :sessions
-
-    get '/' do
-      "Welcome to Nilgiri"
-    end
   end
 end
