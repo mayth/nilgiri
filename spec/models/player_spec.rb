@@ -5,7 +5,7 @@ describe Player do
     Player.create(
       name: 'maytheplic',
       screen_name: 'Mei Akizuru',
-      password: 'HASHED_PASSWORD',
+      password: 'password',
       twitter_id: '@maytheplic'
     )
   end
@@ -18,14 +18,13 @@ describe Player do
       it 'has correct attributes' do
         expect(subject.name).to eq 'maytheplic'
         expect(subject.screen_name).to eq 'Mei Akizuru'
-        expect(subject.password).to eq 'HASHED_PASSWORD'
         expect(subject.twitter_id).to eq '@maytheplic'
       end
     end
     context 'when validation is not passed' do
       it 'fails to save' do
-        expect(Player.new(name: nil).save).to be false
-        expect(Player.new(name: 'ok').save).to be false # password must be specified
+        expect(Player.new(name: nil).save).to be_false
+        expect(Player.new(name: 'ok').save).to be_false # password must be specified
       end
     end
   end
@@ -68,6 +67,17 @@ describe Player do
         @score = Score.where(player_id: @player.id, season: '201311', music_id: @music.id, difficulty: 'HYPER', playstyle: 'SP').first
         expect(subject.score).to eq 668
       end
+    end
+  end
+  describe '::authorize' do
+    it 'succeeds with valid password' do
+      expect(Player.authorize('maytheplic', 'password')).to be_true
+    end
+    it 'fails with incorrect password' do
+      expect(Player.authorize('maytheplic', 'incorrect')).to be_false
+    end
+    it 'fails if a player is not found' do
+      expect(Player.authorize('NOUSER', 'password')).to be_false
     end
   end
 end
