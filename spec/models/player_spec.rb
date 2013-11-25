@@ -32,6 +32,7 @@ describe Player do
     before do
       Music.create(
         name: 'sample',
+        artist: 'sample',
         machine: Machine.find_by_name('beatmania IIDX 21 SPADA')
       )
       @music = Music.find_by_name('sample')

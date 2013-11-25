@@ -6,6 +6,7 @@ describe Score do
       @machine = Machine.find_by_name('beatmaniaIIDX 21 SPADA')
       @music = Music.create(
         name: 'Round and Round',
+        artist: 'Masayoshi Minoshima',
         machine: @machine
       )
       @player = Player.create(
