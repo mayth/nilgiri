@@ -1,1 +1,1 @@
-// Put your application scripts here
+// This is a manifest file.//= require_tree .
