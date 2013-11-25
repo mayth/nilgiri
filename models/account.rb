@@ -24,12 +24,12 @@ class Account < ActiveRecord::Base
   end
 
   def has_password?(password)
-    ::BCrypt::Password.new(crypted_password) == password
+    ::SCrypt::Password.new(crypted_password) == password
   end
 
   private
     def encrypt_password
-      self.crypted_password = ::BCrypt::Password.create(password)
+      self.crypted_password = ::SCrypt::Password.create(password)
     end
 
     def password_required
