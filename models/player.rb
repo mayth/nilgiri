@@ -6,6 +6,11 @@ class Player < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :password, presence: true
 
+  def screen_name
+    s = self[:screen_name]
+    (s && !s.empty?) ? s : self[:name]
+  end
+
   def register_score(season, music, difficulty, score, playstyle = nil)
     s = Score.where(player_id: id, season: season, music_id: music.id, difficulty: difficulty, playstyle: playstyle).first
     if s
