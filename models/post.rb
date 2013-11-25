@@ -1,4 +1,7 @@
 class Post < ActiveRecord::Base
+  validates :title, presence: true
+  validates :body, presence: true
+
   def truncated_body(length: 30, omission: '...')
     if body.length <= length
       body
