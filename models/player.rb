@@ -3,7 +3,8 @@ require 'scrypt'
 class Player < ActiveRecord::Base
   has_many :scores
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true,
+    format: { with: /\A[a-zA-Z0-9_]+\z/ }
   validates :password, presence: true
 
   def screen_name

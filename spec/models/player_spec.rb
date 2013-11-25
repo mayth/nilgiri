@@ -25,6 +25,7 @@ describe Player do
       it 'fails to save' do
         expect(Player.new(name: nil).save).to be_false
         expect(Player.new(name: 'ok').save).to be_false # password must be specified
+        expect(Player.new(name: '-a-', password: 'pass').save).to be_false
       end
     end
   end
