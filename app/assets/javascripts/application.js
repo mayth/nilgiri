@@ -1,1 +1,4 @@
-// This is a manifest file.//= require_tree .
+//= require jquery
+//= require jquery-ujs
+//= require xtyle
+//= require_tree .
