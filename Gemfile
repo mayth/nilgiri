@@ -21,6 +21,9 @@ gem 'pg', :group => 'production' # require pg only for production
 # Padrino Stable Gem
 gem 'padrino', '0.11.4'
 
+# Key Derivation Function
+gem 'scrypt'
+
 group :development, :test do
   gem 'sqlite3' # use sqlite3 for development/test
 end
