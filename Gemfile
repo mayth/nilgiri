@@ -13,6 +13,7 @@ gem 'oj'
 gem 'rake'
 
 # Component requirements
+gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'sass'
 gem 'slim'
 gem 'activerecord', '>= 3.1', :require => 'active_record'
