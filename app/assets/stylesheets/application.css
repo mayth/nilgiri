@@ -1,6 +1,8 @@
 /* This is the manifest file.
  *= require_self
  *= require normalize
- *= require foundation
+ *= require ./foundation/_settings
+ *= require ./foundation/_functions
+ *= require ./foundation
  *= require site
 */
