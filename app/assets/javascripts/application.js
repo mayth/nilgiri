@@ -1,4 +1,3 @@
-//= require jquery
-//= require jquery-ujs
-//= require xtyle
+//= require_tree ./vendor
+//= require_tree ./foundation
 //= require_tree .

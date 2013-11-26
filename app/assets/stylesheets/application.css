@@ -1,5 +1,6 @@
 /* This is the manifest file.
  *= require_self
- *= require xtyle
+ *= require normalize
+ *= require foundation
  *= require site
 */
