@@ -1,6 +1,6 @@
 module Nilgiri
   class App < Padrino::Application
-    register SassInitializer
+    register SassInitializer unless Padrino.env == :production
     use ActiveRecord::ConnectionAdapters::ConnectionManagement
     register Padrino::Rendering
     register Padrino::Mailer
