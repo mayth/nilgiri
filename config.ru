@@ -6,10 +6,4 @@
 
 require File.expand_path("../config/boot.rb", __FILE__)
 
-unless Padrino.env == :production
-  map '/assets' do
-    run Nilgiri::Assets::Environment.get root
-  end
-end
-
 run Padrino.application
