@@ -13,15 +13,16 @@
         = @top_post.title
         |  
         small = @top_post.updated_at.strftime('%Y-%m-%d')
-      p.show-for-medium-up = @top_post.truncated_body(length: 100)
-      p.show-for-small-only = @top_post.truncated_body(length: 30)
+      p.show-for-medium-up = truncate(@top_post.body, length: 100)
+      p.show-for-small-only = truncate(@top_post.body, length: 30)
     - if @posts.any?
       section.small-6.columns
         h2 Other News
         ul
           - for post in @posts
             li
-              = post.title
+              .show-for-medium-up = post.title
+              .show-for-small-only = truncate(post.title, length: 20)
         - if @is_more_posts
           p more...
   - else
@@ -33,10 +34,10 @@
     small
       thin = "for #{@current_season} season"
   .row
-    dl.vertical.tabs[data={tab: ''}]
+    dl.vertical.tabs[data={tab: ''} style='word-wrap: break-word;']
       - for machine in @machines
         dd = link_to machine.name, "##{machine.slug}"
-    .small-8.columns.vertical.tabs-content
+    .small-12.columns.vertical.tabs-content
       - for machine in @machines
         .content[id=machine.slug style='width: 100%;']
           .row
