@@ -5,6 +5,7 @@ class Machine < ActiveRecord::Base
 
   validates :name, presence: true
   validates :difficulties, presence: true
+  validates :slug, presence: true, uniqueness: { case_sensitive: false }
 
   def valid_difficulty?(difficulty)
     difficulties.include? difficulty

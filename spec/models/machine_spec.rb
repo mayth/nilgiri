@@ -5,7 +5,8 @@ describe Machine do
     Machine.create(
       name: 'sample',
       difficulties: %w(BASIC MEDIUM HARD),
-      playstyles: %w(SP DP)
+      playstyles: %w(SP DP),
+      slug: 'sample'
     )
   end
   describe 'create' do
@@ -16,6 +17,9 @@ describe Machine do
     context 'when successfully created' do
       it 'has correct name' do
         expect(subject.name).to eq 'sample'
+      end
+      it 'has correct slug' do
+        expect(subject.slug).to eq 'sample'
       end
       it 'has correct difficulties' do
         subject.difficulties.should have(3).items
