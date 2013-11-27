@@ -7,6 +7,14 @@ require 'rubygems' unless defined?(Gem)
 require 'bundler/setup'
 Bundler.require(:default, PADRINO_ENV)
 
+if Padrino.env == :development
+  Padrino::Application.use BetterErrors::Middleware
+  BetterErrors.application_root = PADRINO_ROOT
+  BetterErrors.logger = Padrino.logger
+  BetterErrors::Middleware.allow_ip! ENV['TRUSTED_IP'] if ENV['TRUSTED_IP']
+  Padrino::Application.set :exclude_from_protection, '/__better_errors'
+end
+
 ##
 # ## Enable devel logging
 #
