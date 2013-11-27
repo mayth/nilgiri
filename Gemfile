@@ -25,11 +25,13 @@ gem 'scrypt'
 
 ### assets pipeline
 gem 'padrino-sprockets', require: 'padrino/sprockets'
+group :assets do
+  gem 'uglifier'
+  gem 'yui-compressor'
+end
 
 group :production do
   gem 'pg'  # require pg only for production
-  gem 'uglifier'
-  gem 'yui-compressor'
 end
 
 group :development, :test do
