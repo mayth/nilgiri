@@ -1,20 +1,29 @@
 doctype 5
-html.responsive[lang='en']
+/[if IE]
+  html.lt-ie10[lang='en']
+html.no-js[lang='en']
   head
-    meta content='text/html; charset=utf-8' http-equiv='Content-Type'
+    meta charset='utf-8'
     meta name='viewport' content='width=device-width,initial-scale=1'
     title = @title.present? ? "#{@title} | Nilgiri" : "Nilgiri"
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
-  body.margin-nav-large.bg-light
-    nav.large.border-bottom
-      .layout-fixed-center.border-bottom
-        span.logo Nilgiri
-        .float-right
-          = link_to 'Sample', '/sample'
-    .margin-nav-large
-      .main-content
-        = yield
-    footer.border-top.padding2x[style='background: white;']
-      .layout-fixed-center.right
-        a[href='http://twitter.com/maytheplic'] Mei Akizuru
+  body
+    header.contain-to-grid
+      nav.top-bar[data={topbar: ''}]
+        ul.title-area
+          li.name
+            h1
+              a[href='#'] Nilgiri
+    .main-content
+      == yield
+    footer
+      .text-right
+        small
+          | author: 
+          = link_to 'Mei Akizuru', 'http://twitter.com/maytheplic'
+          br
+          | github: 
+          = link_to 'mayth/nilgiri', 'https://github.com/mayth/nilgiri'
+    javascript:
+      $(document).foundation();

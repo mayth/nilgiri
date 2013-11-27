@@ -1,8 +1,72 @@
-.center.bg-info.main-heading
-  p Nilgiri: TEA party score registration tool
-  h1.lighter Go For The Top
-  = link_to 'Submit Score', '/register', class: 'large btn success border-radius'
+.top-banner.text-center
+  | Nilgiri: TEA party score registration tool
+  h1 Go For The Top
+  = link_to 'Submit Score', '/register', class: 'large button success radius'
   br
   = link_to 'Sign up', '/signup'
 
-.layout-fixed-center
+.row
+  .row
+    h1 News
+    - if @top_post
+      section.panel.small-6.columns
+        h2
+          = @top_post.title
+          |  
+          small = @top_post.updated_at.strftime('%Y-%m-%d')
+        p.show-for-medium-up = @top_post.truncated_body(length: 100)
+        p.show-for-small-only = @top_post.truncated_body(length: 30)
+      - if @posts.any?
+        section.small-6.columns
+          h2 Other News
+          ul
+            - for post in @posts
+              li
+                = post.title
+          - if @is_more_posts
+            p more...
+    - else
+      p No news articles.
+
+  .row
+    h1
+      | Current Top 3 
+      small
+        thin = "for #{@current_season} season"
+    .row
+      dl.vertical.tabs[data={tab: ''}]
+        - for machine in @machines
+          dd = link_to machine.name, "##{machine.slug}"
+      .small-8.columns.vertical.tabs-content
+        - for machine in @machines
+          .content[id=machine.slug style='width: 100%;']
+            .row
+              h2 = link_to machine.name, '/machine'
+              - if machine.playstyles.present?
+                - for style in machine.playstyles
+                  table
+                    caption = style
+                    thead
+                      tr
+                        td Rank
+                        - for difficulty in machine.difficulties
+                           td = difficulty
+                    tbody
+                      tr
+                        td 1
+                        td a
+                        td b
+                        td c
+              - else
+                table
+                  thead
+                    tr
+                      td Rank
+                      - for difficulty in machine.difficulties
+                        td = difficulty
+                  tbody
+                    tr
+                      td 1
+                      td x
+                      td y
+                      td z
