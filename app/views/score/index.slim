@@ -1,0 +1,30 @@
+.row
+  = link_to 'Submit Score', '/register', class: 'large button success radius'
+
+.row
+  h1 Recent Updates
+  table
+    thead
+      tr
+        td Season
+        td Machine
+        td Player
+        td Play Style
+        td Music
+        td Difficulty
+        td Score
+        td Updated at
+    tbody
+      - for score in @recent
+        tr
+          td = score.season
+          td = score.machine.name
+          td = score.player.name
+          td
+            - if score.playstyle.present?
+              = score.playstyle
+            - else
+              | None
+          td = score.difficulty
+          td = score.score
+          td = score.updated_at
