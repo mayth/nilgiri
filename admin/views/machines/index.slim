@@ -28,9 +28,9 @@ div class="tabs-content"
         th class='header' = mat(:machine, :id)
         th class='header' = mat(:machine, :name)
         th class='header' = mat(:machine, :difficulties)
+        th class='header' = mat(:machine, :playstyles)
         th class='header' = mat(:machine, :created_at)
         th class='header' = mat(:machine, :updated_at)
-        th class='header' = mat(:machine, :playstyles)
         th class='header list-row-action-header'
 
     tbody
@@ -39,10 +39,10 @@ div class="tabs-content"
           td class='list-column list-selectable' = check_box_tag 'machine_ids[]', :value => machine.id, :class => 'list-selectable-checkbox'
           td class='list-column' = machine.id
           td class='list-column' = machine.name
-          td class='list-column' = machine.difficulties
-          td class='list-column' = time_ago_in_words machine.created_at
-          td class='list-column' = time_ago_in_words machine.updated_at
-          td class='list-column' = machine.playstyles
+          td class='list-column' = machine.difficulties.join(', ')
+          td class='list-column' = machine.playstyles.present? ? machine.playstyles.join(', ') : 'N/A'
+          td class='list-column' = time_ago_in_words(machine.created_at) + ' ago'
+          td class='list-column' = time_ago_in_words(machine.updated_at) + ' ago'
           td class='list-column list-row-action'
             div class='list-row-action-wrapper'
               = link_to tag_icon(:edit), :href => url(:machines, :edit, :id => machine.id), :rel => :tooltip, :title => "#{pat(:edit)} machine", :class => 'list-row-action-wrapper-link'

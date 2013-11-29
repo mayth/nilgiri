@@ -12,6 +12,12 @@ Nilgiri::Admin.controllers :machines do
   end
 
   post :create do
+    params[:machine]['difficulties'] =
+      params[:machine]['difficulties'].split(',').map{|s| s.strip}
+    params[:machine]['playstyles'] =
+      params[:machine]['playstyles'].present? ?
+      params[:machine]['playstyles'].split(',').map{|s| s.strip} :
+      nil
     @machine = Machine.new(params[:machine])
     if @machine.save
       @title = pat(:create_title, :model => "machine #{@machine.id}")
@@ -39,6 +45,12 @@ Nilgiri::Admin.controllers :machines do
     @title = pat(:update_title, :model => "machine #{params[:id]}")
     @machine = Machine.find(params[:id])
     if @machine
+      params[:machine]['difficulties'] =
+        params[:machine]['difficulties'].split(',').map{|s| s.strip}
+      params[:machine]['playstyles'] =
+        params[:machine]['playstyles'].present? ?
+        params[:machine]['playstyles'].split(',').map{|s| s.strip} :
+        nil
       if @machine.update_attributes(params[:machine])
         flash[:success] = pat(:update_success, :model => 'Machine', :id =>  "#{params[:id]}")
         params[:save_and_continue] ?
