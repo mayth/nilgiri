@@ -4,5 +4,6 @@ class Music < ActiveRecord::Base
 
   validates :name, presence: true
   validates :artist, presence: true
+  validates :season, presence: true
   validates_associated :machine
 end

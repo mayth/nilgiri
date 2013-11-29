@@ -7,7 +7,8 @@ describe Music do
       Music.create(
         name: 'Critical Crystal',
         artist: '青龍',
-        machine: @machine
+        machine: @machine,
+        season: '201311'
       )
       @music = Music.find_by_name('Critical Crystal')
     end
@@ -19,6 +20,9 @@ describe Music do
       end
       it 'has correct machine' do
         expect(subject.machine).to eq @machine
+      end
+      it 'has correct season' do
+        expect(subject.season).to eq '201311'
       end
     end
   end
