@@ -27,10 +27,11 @@ div class="tabs-content"
                       div class='btn btn-default btn-small cancel' = pat(:cancel)
         th class='header' = mat(:music, :id)
         th class='header' = mat(:music, :name)
+        th class='header' = mat(:music, :artist)
         th class='header' = mat(:music, :machine_id)
+        th class='header' = mat(:music, :season)
         th class='header' = mat(:music, :created_at)
         th class='header' = mat(:music, :updated_at)
-        th class='header' = mat(:music, :artist)
         th class='header list-row-action-header'
 
     tbody
@@ -39,10 +40,11 @@ div class="tabs-content"
           td class='list-column list-selectable' = check_box_tag 'music_ids[]', :value => music.id, :class => 'list-selectable-checkbox'
           td class='list-column' = music.id
           td class='list-column' = music.name
-          td class='list-column' = music.machine_id
-          td class='list-column' = time_ago_in_words music.created_at
-          td class='list-column' = time_ago_in_words music.updated_at
           td class='list-column' = music.artist
+          td class='list-column' = music.machine.name
+          td class='list-column' = music.season
+          td class='list-column' = time_ago_in_words(music.created_at) + ' ago'
+          td class='list-column' = time_ago_in_words(music.updated_at) + ' ago'
           td class='list-column list-row-action'
             div class='list-row-action-wrapper'
               = link_to tag_icon(:edit), :href => url(:musics, :edit, :id => music.id), :rel => :tooltip, :title => "#{pat(:edit)} music", :class => 'list-row-action-wrapper-link'

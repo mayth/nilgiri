@@ -1,4 +1,9 @@
 Nilgiri::Admin.controllers :musics do
+  before do
+    @machines = Machine.all.map{|m| [m.name, m.id]}
+    @current_season = Time.now.strftime('%Y%m')
+  end
+
   get :index do
     @title = "Musics"
     @musics = Music.all
@@ -12,7 +17,13 @@ Nilgiri::Admin.controllers :musics do
   end
 
   post :create do
-    @music = Music.new(params[:music])
+    machine = Machine.find(params[:music]['machine_id'])
+    @music = Music.new(
+      name: params[:music]['name'],
+      artist: params[:music]['artist'],
+      machine: machine,
+      season: params[:music]['season']
+    )
     if @music.save
       @title = pat(:create_title, :model => "music #{@music.id}")
       flash[:success] = pat(:create_success, :model => 'Music')
