@@ -33,40 +33,39 @@
     | Current Top 3 
     small
       thin = "for #{@current_season} season"
-  .row
-    dl.vertical.tabs[data={tab: ''} style='word-wrap: break-word;']
-      - for machine in @machines
-        dd = link_to machine.name, "##{machine.slug}"
-    .small-12.columns.vertical.tabs-content
-      - for machine in @machines
-        .content[id=machine.slug style='width: 100%;']
-          .row
-            h2 = link_to machine.name, '/machine'
-            - if machine.playstyles.present?
-              - for style in machine.playstyles
-                table
-                  caption = style
-                  thead
-                    tr
-                      td Rank
-                      - for difficulty in machine.difficulties
-                         td = difficulty
-                  tbody
-                    tr
-                      td 1
-                      td a
-                      td b
-                      td c
-            - else
+  dl.vertical.tabs[data={tab: ''} style='word-wrap: break-word;']
+    - for machine in @machines
+      dd = link_to machine.name, "##{machine.slug}"
+  .small-12.columns.vertical.tabs-content
+    - for machine in @machines
+      .content[id=machine.slug style='width: 100%;']
+        .row
+          h2 = link_to machine.name, '/machine'
+          - if machine.playstyles.present?
+            - for style in machine.playstyles
               table
+                caption = style
                 thead
                   tr
                     td Rank
                     - for difficulty in machine.difficulties
-                      td = difficulty
+                       td = difficulty
                 tbody
                   tr
                     td 1
-                    td x
-                    td y
-                    td z
+                    td a
+                    td b
+                    td c
+          - else
+            table
+              thead
+                tr
+                  td Rank
+                  - for difficulty in machine.difficulties
+                    td = difficulty
+              tbody
+                tr
+                  td 1
+                  td x
+                  td y
+                  td z
