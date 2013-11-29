@@ -7,6 +7,8 @@
 // foundation and its components
 //= require ./foundation/foundation
 //= require ./foundation/foundation.abide
+//= require ./foundation/foundation.topbar
+//= require ./foundation/foundation.tab
 //
 // any other scripts
 //= require_directory .
