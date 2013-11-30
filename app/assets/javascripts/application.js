@@ -12,4 +12,5 @@
 //= require ./foundation/foundation.alert
 //
 // any other scripts
+//= require site
 //= require_directory .
