@@ -26,4 +26,22 @@ Nilgiri::App.controllers :machine do
       halt 404
     end
   end
+
+  get :musics, with: :id, provides: :json do
+    begin
+      machine = Machine.find(params[:id])
+      machine.musics.to_json
+    rescue ActiveRecord::RecordNotFound
+      halt 404
+    end
+  end
+
+  get :musics, with: [:id, :season], provides: :json do
+    begin
+      machine = Machine.find(params[:id])
+      machine.current_musics(params[:season]).to_json
+    rescue ActiveRecord::RecordNotFound
+      halt 404
+    end
+  end
 end
