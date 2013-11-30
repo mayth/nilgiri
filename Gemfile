@@ -24,11 +24,15 @@ gem 'padrino', '0.11.4'
 gem 'scrypt'
 
 ### assets pipeline
+gem 'coffee-script'
 gem 'padrino-sprockets', require: 'padrino/sprockets'
 group :assets do
   gem 'uglifier'
   gem 'yui-compressor'
 end
+
+# Flash message
+gem 'sinatra-flash'
 
 group :development do
   gem 'better_errors'
