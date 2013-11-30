@@ -14,12 +14,12 @@ html.no-js[lang='en']
         ul.title-area
           li.name
             h1
-              a[href='#'] Nilgiri
+              a[href='/'] Nilgiri
     .main-content
       .row
         - for kind in %i(alert success warning info)
           - if flash[kind].present?
-            div[class="alert-box #{kind} radius text-center" data-alert]
+            div[class="flash alert-box #{kind} radius text-center" data-alert]
                 == flash[kind]
                 a.close[href='#'] &times;
       == yield
