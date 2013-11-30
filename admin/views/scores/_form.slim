@@ -4,36 +4,86 @@ fieldset class='control-group#{error ? ' has-error' : ''}'
   div class='controls'
     = f.text_field :season, :class => 'form-control input-large input-with-feedback', :autofocus => true
     span class='help-inline' = error ? f.error_message_on(:season, :class => 'text-error') : pat(:example)
+- error = @score.errors.include?(:machine_id)
+fieldset class='control-group#{error ? ' has-error' : ''}'
+  = f.label :machine_id, :class => 'control-label'
+  div class='controls'
+    = f.select :machine_id, options: @machines, required: true, :class => 'form-control input-large input-with-feedback'
+    span class='help-inline' = error ? f.error_message_on(:machine_id, :class => 'text-error') : pat(:example)
+    javascript:
+      $(document).ready(function() {
+        $('#score_machine_id').change(function() {
+          var season = $('#score_season').val();
+          var machine_id = $(this).val();
+          // Update difficulties option
+          $.get('/machine/difficulties/' + machine_id + '.json',
+            function(data) {
+              var e = $('#score_difficulty');
+              e.empty();
+              e.append($('<option>').text('Choose difficulty').attr('value', '').select());
+              $.each(data, function(idx, val) {
+                e.append($('<option>').text(val).attr('value', val));
+              });
+            });
+          // Update playstyles option
+          $.get('/machine/playstyles/' + machine_id + '.json',
+            function(data) {
+              var e = $('#score_playstyle');
+              e.empty();
+              if (data === null) {
+                e.attr('disabled', '');
+              } else {
+                e.removeAttr('disabled');
+                e.append($('<option>').text('Choose playstyle').attr('value', '').select());
+                $.each(data, function(idx, val) {
+                  e.append($('<option>').text(val).attr('value', val));
+                });
+              }
+            }
+          );
+          // Update Musics option
+          $.get('/machine/musics/' + machine_id + '/' + season + '.json',
+            function(data) {
+              var e = $('#score_music_id');
+              e.empty();
+              e.append($('<option>').text('Choose music').attr('value', '').select());
+              $.each(data, function(idx, val) {
+                e.append($('<option>').text(val['name']).attr('value', val['id']));
+              });
+            }
+          );
+        });
+      });
+- error = @score.errors.include?(:music_id)
+fieldset class='control-group#{error ? ' has-error' : ''}'
+  = f.label :music_id, :class => 'control-label'
+  div class='controls'
+    = f.select :music_id, options: [['Choose machine', '']], required: true, :class => 'form-control input-large input-with-feedback'
+    span class='help-inline' = error ? f.error_message_on(:music_id, :class => 'text-error') : pat(:example)
 - error = @score.errors.include?(:difficulty)
 fieldset class='control-group#{error ? ' has-error' : ''}'
   = f.label :difficulty, :class => 'control-label'
   div class='controls'
-    = f.text_field :difficulty, :class => 'form-control input-large input-with-feedback'
+    = f.select :difficulty, options: [['Choose machine', '']], required: true, :class => 'form-control input-large input-with-feedback'
     span class='help-inline' = error ? f.error_message_on(:difficulty, :class => 'text-error') : pat(:example)
+- error = @score.errors.include?(:playstyle)
+fieldset class='control-group#{error ? ' has-error' : ''}'
+  = f.label :playstyle, :class => 'control-label'
+  div class='controls'
+    = f.select :playstyle, options: [['Choose machine', '']], required: true, :class => 'form-control input-large input-with-feedback'
+    span class='help-inline' = error ? f.error_message_on(:playstyle, :class => 'text-error') : pat(:example)
+- error = @score.errors.include?(:player_id)
+fieldset class='control-group#{error ? ' has-error' : ''}'
+  = f.label :player_id, :class => 'control-label'
+  div class='controls'
+    = f.select :player_id, options: @players, required: true, :class => 'form-control input-large input-with-feedback'
+    span class='help-inline' = error ? f.error_message_on(:player_id, :class => 'text-error') : pat(:example)
 - error = @score.errors.include?(:score)
 fieldset class='control-group#{error ? ' has-error' : ''}'
   = f.label :score, :class => 'control-label'
   div class='controls'
     = f.text_field :score, :class => 'form-control input-large input-with-feedback'
     span class='help-inline' = error ? f.error_message_on(:score, :class => 'text-error') : pat(:example)
-- error = @score.errors.include?(:player_id)
-fieldset class='control-group#{error ? ' has-error' : ''}'
-  = f.label :player_id, :class => 'control-label'
-  div class='controls'
-    = f.text_field :player_id, :class => 'form-control input-large input-with-feedback'
-    span class='help-inline' = error ? f.error_message_on(:player_id, :class => 'text-error') : pat(:example)
-- error = @score.errors.include?(:playstyle)
-fieldset class='control-group#{error ? ' has-error' : ''}'
-  = f.label :playstyle, :class => 'control-label'
-  div class='controls'
-    = f.text_field :playstyle, :class => 'form-control input-large input-with-feedback'
-    span class='help-inline' = error ? f.error_message_on(:playstyle, :class => 'text-error') : pat(:example)
-- error = @score.errors.include?(:music_id)
-fieldset class='control-group#{error ? ' has-error' : ''}'
-  = f.label :music_id, :class => 'control-label'
-  div class='controls'
-    = f.text_field :music_id, :class => 'form-control input-large input-with-feedback'
-    span class='help-inline' = error ? f.error_message_on(:music_id, :class => 'text-error') : pat(:example)
 
 div class="form-actions"
   = f.submit pat(:save), :class => 'btn btn-primary'
