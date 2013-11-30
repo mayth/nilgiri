@@ -3,8 +3,8 @@ Nilgiri::App.controllers :machine do
 
   end
 
-  # /machine/difficulties/{id}.js
-  get :difficulties, with: :id, provides: :js do
+  # /machine/difficulties/{id}.json
+  get :difficulties, with: :id, provides: :json do
     begin
       machine = Machine.find(params[:id])
       machine.difficulties.to_json
@@ -13,8 +13,8 @@ Nilgiri::App.controllers :machine do
     end
   end
 
-  # /machine/playstyles/{id}.js
-  get :playstyles, with: :id, provides: :js do
+  # /machine/playstyles/{id}.json
+  get :playstyles, with: :id, provides: :json do
     begin
       machine = Machine.find(params[:id])
       if machine.playstyles.present?
