@@ -1,0 +1,15 @@
+.row
+  = link_to 'Sign up', url(:player, :new), class: 'large button success radius'
+
+.row
+  h1 Players
+  table
+    thead
+      tr
+        td Name
+        td Last Activity
+    tbody
+      - for player in @players
+        tr
+          td = player.screen_name
+          td abc

@@ -1,0 +1,4 @@
+.row
+  h1 Sign up
+  .small-6.columns = form_for :player, url(:player, :create), method: 'post', data: { abide: '' } do |f|
+    = partial 'player/form', locals: { f: f }
