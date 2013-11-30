@@ -9,28 +9,31 @@
     small.error Password is required and must be valid form.
 .row
   .columns
-    = f.label :machine
-    = f.select :machine, options: @machines, required: true
+    = f.label :machine_id
+    = f.select :machine_id, options: @machines, required: true
     small.error You should select the machine.
 .row
   .columns
-    = f.label :music
-    = f.select :music, options: ['Music A', 'Music B'], disabled: true, required: true
+    = f.label :music_id
+    = f.select :music_id, options: [['Choose machine', '']], required: true
     small.error You should select the music.
 .row
   .small-6.columns
-    = f.label :play_style
-    = f.select :play_style, options: ['SP', 'DP'], disabled: true, required: true
+    = f.label :playstyle
+    = f.select :playstyle, options: [['Choose machine']], disabled: true
     small.error You should select your play style.
   .small-6.columns
     = f.label :difficulty
-    = f.select :difficulty, options: ['a', 'b'], disabled: true, required: true
+    = f.select :difficulty, options: [['Choose machine']], required: true
     small.error You should select the difficulty.
 .row
   .columns
     = f.label :score
-    = f.number_field :score, required: true, min: 0, required: true
+    = f.number_field :score, required: true, min: 0
     small.error Score is required.
+
+= f.hidden_field :season, required: true, value: @current_season
+
 .row
   .small-9.columns
     = f.submit 'Submit', class: 'button'

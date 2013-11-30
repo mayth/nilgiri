@@ -7,10 +7,10 @@
     thead
       tr
         td Season
-        td Machine
         td Player
-        td Play Style
+        td Machine
         td Music
+        td Play Style
         td Difficulty
         td Score
         td Updated at
@@ -18,13 +18,14 @@
       - for score in @recent
         tr
           td = score.season
-          td = score.machine.name
           td = score.player.name
+          td = score.music.machine.name
+          td = score.music.name
           td
             - if score.playstyle.present?
               = score.playstyle
             - else
-              | None
+              | N/A
           td = score.difficulty
           td = score.score
           td = score.updated_at
