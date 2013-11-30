@@ -18,4 +18,9 @@ class Machine < ActiveRecord::Base
       !playstyle || playstyle.empty?
     end
   end
+
+  def current_musics(season = nil)
+    season = Time.now.strftime('%Y%m') unless season.present?
+    musics.where(season: season).order(:id)
+  end
 end

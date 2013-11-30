@@ -79,4 +79,30 @@ describe Machine do
       end
     end
   end
+
+  describe '#current_musics' do
+    before do
+      @machine = Machine.find(1)
+      @machine.musics.create(
+        name: 'Machine Control Music',
+        artist: 'Dove',
+        season: '201311'
+      )
+      @machine.musics.create(
+        name: 'Machine Control Music 2',
+        artist: 'Dove 2',
+        season: '201311'
+      )
+    end
+    subject { @machine.current_musics(201311) }
+    it 'returns correct array' do
+      expect(subject.size).to eq 2
+      expect(subject[0].name).to eq 'Machine Control Music'
+      expect(subject[0].artist).to eq 'Dove'
+      expect(subject[0].season).to eq '201311'
+      expect(subject[1].name).to eq 'Machine Control Music 2'
+      expect(subject[1].artist).to eq 'Dove 2'
+      expect(subject[1].season).to eq '201311'
+    end
+  end
 end
