@@ -1,4 +1,9 @@
 Nilgiri::Admin.controllers :scores do
+  before do
+    @machines = Machine.all.map{|m| [m.name, m.id]}
+    @current_season = Time.now.strftime('%Y%m')
+  end
+
   get :index do
     @title = "Scores"
     @scores = Score.all
@@ -7,7 +12,8 @@ Nilgiri::Admin.controllers :scores do
 
   get :new do
     @title = pat(:new_title, :model => 'score')
-    @score = Score.new
+    @score = Score.new(season: @current_season)
+    @players = Player.all.map{|p| [p.name, p.id]}
     render 'scores/new'
   end
 

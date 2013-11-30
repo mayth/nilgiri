@@ -27,13 +27,14 @@ div class="tabs-content"
                       div class='btn btn-default btn-small cancel' = pat(:cancel)
         th class='header' = mat(:score, :id)
         th class='header' = mat(:score, :season)
+        th class='header' = mat(:score, :machine)
+        th class='header' = mat(:score, :music_id) + " (#{mat(:score, :artist)})"
         th class='header' = mat(:score, :difficulty)
-        th class='header' = mat(:score, :score)
+        th class='header' = mat(:score, :playstyle)
         th class='header' = mat(:score, :player_id)
+        th class='header' = mat(:score, :score)
         th class='header' = mat(:score, :created_at)
         th class='header' = mat(:score, :updated_at)
-        th class='header' = mat(:score, :playstyle)
-        th class='header' = mat(:score, :music_id)
         th class='header list-row-action-header'
 
     tbody
@@ -42,13 +43,14 @@ div class="tabs-content"
           td class='list-column list-selectable' = check_box_tag 'score_ids[]', :value => score.id, :class => 'list-selectable-checkbox'
           td class='list-column' = score.id
           td class='list-column' = score.season
+          td class='list-column' = score.music.machine
+          td class='list-column' = score.music.name + " (#{score.music.artist})"
           td class='list-column' = score.difficulty
+          td class='list-column' = score.playstyle.present? ? score.playstyle : 'N/A'
+          td class='list-column' = score.player.name
           td class='list-column' = score.score
-          td class='list-column' = score.player_id
-          td class='list-column' = time_ago_in_words score.created_at
-          td class='list-column' = time_ago_in_words score.updated_at
-          td class='list-column' = score.playstyle
-          td class='list-column' = score.music_id
+          td class='list-column' = time_ago_in_words(score.created_at) + ' ago'
+          td class='list-column' = time_ago_in_words(score.updated_at) + ' ago'
           td class='list-column list-row-action'
             div class='list-row-action-wrapper'
               = link_to tag_icon(:edit), :href => url(:scores, :edit, :id => score.id), :rel => :tooltip, :title => "#{pat(:edit)} score", :class => 'list-row-action-wrapper-link'
