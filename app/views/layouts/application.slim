@@ -8,7 +8,7 @@ html.no-js[lang='en']
     title = @title.present? ? "#{@title} | Nilgiri" : "Nilgiri"
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
-  body
+  body[id = (@page_id.present? ? @page_id : nil)]
     header.contain-to-grid
       nav.top-bar[data={topbar: ''}]
         ul.title-area
@@ -16,6 +16,12 @@ html.no-js[lang='en']
             h1
               a[href='#'] Nilgiri
     .main-content
+      .row
+        - for kind in %i(alert success warning info)
+          - if flash[kind].present?
+            div[class="alert-box #{kind} radius text-center" data-alert]
+                == flash[kind]
+                a.close[href='#'] &times;
       == yield
     footer
       .text-right
@@ -25,5 +31,3 @@ html.no-js[lang='en']
           br
           | github: 
           = link_to 'mayth/nilgiri', 'https://github.com/mayth/nilgiri'
-    javascript:
-      $(document).foundation();
