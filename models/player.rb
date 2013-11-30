@@ -45,6 +45,10 @@ class Player < ActiveRecord::Base
 
   def self.authorize(name, pass)
     p = self.find_by_name(name)
-    p && p.password == pass
+    if p && p.password == pass
+      p
+    else
+      nil
+    end
   end
 end
