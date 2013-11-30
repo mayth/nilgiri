@@ -1,0 +1,39 @@
+.row
+  .small-6.columns
+    = f.label :player_name
+    = f.text_field :player_name, required: true, pattern: '[a-zA-Z0-9_]+', inputmode: 'verbatim'
+    small.error Player name is required and must be valid form.
+  .small-6.columns
+    = f.label :password
+    = f.password_field :password, required: true
+    small.error Password is required and must be valid form.
+.row
+  .columns
+    = f.label :machine
+    = f.select :machine, options: @machines, required: true
+    small.error You should select the machine.
+.row
+  .columns
+    = f.label :music
+    = f.select :music, options: ['Music A', 'Music B'], disabled: true, required: true
+    small.error You should select the music.
+.row
+  .small-6.columns
+    = f.label :play_style
+    = f.select :play_style, options: ['SP', 'DP'], disabled: true, required: true
+    small.error You should select your play style.
+  .small-6.columns
+    = f.label :difficulty
+    = f.select :difficulty, options: ['a', 'b'], disabled: true, required: true
+    small.error You should select the difficulty.
+.row
+  .columns
+    = f.label :score
+    = f.number_field :score, required: true, min: 0, required: true
+    small.error Score is required.
+.row
+  .small-9.columns
+    = f.submit 'Submit', class: 'button'
+  .small-3.columns
+    = button_tag 'Clear', type: 'reset', class: 'button secondary small'
+
