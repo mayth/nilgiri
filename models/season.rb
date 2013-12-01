@@ -1,6 +1,9 @@
 require 'time'
 
 class Season < ActiveRecord::Base
+  has_many :musics
+  has_many :scores
+
   validates :name, presence: true, uniqueness: true
   validates :start, presence: true
   validates :expiry, presence: true
