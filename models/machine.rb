@@ -19,8 +19,8 @@ class Machine < ActiveRecord::Base
     end
   end
 
-  def current_musics(season = nil)
-    season = Time.now.strftime('%Y%m') unless season.present?
-    musics.where(season: season).order(:id)
+  def musics_for(season = nil)
+    season = Season.for(:now) unless season
+    musics.where(season_id: season.id).order(:id)
   end
 end
