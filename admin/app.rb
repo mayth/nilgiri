@@ -34,6 +34,7 @@ module Nilgiri
     end
 
     access_control.roles_for :admin do |role|
+    role.project_module :seasons, '/seasons'
     role.project_module :scores, '/scores'
     role.project_module :posts, '/posts'
     role.project_module :players, '/players'
