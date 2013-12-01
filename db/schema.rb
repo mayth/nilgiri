@@ -72,8 +72,8 @@ ActiveRecord::Schema.define(:version => 15) do
 
   create_table "seasons", :force => true do |t|
     t.string   "name"
-    t.date     "start"
-    t.date     "end"
+    t.datetime "start"
+    t.datetime "expiry"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

@@ -2,8 +2,8 @@ class CreateSeasons < ActiveRecord::Migration
   def self.up
     create_table :seasons do |t|
       t.string :name
-      t.date :start
-      t.date :end
+      t.datetime :start
+      t.datetime :expiry
       t.timestamps
     end
   end
