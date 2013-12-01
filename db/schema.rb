@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 15) do
+ActiveRecord::Schema.define(:version => 16) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 15) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "artist"
-    t.string   "season"
+    t.integer  "season_id"
   end
 
   create_table "players", :force => true do |t|
@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(:version => 15) do
   end
 
   create_table "scores", :force => true do |t|
-    t.string   "season"
     t.string   "difficulty"
     t.float    "score"
     t.integer  "player_id"
@@ -68,6 +67,7 @@ ActiveRecord::Schema.define(:version => 15) do
     t.datetime "updated_at", :null => false
     t.string   "playstyle"
     t.integer  "music_id"
+    t.integer  "season_id"
   end
 
   create_table "seasons", :force => true do |t|
