@@ -1,6 +1,10 @@
 require 'time'
 
 class Season < ActiveRecord::Base
+  validates :name, presence: true, uniqueness: true
+  validates :start, presence: true
+  validates :expiry, presence: true
+
   def self.for(time)
     t = nil
     case time
