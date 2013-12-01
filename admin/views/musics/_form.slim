@@ -18,10 +18,10 @@ fieldset class='control-group#{error ? ' has-error' : ''}'
     span class='help-inline' = error ? f.error_message_on(:machine_id, :class => 'text-error') : pat(:example)
 - error = @music.errors.include?(:season)
 fieldset class='control-group#{error ? ' has-error' : ''}'
-  = f.label :season, :class => 'control-label'
+  = f.label :season_id, :class => 'control-label'
   div class='controls'
-    = f.text_field :season, value: @music.season.present? ? @music.season : @current_season, :class => 'form-control input-large input-with-feedback'
-    span class='help-inline' = error ? f.error_message_on(:season, :class => 'text-error') : pat(:example)
+    = f.select :season_id, options: @seasons, value: @music.season.present? ? @music.season.id : @current_season.id, required: true, :class => 'form-control input-large input-with-feedback'
+    span class='help-inline' = error ? f.error_message_on(:season_id, :class => 'text-error') : pat(:example)
 
 div class="form-actions"
   = f.submit pat(:save), :class => 'btn btn-primary'
