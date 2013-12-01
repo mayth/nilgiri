@@ -1,3 +1,5 @@
+require 'time'
+
 Nilgiri::Admin.controllers :seasons do
   get :index do
     @title = "Seasons"
@@ -7,11 +9,14 @@ Nilgiri::Admin.controllers :seasons do
 
   get :new do
     @title = pat(:new_title, :model => 'season')
-    @season = Season.new
+    t = Time.now
+    @season = Season.new(start: t, expiry: t.next_month)
     render 'seasons/new'
   end
 
   post :create do
+    params[:season]['start'] = Time.parse(params[:season]['start'])
+    params[:season]['expiry'] = Time.parse(params[:season]['expiry'])
     @season = Season.new(params[:season])
     if @season.save
       @title = pat(:create_title, :model => "season #{@season.id}")
@@ -39,6 +44,8 @@ Nilgiri::Admin.controllers :seasons do
     @title = pat(:update_title, :model => "season #{params[:id]}")
     @season = Season.find(params[:id])
     if @season
+      params[:season]['start'] = Time.parse(params[:season]['start'])
+      params[:season]['expiry'] = Time.parse(params[:season]['expiry'])
       if @season.update_attributes(params[:season])
         flash[:success] = pat(:update_success, :model => 'Season', :id =>  "#{params[:id]}")
         params[:save_and_continue] ?
