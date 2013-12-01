@@ -15,8 +15,15 @@ Nilgiri::Admin.controllers :seasons do
   end
 
   post :create do
-    params[:season]['start'] = Time.parse(params[:season]['start'])
-    params[:season]['expiry'] = Time.parse(params[:season]['expiry'])
+    begin
+      params[:season]['start'] = Time.parse(params[:season]['start'])
+      params[:season]['expiry'] = Time.parse(params[:season]['expiry'])
+    rescue ArgumentError
+      @title = pat(:create_title, model: 'season')
+      flash.now[:error] = pat(:create_error, model: 'season')
+      render 'seasons/new'
+    end
+
     @season = Season.new(params[:season])
     if @season.save
       @title = pat(:create_title, :model => "season #{@season.id}")
@@ -44,8 +51,13 @@ Nilgiri::Admin.controllers :seasons do
     @title = pat(:update_title, :model => "season #{params[:id]}")
     @season = Season.find(params[:id])
     if @season
-      params[:season]['start'] = Time.parse(params[:season]['start'])
-      params[:season]['expiry'] = Time.parse(params[:season]['expiry'])
+      begin
+        params[:season]['start'] = Time.parse(params[:season]['start'])
+        params[:season]['expiry'] = Time.parse(params[:season]['expiry'])
+      rescue ArgumentError
+        flash.now[:error] = pat(:update_error, :model => 'season')
+        render 'seasons/edit'
+      end
       if @season.update_attributes(params[:season])
         flash[:success] = pat(:update_success, :model => 'Season', :id =>  "#{params[:id]}")
         params[:save_and_continue] ?
