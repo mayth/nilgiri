@@ -7,7 +7,7 @@ describe Season do
       Season.create(
         name: 'season testing 1',
         start: @now,
-        expiry: @now + (60 * 60 * 24)  # + 1 day
+        expiry: @now.tomorrow
       )
       @season = Season.find_by_name('season testing 1')
     end
@@ -17,7 +17,7 @@ describe Season do
     end
     it 'returns correct range' do
       expect(subject.begin).to eql @now
-      expect(subject.last).to eql (@now + (60 * 60 * 24))
+      expect(subject.last).to eql @now.tomorrow
     end
   end
 end
