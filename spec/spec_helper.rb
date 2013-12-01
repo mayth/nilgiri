@@ -6,6 +6,11 @@ RSpec.configure do |conf|
   conf.before :suite do
     load Padrino.root('db', 'schema.rb')
     load Padrino.root('db', 'seeds.rb')
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with :truncation, except: %w(machines)
+  end
+  conf.after :each do
+    DatabaseCleaner.clean
   end
 end
 
