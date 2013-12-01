@@ -9,6 +9,7 @@ describe Machine do
       slug: 'sample'
     )
   end
+
   describe 'create' do
     before do
       @machine = Machine.find_by_name('sample')
@@ -80,29 +81,35 @@ describe Machine do
     end
   end
 
-  describe '#current_musics' do
+  describe '#musics_for' do
     before do
+      t = Time.now
+      @season = Season.create(
+        name: 'Musics For Season 1',
+        start: t,
+        expiry: t.next_month
+      )
       @machine = Machine.find(1)
       @machine.musics.create(
         name: 'Machine Control Music',
         artist: 'Dove',
-        season: '201311'
+        season: @season
       )
       @machine.musics.create(
         name: 'Machine Control Music 2',
         artist: 'Dove 2',
-        season: '201311'
+        season: @season
       )
     end
-    subject { @machine.current_musics(201311) }
+    subject { @machine.musics_for(@season) }
     it 'returns correct array' do
       expect(subject.size).to eq 2
       expect(subject[0].name).to eq 'Machine Control Music'
       expect(subject[0].artist).to eq 'Dove'
-      expect(subject[0].season).to eq '201311'
+      expect(subject[0].season).to eq @season
       expect(subject[1].name).to eq 'Machine Control Music 2'
       expect(subject[1].artist).to eq 'Dove 2'
-      expect(subject[1].season).to eq '201311'
+      expect(subject[1].season).to eq @season
     end
   end
 end
