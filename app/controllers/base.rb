@@ -19,30 +19,31 @@ Nilgiri::App.controllers :base do
     #       }, ...
     #     }, ...
     #   }
-    @top_scores = Hash[
-      @machines.map {|machine|
-        [machine, Hash[
-          machine.musics_for(@current_season).map{|music|
-            [music, Hash[
-              machine.playstyles.present? ?
-              machine.playstyles.map {|playstyle|
-                [playstyle, Hash[
-                  machine.difficulties.map {|difficulty|
-                    [difficulty,
-                     Score.top_scores(music, difficulty, playstyle)
-                    ]
-                  }
-                ]] # { playstyle: ... }
-              } :
-              machine.difficulties.map {|difficulty|
-                [difficulty, Score.top_scores(music, difficulty)]
-              }
-            ]] # { music: ... }
-          }
-        ]] # { machine: ... }
-      }
-    ]
-    p @top_scores
+    if @current_season.present?
+      @top_scores = Hash[
+        @machines.map {|machine|
+          [machine, Hash[
+            machine.musics_for(@current_season).map{|music|
+              [music, Hash[
+                machine.playstyles.present? ?
+                machine.playstyles.map {|playstyle|
+                  [playstyle, Hash[
+                    machine.difficulties.map {|difficulty|
+                      [difficulty,
+                       Score.top_scores(music, difficulty, playstyle)
+                      ]
+                    }
+                  ]] # { playstyle: ... }
+                } :
+                machine.difficulties.map {|difficulty|
+                  [difficulty, Score.top_scores(music, difficulty)]
+                }
+              ]] # { music: ... }
+            }
+          ]] # { machine: ... }
+        }
+      ]
+    end
 
     render 'base/index'
   end

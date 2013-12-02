@@ -35,27 +35,28 @@
       strong = @current_season.name
       = "\" (till #{@current_season.expiry})"
 
-.row
-  h1
-    | Top 3 
-    small = "for #{@current_season.name}"
-  dl.vertical.tabs[data={tab: ''} style='word-wrap: break-word;']
-    - for machine in @machines
-      dd = link_to machine.name, "##{machine.slug}"
-  .small-12.columns.vertical.tabs-content
-    - @top_scores.each do |machine, musics|
-      .content[id=machine.slug style='width: 100%;']
-        .row
-          h2 = link_to machine.name, url(:machine, :show, slug: machine.slug)
-          - musics.each do |music, item|
-            h3 = music.name
-            - if machine.playstyles.present?
-              .row
-                - item.each do |playstyle, item|
-                  .large-6.small-12.columns
-                    table
-                      caption = playstyle
-                      = partial 'base/rank', locals: { item: item }
-            - else
-              table
-                = partial 'base/rank', locals: { item: item }
+- if @top_scores.present?
+  .row
+    h1
+      | Top 3 
+      small = "for #{@current_season.name}"
+    dl.vertical.tabs[data={tab: ''} style='word-wrap: break-word;']
+      - for machine in @machines
+        dd = link_to machine.name, "##{machine.slug}"
+    .small-12.columns.vertical.tabs-content
+      - @top_scores.each do |machine, musics|
+        .content[id=machine.slug style='width: 100%;']
+          .row
+            h2 = link_to machine.name, url(:machine, :show, slug: machine.slug)
+            - musics.each do |music, item|
+              h3 = music.name
+              - if machine.playstyles.present?
+                .row
+                  - item.each do |playstyle, item|
+                    .large-6.small-12.columns
+                      table
+                        caption = playstyle
+                        = partial 'base/rank', locals: { item: item }
+              - else
+                table
+                  = partial 'base/rank', locals: { item: item }
