@@ -109,7 +109,7 @@ describe Score do
         'SP'
       )
       @scores = [s, @player.scores.where(season_id: @season.id).first]
-      @actual = Score.top_scores(@music, 'SP')
+      @actual = Score.top_scores(@music, 'HYPER', 'SP')
     end
     it 'returns scores sorted by scores in descending order' do
       expect(@actual[0]).to eq @scores[0]
