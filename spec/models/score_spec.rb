@@ -92,4 +92,28 @@ describe Score do
       end
     end
   end
+
+  describe '.top_scores' do
+    before do
+      @player2 = Player.create(
+        name: 'scorespec2',
+        screen_name: 'ScoreSpec2',
+        password: 'PASSWORD',
+        twitter_id: '@scorespec2'
+      )
+      s = @player2.register_score(
+        @season,
+        @music,
+        'HYPER',
+        114514,
+        'SP'
+      )
+      @scores = [s, @player.scores.where(season_id: @season.id).first]
+      @actual = Score.top_scores(@music, 'SP')
+    end
+    it 'returns scores sorted by scores in descending order' do
+      expect(@actual[0]).to eq @scores[0]
+      expect(@actual[1]).to eq @scores[1]
+    end
+  end
 end

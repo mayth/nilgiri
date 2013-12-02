@@ -40,4 +40,11 @@ class Score < ActiveRecord::Base
 
   validates_with ScoreValidator
   validates_associated :season
+
+  def self.top_scores(music, playstyle = nil, num: 3)
+    raise ArgumentError unless music
+    raise ArgumentError, 'playstyle must be given for the given music' if music.machine.playstyles.any? && !playstyle
+    p Score.where(music_id: music.id, playstyle: playstyle).order('score DESC').limit(num).to_a
+    Score.where(music_id: music.id, playstyle: playstyle).order('score DESC').limit(num).to_a
+  end
 end
