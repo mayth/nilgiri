@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Player do
-  before do
+  before :all do
     Player.create(
       name: 'maytheplic',
       screen_name: 'Mei Akizuru',
@@ -30,27 +30,32 @@ describe Player do
     end
   end
   describe '#register_score' do
-    before do
+    before :all do
+      t = Time.now
+      @season = Season.create(
+        name: "regscore #{rand}",
+        start: t,
+        expiry: t.next_month
+      )
       Music.create(
         name: 'sample',
         artist: 'sample',
         machine: Machine.find_by_name('beatmania IIDX 21 SPADA'),
-        season: '201311'
+        season: @season
       )
       @music = Music.find_by_name('sample')
       @player = Player.find_by_name('maytheplic')
-      season = '201311'
       difficulty = 'HYPER'
       score = 334
       playstyle = 'SP'
-      @player.register_score(season, @music, difficulty, score, playstyle)
-      @score = Score.where(player_id: @player.id, season: season, music_id: @music.id, difficulty: difficulty, playstyle: playstyle).first
+      @player.register_score(@season, @music, difficulty, score, playstyle)
+      @score = Score.where(player_id: @player.id, season_id: @season.id, music_id: @music.id, difficulty: difficulty, playstyle: playstyle).first
     end
     subject { @score }
     context 'when no scores are registered' do
       it 'correctly adds score' do
         expect(subject).not_to be nil
-        expect(subject.season).to eq '201311'
+        expect(subject.season).to eq @season
         expect(subject.music).to eq @music
         expect(subject.difficulty).to eq 'HYPER'
         expect(subject.playstyle).to eq 'SP'
@@ -59,15 +64,15 @@ describe Player do
     end
     context 'when scores for the same music is registered' do
       before do
-        @player.register_score('201311', @music, 'HYPER', 668, 'SP')
-        @score = Score.where(player_id: @player.id, season: '201311', music_id: @music.id, difficulty: 'HYPER', playstyle: 'SP').first
+        @player.register_score(@season, @music, 'HYPER', 668, 'SP')
+        @score = Score.where(player_id: @player.id, season_id: @season.id, music_id: @music.id, difficulty: 'HYPER', playstyle: 'SP').first
       end
       it 'correctly updates score' do
         expect(subject.score).to eq 668
       end
       it 'does nothing for lower score' do
-        @player.register_score('201311', @music, 'HYPER', 1, 'SP')
-        @score = Score.where(player_id: @player.id, season: '201311', music_id: @music.id, difficulty: 'HYPER', playstyle: 'SP').first
+        @player.register_score(@season, @music, 'HYPER', 1, 'SP')
+        @score = Score.where(player_id: @player.id, season_id: @season.id, music_id: @music.id, difficulty: 'HYPER', playstyle: 'SP').first
         expect(subject.score).to eq 668
       end
     end

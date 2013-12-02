@@ -2,13 +2,20 @@ require 'spec_helper'
 
 describe Music do
   describe 'create' do
-    before do
+    before :all do
+      t = Time.now
+      @season = Season.create(
+        name: "create season #{rand}",
+        start: t,
+        expiry: t.next_month
+      )
+      @season.save!
       @machine = Machine.find_by_name('beatmaniaIIDX 21 SPADA')
       Music.create(
         name: 'Critical Crystal',
         artist: '青龍',
         machine: @machine,
-        season: '201311'
+        season: @season
       )
       @music = Music.find_by_name('Critical Crystal')
     end
@@ -22,7 +29,7 @@ describe Music do
         expect(subject.machine).to eq @machine
       end
       it 'has correct season' do
-        expect(subject.season).to eq '201311'
+        expect(subject.season).to eq @season
       end
     end
   end

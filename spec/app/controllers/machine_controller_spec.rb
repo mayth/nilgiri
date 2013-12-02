@@ -72,18 +72,9 @@ describe "MachineController" do
   end
 
   describe 'get musics for specified season' do
-    context 'when valid machine id is passed' do
-      before do
-        get '/machine/musics/1/201311.json'
-      end
-      it 'returns correct array' do
-        machine = Machine.find(1)
-        expect(last_response.body).to eq machine.current_musics(201311).to_json
-      end
-    end
     context 'when invalid machine id is passed' do
       before do
-        get '/machine/musics/999999/201311.json'
+        get '/machine/musics/999999/1.json'
       end
       it 'returns 404 Not Found' do
         expect(last_response.status).to eq 404

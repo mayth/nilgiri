@@ -2,11 +2,16 @@ require 'spec_helper'
 
 describe Score do
   before :all do
+    @season = Season.create(
+      name: "season #{rand}",
+      start: Time.now,
+      expiry: Time.now.next_month
+    )
     @machine = Machine.find_by_name('beatmania IIDX 21 SPADA')
     @music = @machine.musics.create(
       name: 'Round and Round',
       artist: 'Masayoshi Minoshima',
-      season: '201311'
+      season: @season
     )
     @music.save!
     @player = Player.create(
@@ -17,7 +22,7 @@ describe Score do
     )
     @player.save!
     @player.register_score(
-      '201311',
+      @season,
       @music,
       'HYPER',
       1334,
@@ -26,12 +31,12 @@ describe Score do
   end
   describe 'create' do
     before do
-      @score = @player.scores.where(season: '201311').first
+      @score = @player.scores.where(season_id: @season.id).first
     end
     subject { @score }
     context 'when successfully created' do
       it 'has correct attributes' do
-        expect(subject.season).to eq '201311'
+        expect(subject.season).to eq @season
         expect(subject.difficulty).to eq 'HYPER'
         expect(subject.score).to eq 1334
         expect(subject.player).to eq @player
@@ -45,7 +50,7 @@ describe Score do
       it 'is not saved' do
         expect(Score.new(season: nil).save).to be_false
         expect(Score.new(
-          season: '201311',
+          season: @season,
           difficulty: 'BASIC', # invalid
           score: 1334,
           player: @player,
@@ -53,7 +58,7 @@ describe Score do
           playstyle: 'SP'
         ).save).to be_false
         expect(Score.new(
-          season: '201311',
+          season: @season,
           difficulty: 'HYPER',
           score: -10, # invalid
           player: @player,
@@ -61,7 +66,7 @@ describe Score do
           playstyle: 'SP'
         ).save).to be_false
         expect(Score.new(
-          season: '201311',
+          season: @season,
           difficulty: 'HYPER',
           score: 334,
           player: nil,
@@ -69,7 +74,7 @@ describe Score do
           playstyle: 'SP'
         ).save).to be_false
         expect(Score.new(
-          season: '201311',
+          season: @season,
           difficulty: 'HYPER',
           score: 334,
           player: @player,
@@ -77,7 +82,7 @@ describe Score do
           playstyle: 'SP'
         ).save).to be_false
         expect(Score.new(
-          season: '201311',
+          season: @season,
           difficulty: 'HYPER',
           score: 334,
           player: @player,
