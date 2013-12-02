@@ -3,13 +3,9 @@
 
 .row
   h1 Players
-  table
-    thead
-      tr
-        td Name
-        td Last Activity
-    tbody
-      - for player in @players
-        tr
-          td = player.screen_name
-          td abc
+  ul
+    - for player in @players
+      li
+        = link_to(player.screen_name, url(:player, :show, id: player.id))
+        - if player.twitter_id.present?
+          = " (@#{player.twitter_id})"
