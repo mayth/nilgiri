@@ -5,7 +5,7 @@ Nilgiri::App.controllers :score do
   end
 
   get :index do
-    @recent = Score.order(updated_at: :desc).limit(20)
+    @recent = Score.order('updated_at DESC').limit(20)
     render 'score/index'
   end
 
