@@ -25,7 +25,7 @@ Nilgiri::App.controllers :player do
     @player = Player.new(params[:player])
     if @player.save
       flash[:success] = "Your account \"#{@player.name}\" has been successfully created."
-      redirect(url(:player))
+      redirect(url(:player, :index))
     else
       flash.now[:warning] = "Failed to create your account!"
       render 'player/new'
