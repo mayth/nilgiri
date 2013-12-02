@@ -43,35 +43,19 @@
     - for machine in @machines
       dd = link_to machine.name, "##{machine.slug}"
   .small-12.columns.vertical.tabs-content
-    - for machine in @machines
+    - @top_scores.each do |machine, musics|
       .content[id=machine.slug style='width: 100%;']
         .row
           h2 = link_to machine.name, '/machine'
-          - if machine.playstyles.present?
-            - for style in machine.playstyles
+          - musics.each do |music, item|
+            h3 = music.name
+            - if machine.playstyles.present?
+              .row
+                - item.each do |playstyle, item|
+                  .large-6.small-12.columns
+                    table
+                      caption = playstyle
+                      = partial 'base/rank', locals: { item: item }
+            - else
               table
-                caption = style
-                thead
-                  tr
-                    td Rank
-                    - for difficulty in machine.difficulties
-                       td = difficulty
-                tbody
-                  tr
-                    td 1
-                    td a
-                    td b
-                    td c
-          - else
-            table
-              thead
-                tr
-                  td Rank
-                  - for difficulty in machine.difficulties
-                    td = difficulty
-              tbody
-                tr
-                  td 1
-                  td x
-                  td y
-                  td z
+                = partial 'base/rank', locals: { item: item }
