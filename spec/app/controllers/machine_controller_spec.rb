@@ -52,13 +52,30 @@ describe "MachineController" do
   end
 
   describe 'get musics' do
+    before :all do
+      @season = Season.create(
+        name: "season #{rand}",
+        start: Time.now,
+        expiry: Time.now.next_month
+      )
+      @machine = Machine.find(1)
+      @machine.musics.create(
+        season: @season,
+        name: 'sample 1',
+        artist: 'sample 1 artist'
+      )
+      @machine.musics.create(
+        season: @season,
+        name: 'sample 2',
+        artist: 'sample 2 artist'
+      )
+    end
     context 'when valid machine id is passed' do
       before do
-        get '/machine/musics/1.json'
+        get "/machine/musics/#{@machine.id}.json"
       end
       it 'returns correct array as JSON' do
-        machine = Machine.find(1)
-        expect(last_response.body).to eq machine.musics.to_json
+        expect(last_response.body).to eq @machine.musics.to_json
       end
     end
     context 'when invalid machine id is passed' do
@@ -72,6 +89,32 @@ describe "MachineController" do
   end
 
   describe 'get musics for specified season' do
+    before :all do
+      @season = Season.create(
+        name: "season #{rand}",
+        start: Time.now,
+        expiry: Time.now.next_month
+      )
+      @machine = Machine.find(1)
+      @machine.musics.create(
+        season: @season,
+        name: 'sample 1',
+        artist: 'sample 1 artist'
+      )
+      @machine.musics.create(
+        season: @season,
+        name: 'sample 2',
+        artist: 'sample 2 artist'
+      )
+    end
+    context 'when valid machine id is passed' do
+      before do
+        get "/machine/musics/#{@machine.id}/#{@season.id}.json"
+      end
+      it 'returns correct response' do
+        expect(last_response.body).to eq @machine.musics_for(@season).to_json
+      end
+    end
     context 'when invalid machine id is passed' do
       before do
         get '/machine/musics/999999/1.json'
