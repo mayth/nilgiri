@@ -1,0 +1,23 @@
+.row
+  h1 = @player.screen_name
+  - if @scores.present?
+    table
+      thead
+        tr
+          td Machine
+          td Music
+          td Play Style
+          td Difficulty
+          td Score
+          td Updated at
+      tbody
+        - for score in @scores
+          tr
+            td = score.music.machine.name
+            td = score.music.name
+            td = score.playstyle
+            td = score.difficulty
+            td = score.score
+            td = score.updated_at
+  - else
+    p No scores.

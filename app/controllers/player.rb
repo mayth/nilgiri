@@ -7,6 +7,8 @@ Nilgiri::App.controllers :player do
   get :show, with: :id do
     begin
       @player = Player.find(params[:id])
+      season = Season.for(:now) || Season.order('expiry desc').first
+      @scores = @player.scores.where(season_id: season.id) if season.present?
       render 'player/show'
     rescue ActiveRecord::RecordNotFound
       flash.now[:alert] = "Player #{params[:id]} was not found."
