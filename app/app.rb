@@ -9,5 +9,9 @@ module Nilgiri
     sprockets
 
     enable :sessions
+
+    before do
+      @current_season = Season.for(:now)
+    end
   end
 end

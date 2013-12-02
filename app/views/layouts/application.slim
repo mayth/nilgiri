@@ -15,6 +15,9 @@ html.no-js[lang='en']
           li.name
             h1
               a[href='/'] Nilgiri
+        section.top-bar-section
+          ul.right
+            li: a = link_to @current_season.present? ? "Season: #{@current_season.name}" : '', '#'
     .main-content
       .row
         - for kind in %i(alert success warning info)

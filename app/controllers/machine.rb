@@ -7,7 +7,6 @@ Nilgiri::App.controllers :machine do
   get :show, with: :slug do
     begin
       @machine = Machine.find_by_slug(params[:slug])
-      @current_season = Season.for(:now)
       @musics = @machine.musics_for(@current_season)
       @ranking = Hash[
         @musics.map{|music|

@@ -1,7 +1,6 @@
 Nilgiri::App.controllers :base do
   get :index, :map => '/' do
     @machines = Machine.all
-    @current_season = Season.for(:now)
     # Posts
     @top_post = Post.first
     @posts = Post.offset(1).limit(5)
