@@ -46,7 +46,7 @@
     - @top_scores.each do |machine, musics|
       .content[id=machine.slug style='width: 100%;']
         .row
-          h2 = link_to machine.name, '/machine'
+          h2 = link_to machine.name, url(:machine, :show, slug: machine.slug)
           - musics.each do |music, item|
             h3 = music.name
             - if machine.playstyles.present?
