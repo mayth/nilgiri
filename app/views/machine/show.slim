@@ -1,0 +1,34 @@
+.row
+  h1 = @machine.name
+  .column
+    .row
+      .column
+        h2 Musics
+        ul
+          - for music in @musics
+            li = link_to music.name, "##{music.id}"
+  .column
+    .row
+      .column
+        h2 Ranking
+        - @ranking.each do |music, items|
+          .row
+            .column
+              h3[id=music.id] = music.name
+              - if @machine.playstyles.present?
+                - items.each do |playstyle, items|
+                  div[class="large-#{12 / @machine.playstyles.size} columns"]
+                    .row
+                      .column
+                        h3 = playstyle
+                        - items.each do |difficulty, scores|
+                          .row
+                            .column
+                              h4 = difficulty
+                              = partial 'machine/rank', locals: { scores: scores }
+              - else
+                - items.each do |difficulty, scores|
+                  .row
+                    .column
+                      h3 = difficulty
+                      = partial 'machine/rank', locals: { scores: scores }

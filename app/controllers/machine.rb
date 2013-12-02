@@ -5,6 +5,31 @@ Nilgiri::App.controllers :machine do
   end
 
   get :show, with: :slug do
+    begin
+      @machine = Machine.find_by_slug(params[:slug])
+      @current_season = Season.for(:now)
+      @musics = @machine.musics_for(@current_season)
+      @ranking = Hash[
+        @musics.map{|music|
+          [music, Hash[
+            @machine.playstyles.present? ?
+            @machine.playstyles.map{|playstyle|
+              [playstyle, Hash[
+                @machine.difficulties.map{|difficulty|
+                  [difficulty, Score.where(music_id: music.id, playstyle: playstyle, difficulty: difficulty).order('score DESC')]
+                }
+              ]] # { playstyle: ... }
+            } :
+            @machine.difficulties.map {|difficulty|
+              [difficulty, Score.where(music_id: music.id, difficulty: difficulty).order('score DESC')]
+            }
+          ]]  # { music: ... }
+        }
+      ]
+      render 'machine/show'
+    rescue ActiveRecord::RecordNotFound
+      halt 404
+    end
   end
 
   # /machine/difficulties/{id}.json
