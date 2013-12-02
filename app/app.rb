@@ -6,7 +6,7 @@ module Nilgiri
     register Padrino::Mailer
     register Padrino::Helpers
     register Padrino::Sprockets
-    sprockets
+    sprockets paths: ["assets/prebuilt"]
 
     enable :sessions
 
