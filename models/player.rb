@@ -13,7 +13,7 @@ class Player < ActiveRecord::Base
   end
 
   def register_score(season, music, difficulty, score, playstyle = nil)
-    s = Score.where(player_id: id, season: season, music_id: music.id, difficulty: difficulty, playstyle: playstyle).first
+    s = Score.where(player_id: id, season_id: season.id, music_id: music.id, difficulty: difficulty, playstyle: playstyle).first
     if s
       if s.score < score
         s.score = score
