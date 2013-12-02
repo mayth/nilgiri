@@ -40,7 +40,7 @@ end
 class Score < ActiveRecord::Base
   belongs_to :player
   belongs_to :music
-  belongs_to :score
+  belongs_to :season
 
   validates_with ScoreValidator
 end
