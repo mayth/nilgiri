@@ -11,6 +11,8 @@ module Nilgiri
     enable :sessions
 
     before do
+      # For topbar navigations
+      @machines = Machine.all
       @current_season = Season.for(:now)
     end
   end

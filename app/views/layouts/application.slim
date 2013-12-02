@@ -18,6 +18,15 @@ html.no-js[lang='en']
         section.top-bar-section
           ul.right
             li: a = link_to @current_season.present? ? "Season: #{@current_season.name}" : '', '#'
+        section.top-bar-section
+          ul.left
+            li = link_to 'Submit Score', url(:score, :new)
+            li = link_to 'Recent Scores', url(:score, :index)
+            li.has-dropdown
+              a = link_to 'Machines', url(:machine, :index)
+              ul.dropdown
+                - for machine in @machines
+                  li = link_to machine.name, url(:machine, :show, slug: machine.slug)
     .main-content
       .row
         - for kind in %i(alert success warning info)

@@ -10,7 +10,7 @@
 .row
   .columns
     = f.label :machine_id
-    = f.select :machine_id, options: [['Choose machine', ''], *@machines], required: true
+    = f.select :machine_id, options: [['Choose machine', ''], *@machines_option], required: true
     small.error You should select the machine.
 .row
   .columns

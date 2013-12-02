@@ -10,12 +10,12 @@ Nilgiri::App.controllers :score do
 
   get :new do
     @score = Score.new
-    @machines = Machine.all.map {|m| [m.name, m.id]}
+    @machines_option = Machine.all.map {|m| [m.name, m.id]}
     render 'score/new'
   end
 
   post :create do
-    @machines = Machine.all.map {|m| [m.name, m.id]}
+    @machines_option = Machine.all.map {|m| [m.name, m.id]}
 
     score = params[:score]
     # Authorize player
