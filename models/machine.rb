@@ -21,6 +21,6 @@ class Machine < ActiveRecord::Base
 
   def musics_for(season = nil)
     season = Season.for(:now) unless season
-    musics.where(season_id: season.id).order(:id)
+    musics.where(season_id: season.id).order(:id) if season
   end
 end
