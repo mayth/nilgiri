@@ -28,7 +28,6 @@ div class="tabs-content"
         th class='header' = mat(:player, :id)
         th class='header' = mat(:player, :name)
         th class='header' = mat(:player, :screen_name)
-        th class='header' = mat(:player, :password)
         th class='header' = mat(:player, :twitter_id)
         th class='header' = mat(:player, :created_at)
         th class='header' = mat(:player, :updated_at)
@@ -41,7 +40,6 @@ div class="tabs-content"
           td class='list-column' = player.id
           td class='list-column' = player.name
           td class='list-column' = player.screen_name
-          td class='list-column' = player.password
           td class='list-column' = player.twitter_id
           td class='list-column' = time_ago_in_words player.created_at
           td class='list-column' = time_ago_in_words player.updated_at
