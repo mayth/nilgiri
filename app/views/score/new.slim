@@ -1,7 +1,10 @@
 .row
   h1 Submit Score
-  p
-    | Before submitting your score, check the current season: 
-    strong = @current_season.name
-  = form_for :score, url(:score, :create), method: 'post', class: 'small-6 columns', data: { abide: '' } do |f|
-    = partial 'score/form', locals: { f: f }
+  - if @current_season.present?
+    p
+      | Before submitting your score, check the current season: 
+      strong = @current_season.name
+    = form_for :score, url(:score, :create), method: 'post', class: 'small-6 columns', data: { abide: '' } do |f|
+      = partial 'score/form', locals: { f: f }
+  - else
+    p Oops, we aren't in any seasons. You cannot submit your score. BE COOL!
