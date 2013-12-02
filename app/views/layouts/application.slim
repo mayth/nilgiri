@@ -23,6 +23,7 @@ html.no-js[lang='en']
           ul.left
             li = link_to 'Submit Score', url(:score, :new)
             li = link_to 'Recent Scores', url(:score, :index)
+            li = link_to 'Players', url(:player, :index)
             li.has-dropdown
               a = link_to 'Machines', url(:machine, :index)
               ul.dropdown
