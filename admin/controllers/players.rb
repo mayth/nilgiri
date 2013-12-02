@@ -39,6 +39,7 @@ Nilgiri::Admin.controllers :players do
     @title = pat(:update_title, :model => "player #{params[:id]}")
     @player = Player.find(params[:id])
     if @player
+      params[:player].delete('password') unless params[:player]['password'].present?
       if @player.update_attributes(params[:player])
         flash[:success] = pat(:update_success, :model => 'Player', :id =>  "#{params[:id]}")
         params[:save_and_continue] ?
