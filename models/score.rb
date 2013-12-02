@@ -1,9 +1,5 @@
 class ScoreValidator < ActiveModel::Validator
   def validate(record)
-    # presence of season
-    unless record.season && !record.season.empty?
-      record.errors[:season] << "can't be empty."
-    end
     # presence of music
     unless record.music
       record.errors[:music] << 'A score must be associated with a music.'
@@ -43,4 +39,5 @@ class Score < ActiveRecord::Base
   belongs_to :season
 
   validates_with ScoreValidator
+  validates_associated :season
 end
