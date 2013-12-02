@@ -1,0 +1,5 @@
+.row
+  h1 Machines
+  ul
+    - for machine in @machines
+      li = link_to machine.name, url(:machine, :show, slug: machine.slug)

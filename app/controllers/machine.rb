@@ -1,6 +1,10 @@
 Nilgiri::App.controllers :machine do
   get :index do
+    @machines = Machine.all
+    render 'machine/index'
+  end
 
+  get :show, with: :slug do
   end
 
   # /machine/difficulties/{id}.json
