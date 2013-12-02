@@ -19,7 +19,6 @@ html.no-js[lang='en']
           ul.right
             li: a = link_to @current_season.present? ? "Season: #{@current_season.name}" : '', '#'
             li: a = link_to 'Sign up', url(:player, :new)
-        section.top-bar-section
           ul.left
             li = link_to 'Submit Score', url(:score, :new)
             li = link_to 'Recent Scores', url(:score, :index)
