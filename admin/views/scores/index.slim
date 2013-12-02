@@ -42,8 +42,8 @@ div class="tabs-content"
         tr class='list-row'
           td class='list-column list-selectable' = check_box_tag 'score_ids[]', :value => score.id, :class => 'list-selectable-checkbox'
           td class='list-column' = score.id
-          td class='list-column' = score.season
-          td class='list-column' = score.music.machine
+          td class='list-column' = score.season.name
+          td class='list-column' = score.music.machine.name
           td class='list-column' = score.music.name + " (#{score.music.artist})"
           td class='list-column' = score.difficulty
           td class='list-column' = score.playstyle.present? ? score.playstyle : 'N/A'
