@@ -1,7 +1,7 @@
 Nilgiri::App.controllers :score do
   before do
     @page_id = 'score'
-    @current_season = Time.now.strftime('%Y%m')
+    @current_season = Season.for(:now)
   end
 
   get :index do

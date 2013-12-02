@@ -22,8 +22,8 @@ updatePlaystyles = (machine_id, e) ->
         e.removeAttr('required')
   )
 
-updateMusics = (machine_id, season, e) ->
-  $.get("/machine/musics/#{machine_id}/#{season}.json",
+updateMusics = (machine_id, season_id, e) ->
+  $.get("/machine/musics/#{machine_id}/#{season_id}.json",
     (data) ->
       e.empty()
       if data.length == 1
@@ -38,7 +38,7 @@ updateMusics = (machine_id, season, e) ->
 $(document).ready ->
   q = (query) -> $('#score ' + query)
   q('#score_machine_id').change(() ->
-    season = q('#score_season').val()
+    season = q('#score_season_id').val()
     machine_id = $(this).val()
     updateDifficulties(machine_id, q('#score_difficulty'))
     updatePlaystyles(machine_id, q('#score_playstyle'))

@@ -10,7 +10,7 @@
 .row
   .columns
     = f.label :machine_id
-    = f.select :machine_id, options: @machines, required: true
+    = f.select :machine_id, options: [['Choose machine', ''], *@machines], required: true
     small.error You should select the machine.
 .row
   .columns
@@ -32,7 +32,7 @@
     = f.number_field :score, required: true, min: 0
     small.error Score is required.
 
-= f.hidden_field :season, required: true, value: @current_season
+= f.hidden_field :season_id, required: true, value: @current_season.id
 
 .row
   .small-9.columns

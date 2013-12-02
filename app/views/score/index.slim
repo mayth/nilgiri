@@ -17,7 +17,7 @@
     tbody
       - for score in @recent
         tr
-          td = score.season
+          td = score.season.name
           td = score.player.name
           td = score.music.machine.name
           td = score.music.name
