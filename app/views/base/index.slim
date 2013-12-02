@@ -28,11 +28,17 @@
   - else
     p No news articles.
 
+- if @current_season.present?
+  .row
+    p
+      | We are now in the season "
+      strong = @current_season.name
+      = "\" (till #{@current_season.expiry})"
+
 .row
   h1
-    | Current Top 3 
-    small
-      thin = "for #{@current_season} season"
+    | Top 3 
+    small = "for #{@current_season.name}"
   dl.vertical.tabs[data={tab: ''} style='word-wrap: break-word;']
     - for machine in @machines
       dd = link_to machine.name, "##{machine.slug}"

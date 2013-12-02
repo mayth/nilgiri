@@ -4,7 +4,7 @@ Nilgiri::App.controllers :base do
     @top_post = Post.first
     @posts = Post.offset(1).limit(5)
     @is_more_posts = Post.count > 6
-    @current_season = '201311'
+    @current_season = Season.for(:now)
     render 'base/index'
   end
 end
