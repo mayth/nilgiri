@@ -1,8 +1,8 @@
 - error = @score.errors.include?(:season)
 fieldset class='control-group#{error ? ' has-error' : ''}'
-  = f.label :season, :class => 'control-label'
+  = f.label :season_id, :class => 'control-label'
   div class='controls'
-    = f.text_field :season, :class => 'form-control input-large input-with-feedback', :autofocus => true
+    = f.select :season_id, options: @seasons, required: true, :class => 'form-control input-large input-with-feedback', :autofocus => true
     span class='help-inline' = error ? f.error_message_on(:season, :class => 'text-error') : pat(:example)
 - error = @score.errors.include?(:machine_id)
 fieldset class='control-group#{error ? ' has-error' : ''}'

@@ -1,7 +1,8 @@
 Nilgiri::Admin.controllers :scores do
   before do
     @machines = Machine.all.map{|m| [m.name, m.id]}
-    @current_season = Time.now.strftime('%Y%m')
+    @seasons = Season.all.map{|s| [s.name, s.id]}
+    @current_season = Season.for(:now)
   end
 
   get :index do
