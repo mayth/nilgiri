@@ -6,11 +6,11 @@
   = link_to 'Sign up', url(:player, :new)
 
 .row
-  h1 News
+  h1 = link_to 'News', url(:post, :index)
   - if @top_post
     section.panel.small-6.columns
       h2
-        = @top_post.title
+        = link_to @top_post.title, url(:post, :show, id: @top_post.id)
         |  
         small = @top_post.updated_at.strftime('%Y-%m-%d')
       p.show-for-medium-up = truncate(@top_post.body, length: 100)
@@ -21,10 +21,10 @@
         ul
           - for post in @posts
             li
-              .show-for-medium-up = post.title
-              .show-for-small-only = truncate(post.title, length: 20)
+              .show-for-medium-up = link_to post.title, url(:post, :show, id: post.id)
+              .show-for-small-only = link_to truncate(post.title, length: 20), url(:post, :show, id: post.id)
         - if @is_more_posts
-          p more...
+          p = link_to 'more...', url(:post, :index)
   - else
     p No news articles.
 
