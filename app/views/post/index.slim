@@ -1,0 +1,16 @@
+.row
+  h1 Posts
+  table
+    thead
+      tr
+        td Title
+        td Body
+        td Posted at
+        td Updated at
+    tbody
+      - for post in @posts
+        tr
+          td = link_to truncate(post.title, length: 40), url(:post, :show, id: post.id)
+          td = truncate(post.body, length: 40)
+          td = post.created_at
+          td = post.updated_at
