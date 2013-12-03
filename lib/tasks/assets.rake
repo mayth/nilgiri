@@ -40,7 +40,7 @@ task :assets_ready do
       FileUtils.cp(path, File.join(asset_dir, asset_name + ext))
     end
   end
-  FileUtils.rm_r(prebuilt_dir, secure: true)
+  # FileUtils.rm_r(prebuilt_dir, secure: true)
 end
 
 desc 'Remove prebuilt assets'
