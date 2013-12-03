@@ -5,6 +5,12 @@ Nilgiri::App.controllers :post do
   end
 
   get :show, with: :id do
+    begin
+      @post = Post.find(params[:id])
+      render 'post/show'
+    rescue ActiveRecord::RecordNotFound
+      halt 404
+    end
   end
 
 end
