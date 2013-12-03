@@ -45,6 +45,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25)
     multi_json (1.8.2)
+    newrelic_rpm (3.6.9.171)
     oj (2.2.0)
     padrino (0.11.4)
       padrino-admin (= 0.11.4)
@@ -140,6 +141,7 @@ DEPENDENCIES
   binding_of_caller
   coffee-script
   database_cleaner
+  newrelic_rpm
   oj
   padrino (= 0.11.4)
   padrino-sprockets

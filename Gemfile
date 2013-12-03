@@ -23,6 +23,8 @@ gem 'padrino', '0.11.4'
 # Key Derivation Function
 gem 'scrypt'
 
+gem 'newrelic_rpm'
+
 ### assets pipeline
 gem 'coffee-script'
 gem 'padrino-sprockets', require: 'padrino/sprockets'
