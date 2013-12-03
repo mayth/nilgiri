@@ -19,7 +19,9 @@ Setup
 1. `git clone https://github.com/mayth/nilgiri.git`
 2. `cd nilgiri`
 3. `bundle install --path vendor/gems`
-4. `bundle exec padrino start`
+4. `bundle exec rake ar:migrate`
+5. `bundle exec rake db:seed`
+6. `bundle exec padrino start`
 
 Deployment
 ==========
