@@ -27,12 +27,25 @@ Nilgiri::App.controllers :score do
       flash.now[:warning] = "The player was not found."
       render 'score/new'
     end
-    score['player'] = player
-    # Remove machine ID
-    score.delete('machine_id')
+
+    # get season
+    begin
+      season = Season.find(score[:season_id])
+    rescue ActiveRecord::RecordNotFound
+      flash.now[:warning] = "The season was not found."
+      render 'score/new'
+    end
+    
+    # get music
+    begin
+      music = Music.find(score[:music_id])
+    rescue ActiveRecord::RecordNotFound
+      flash.now[:warning] = "The music was not found."
+      render 'score/new'
+    end
 
     # Save score
-    @score = Score.new(params[:score])
+    @score = player.register_score(season, music, score['difficulty'], Float(score['score']), score['playstyle'])
     if @score.save
       flash[:info] = "Your score has been successfully submitted."
       redirect url(:score, :index)
