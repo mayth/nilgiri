@@ -48,7 +48,7 @@ describe Player do
       difficulty = 'HYPER'
       score = 334
       playstyle = 'SP'
-      @player.register_score(@season, @music, difficulty, score, playstyle)
+      @player.register_score(@season, @music, difficulty, score, playstyle).save!
       @score = Score.where(player_id: @player.id, season_id: @season.id, music_id: @music.id, difficulty: difficulty, playstyle: playstyle).first
     end
     subject { @score }
@@ -64,7 +64,7 @@ describe Player do
     end
     context 'when scores for the same music is registered' do
       before do
-        @player.register_score(@season, @music, 'HYPER', 668, 'SP')
+        @player.register_score(@season, @music, 'HYPER', 668, 'SP').save!
         @score = Score.where(player_id: @player.id, season_id: @season.id, music_id: @music.id, difficulty: 'HYPER', playstyle: 'SP').first
       end
       it 'correctly updates score' do

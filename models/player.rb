@@ -15,12 +15,9 @@ class Player < ActiveRecord::Base
   def register_score(season, music, difficulty, score, playstyle = nil)
     s = Score.where(player_id: id, season_id: season.id, music_id: music.id, difficulty: difficulty, playstyle: playstyle).first
     if s
-      if s.score < score
-        s.score = score
-        s.save!
-      end
+      s.score = score if s.score < score
     else
-      s = self.scores.create(
+      s = self.scores.build(
         season: season,
         music: music,
         difficulty: difficulty,

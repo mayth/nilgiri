@@ -108,6 +108,7 @@ describe Score do
         114514,
         'SP'
       )
+      s.save!
       @scores = [s, @player.scores.where(season_id: @season.id).first]
       @actual = Score.top_scores(@music, 'HYPER', 'SP')
     end
