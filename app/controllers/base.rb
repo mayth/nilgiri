@@ -30,7 +30,7 @@ Nilgiri::App.controllers :base do
                   [playstyle, Hash[
                     machine.difficulties.map {|difficulty|
                       [difficulty,
-                       Score.top_scores(music, difficulty, playstyle)
+                       Score.top_scores(music, difficulty, playstyle).to_a
                       ]
                     }
                   ]] # { playstyle: ... }

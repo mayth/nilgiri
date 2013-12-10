@@ -44,6 +44,8 @@ class Score < ActiveRecord::Base
   def self.top_scores(music, difficulty, playstyle = nil, num: 3)
     raise ArgumentError unless music
     raise ArgumentError, 'playstyle must be given for the given music' if music.machine.playstyles.any? && !playstyle
-    Score.where(music_id: music.id, difficulty: difficulty, playstyle: playstyle).order('score DESC').limit(num).to_a
+    q = Score.where(music_id: music.id, difficulty: difficulty)
+    q.where(playstyle: playstyle) if playstyle.present?
+    q.order('score DESC').limit(num)
   end
 end
