@@ -2,8 +2,9 @@ Nilgiri::App.controllers :base do
   get :index, :map => '/' do
     @machines = Machine.all
     # Posts
-    @top_post = Post.first
-    @posts = Post.offset(1).limit(5)
+    posts = Post.order('updated_at desc')
+    @top_post = posts.first
+    @posts = posts.offset(1).limit(5)
     @is_more_posts = Post.count > 6
 
     # Scores
