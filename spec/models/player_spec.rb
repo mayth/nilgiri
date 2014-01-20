@@ -15,15 +15,15 @@ describe Player do
 
   describe '.authorize' do
     before do
-      create(:player)
+      @player = create(:player)
     end
 
     it 'succeeds with valid password' do
-      expect(Player.authorize('mayth', 'pwpwpwpw')).to be_true
+      expect(Player.authorize(@player.name, 'pwpwpwpw')).to be_true
     end
 
     it 'fails with incorrect password' do
-      expect(Player.authorize('mayth', 'qmqmqmqm')).to be_false
+      expect(Player.authorize(@player.name, 'qmqmqmqm')).to be_false
     end
 
     it 'fails if a player is not found' do

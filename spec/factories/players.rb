@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :player do
-    name "mayth"
+    sequence(:name) {|n| "mayth#{n}"}
     screen_name "秋弦めい"
     password "pwpwpwpw"
     twitter_id "@maytheplic"
