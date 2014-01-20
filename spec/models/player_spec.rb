@@ -24,6 +24,28 @@ describe Player do
     end
   end
 
+  describe '#screen_name' do
+    context 'when the player has a screen name' do
+      before do
+        @player = create(:player)
+      end
+      subject { @player }
+      it 'returns screen name' do
+        expect(subject.screen_name).to eq '秋弦めい'
+      end
+    end
+
+    context 'when the player has no screen name' do
+      before do
+        @player = create(:player, screen_name: nil)
+      end
+      subject { @player }
+      it 'returns name' do
+        expect(subject.screen_name).to eq subject.name
+      end
+    end
+  end
+
   describe '.authorize' do
     before do
       @player = create(:player)

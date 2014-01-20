@@ -5,6 +5,10 @@ class Player < ActiveRecord::Base
     format: { with: /\A[a-zA-Z0-9_]+\z/ }
   validates :password, presence: true
 
+  def screen_name
+    self[:screen_name].presence || self[:name]
+  end
+
   def password=(pw)
     self[:password] = pw.present? ?
       SCrypt::Password.create(pw) :
