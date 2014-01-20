@@ -11,6 +11,17 @@ describe Player do
         expect(subject.save).to be_true
       end
     end
+    context 'when invalid input is given' do
+      it 'should fail if name is empty' do
+        expect(build(:player, name: '').save).to be_false
+      end
+      it 'should fail if password is empty' do
+        expect(build(:player, password: '').save).to be_false
+      end
+      it 'should fail if name is invalid' do
+        expect(build(:player, name: '--a').save).to be_false
+      end
+    end
   end
 
   describe '.authorize' do
