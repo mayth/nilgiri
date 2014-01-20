@@ -2,7 +2,7 @@ require 'scrypt'
 
 class Player < ActiveRecord::Base
   def password=(pw)
-    self[:password] = (pw && !pw.empty?) ?
+    self[:password] = pw.present? ?
       SCrypt::Password.create(pw) :
       nil
   end
