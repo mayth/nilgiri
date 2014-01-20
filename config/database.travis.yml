@@ -1,0 +1,25 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: nilgiri_development
+  pool: 5
+  username: nilgiri
+  password:
+  host: localhost
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: nilgiri_test
+  pool: 5
+  username: postgres
+  password:
+  host: localhost
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: nilgiri_production
+  pool: 5
+  username: nilgiri
+  password:
