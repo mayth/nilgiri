@@ -17,11 +17,11 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before :suite do
-    DatabaseCleaner.clean_all
+    DatabaseRewinder.clean_all
   end
 
   config.after :each do
-    DatabaseCleaner.clean
+    DatabaseRewinder.clean
   end
 
   config.before :all do

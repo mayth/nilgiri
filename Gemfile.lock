@@ -48,7 +48,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     columnize (0.3.6)
-    database_cleaner (1.2.0)
+    database_rewinder (0.0.2)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
@@ -238,7 +238,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   coffee-rails (~> 4.0.0)
-  database_cleaner
+  database_rewinder
   factory_girl_rails
   figaro
   foreman

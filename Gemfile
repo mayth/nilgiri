@@ -44,7 +44,7 @@ group :development, :test do
   # RSpec
   gem 'rspec-rails'
   gem 'rake_shared_context'
-  gem 'database_cleaner'
+  gem 'database_rewinder'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
   gem 'spring'
