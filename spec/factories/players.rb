@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :player do
-    name "MyString"
-    screen_name "MyString"
-    password "MyString"
-    twitter_id "MyString"
+    name "mayth"
+    screen_name "秋弦めい"
+    password "pwpwpwpw"
+    twitter_id "@maytheplic"
   end
 end
