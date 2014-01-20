@@ -1,57 +1,57 @@
 source 'https://rubygems.org'
 
-# specify Ruby version
-ruby '2.0.0'
+ruby '2.1.0'
 
-# Server requirements
-gem 'unicorn'
+gem 'rails', '4.0.2'
+gem 'pg'
+gem 'sass-rails', '~> 4.0.0'
+gem 'haml-rails'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'jquery-rails'
+gem 'foundation-rails'
+gem 'turbolinks'
+gem 'jbuilder', '~> 1.2'
 
-# Optional JSON codec (faster performance)
-gem 'oj'
-
-# Project requirements
-gem 'rake'
-
-# Component requirements
-gem 'sass'
-gem 'slim'
-gem 'activerecord', '>= 3.1', :require => 'active_record'
-
-# Padrino Stable Gem
-gem 'padrino', '0.11.4'
+group :doc do
+  gem 'sdoc', require: false
+end
 
 # Key Derivation Function
 gem 'scrypt'
 
-gem 'newrelic_rpm'
+# Application Server
+gem 'unicorn'
 
-### assets pipeline
-gem 'coffee-script'
-gem 'padrino-sprockets', require: 'padrino/sprockets'
-group :assets do
-  gem 'uglifier'
-  gem 'yui-compressor'
-end
+group :development, :test do
+  gem 'pry-rails'
+  gem 'pry-doc'
+  gem 'pry-stack_explorer'
+  gem 'pry-byebug'
 
-# Flash message
-gem 'sinatra-flash'
-
-group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+
+  gem 'hirb'
+  gem 'hirb-unicode'
+
+  gem 'awesome_print'
+  gem 'quiet_assets'
+
+  # RSpec
+  gem 'rspec-rails'
+  gem 'rake_shared_context'
+  gem 'database_cleaner'
+  gem 'guard-rspec'
+  gem 'factory_girl_rails'
+  gem 'spring'
+  gem 'spring-commands-rspec'
 end
 
 group :production do
-  gem 'pg'  # require pg only for production
-end
-
-group :development, :test do
-  gem 'sqlite3' # use sqlite3 for development/test
-end
-
-# Test requirements
-group :test do
-  gem 'rspec'
-  gem 'rack-test', :require => 'rack/test'
-  gem 'database_cleaner'
+  gem 'rails_12factor'
+  # JS/CSS Compression
+  gem 'uglifier', '>= 1.3.0'
+  gem 'yui-compressor'
+  # Monitoring
+  gem 'newrelic_rpm'
 end

@@ -1,8 +1,0 @@
-ul class="nav nav-tabs"
-  li = link_to tag_icon(:list, pat(:list)), url(:seasons, :index)
-  li = link_to tag_icon(:plus, pat(:new)), url(:seasons, :new)
-  li class="active" = link_to tag_icon(:edit, pat(:edit)), url(:seasons, :edit, :id => @season.id)
-
-div class="tabs-content"
-  - form_for :season, url(:seasons, :update, :id => @season.id), :method => :put, :class => 'form-horizontal' do |f|
-    = partial 'seasons/form', :locals => { :f => f }

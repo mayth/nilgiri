@@ -1,16 +1,16 @@
-//= require ./vendor/custom.modernizr
+// This is a manifest file that'll be compiled into application.js, which will include all the files
+// listed below.
 //
-// jquery, jquery plugins, and other vendor scripts
-//= require ./vendor/jquery
-//= require_tree ./vendor
+// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
+// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
 //
-// foundation and its components
-//= require ./foundation/foundation
-//= require ./foundation/foundation.abide
-//= require ./foundation/foundation.topbar
-//= require ./foundation/foundation.tab
-//= require ./foundation/foundation.alert
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// compiled file.
 //
-// any other scripts
-//= require site
-//= require_directory .
+// Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
+// about supported directives.
+//
+//= require jquery
+//= require jquery_ujs
+//= require turbolinks
+//= require_tree .

@@ -1,8 +1,0 @@
-.row
-  h1 Players
-  ul
-    - for player in @players
-      li
-        = link_to(player.screen_name, url(:player, :show, id: player.id))
-        - if player.twitter_id.present?
-          = " (@#{player.twitter_id})"
