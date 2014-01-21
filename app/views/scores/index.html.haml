@@ -1,0 +1,29 @@
+%h1 Listing scores
+
+%table
+  %tr
+    %th Playstyle
+    %th Difficulty
+    %th Score
+    %th Player
+    %th Music
+    %th Season
+    %th
+    %th
+    %th
+
+  - @scores.each do |score|
+    %tr
+      %td= score.playstyle
+      %td= score.difficulty
+      %td= score.score
+      %td= score.player
+      %td= score.music
+      %td= score.season
+      %td= link_to 'Show', score
+      %td= link_to 'Edit', edit_score_path(score)
+      %td= link_to 'Destroy', score, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Score', new_score_path

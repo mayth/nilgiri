@@ -1,4 +1,6 @@
 Nilgiri::Application.routes.draw do
+  resources :scores
+
   resources :musics
 
   resources :machines
