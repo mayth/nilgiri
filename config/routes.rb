@@ -1,4 +1,6 @@
 Nilgiri::Application.routes.draw do
+  resources :machines
+
   resources :seasons
 
   resources :posts
