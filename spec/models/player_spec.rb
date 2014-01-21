@@ -31,7 +31,7 @@ describe Player do
       end
       subject { @player }
       it 'returns screen name' do
-        expect(subject.screen_name).to eq '秋弦めい'
+        expect(subject.screen_name).to eq 'Mei Akizuru'
       end
     end
 
@@ -42,6 +42,56 @@ describe Player do
       subject { @player }
       it 'returns name' do
         expect(subject.screen_name).to eq subject.name
+      end
+    end
+  end
+
+  describe '#register_score' do
+    before do
+      @player = create(:player)
+      @season = create(:season)
+      @music = create(:music)
+    end
+    subject { @score }
+
+    context 'when no scores are registered' do
+      before do
+        @score = @player.register_score(season: @season, music: @music, difficulty: 'HARD', score: 334, playstyle: 'SP')
+        @score.save!
+      end
+      it 'correctly adds score' do
+        expect(subject).not_to be nil
+        expect(subject.season).to eq @season
+        expect(subject.music).to eq @music
+        expect(subject.difficulty).to eq 'HARD'
+        expect(subject.playstyle).to eq 'SP'
+        expect(subject.score).to eq 334
+      end
+    end
+    context 'when scores for the same music is registered' do
+      before do
+        @score = @player.register_score(season: @season, music: @music, difficulty: 'HARD', score: 334, playstyle: 'SP')
+        @score.save!
+      end
+
+      context 'if the score is greater than before' do
+        before do
+          @score = @player.register_score(season: @season, music: @music, difficulty: 'HARD', score: 668, playstyle: 'SP')
+          @score.save!
+        end
+        it 'updates score' do
+          expect(subject.score).to eq 668
+        end
+      end
+
+      context 'if the score is lower than before' do
+        before do
+          @score = @player.register_score(season: @season, music: @music, difficulty: 'HARD', score: 1, playstyle: 'SP')
+          @score.save!
+        end
+        it 'does nothing' do
+          expect(subject.score).not_to eq 1
+        end
       end
     end
   end
