@@ -1,2 +1,66 @@
-%h1 Home#index
-%p Find me in app/views/home/index.html.haml
+.top-banner.text-center
+  %h1
+    Nilgiri
+    %small TEA party score registration tool
+  = link_to 'Submit Score', new_score_path, class: "large button success radius"
+  %br
+  = link_to 'Sign up', new_player_path
+
+.row
+  %h1= link_to 'News', posts_path
+  - if @top_post
+    %section.panel.small-6.columns
+      %h2
+        = link_to @top_post.title, post_path(@top_post)
+        %small= @top_post.update_at.strftime('%y-%m-%d')
+      %p.show-for-medium-up= truncate(@top_post.body, length: 100)
+      %p.show-for-small-only= truncate(@top_post.body, length: 30)
+    - if @posts.any?
+      %section.small-6.columns
+        %h2 More Articles
+        %ul
+          - for post in @posts
+            %li
+              .show-for-medium-up= link_to post.title, post_path(post)
+              .show-for-small-only= link_to truncate(post.title, length: 20), post_path(post)
+        - if @is_more_posts
+          %p= link_to 'more...', posts_path
+  - else
+    %p No news articles.
+
+- if @current_season.present?
+  .row
+    .small-12.columns
+      %p
+        We are now in the season
+        = surround '"' do
+          %strong= @current_season.name
+        (till #{@current_season.expiry})
+
+- if @top_scores.present?
+  .row
+    .small-12.columns
+      %h1
+        Top
+        %small for #{@current_season.name}
+      .row
+        %dl.vertical.tabs{data: {tab: true}, style: 'word-wrap: break-word;'}
+          - for machine in Machine.all
+            %dd= link_to machine.name, "##{machine.slug}"
+        .small-12.columns.vertical.tabs-content
+          - @top_scores.each do |machine, musics|
+            .content{id: machine.slug, style: 'width: 100%;'}
+              .row
+                %h2= link_to machine.name, machine_path(machine)
+                - musics.each do |music, item|
+                  %h3= music.name
+                  - if machine.playstyles.present?
+                    .row
+                      - item.each do |playstyle, item|
+                        .large-6.small-12.columns
+                          %table
+                            %caption= playstyle
+                            = partial 'base/rank', locals: { item: item }
+                  - else
+                    %table
+                      = partial 'base/rank', locals: { item: item }

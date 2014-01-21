@@ -1,0 +1,15 @@
+%thead
+  %tr
+    %th Difficulty
+    %th 1st
+    %th 2nd
+    %th 3rd
+%tbody
+  - item.each do |difficulty, scores|
+    %tr
+      %td= difficulty
+      - for score in scores
+        %td
+          %span.name= score.player.screen_name
+          %br
+          %span.score= score.score
