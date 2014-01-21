@@ -1,5 +1,6 @@
 class Season < ActiveRecord::Base
   has_many :musics
+  has_many :scores
 
   validates :name, presence: true
   validates :start, presence: true
