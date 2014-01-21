@@ -12,6 +12,7 @@ gem 'jquery-turbolinks'
 gem 'foundation-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
+gem 'friendly_id', '~> 5.0.0'
 
 gem 'foreman'
 gem 'figaro'
