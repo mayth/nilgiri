@@ -1,4 +1,6 @@
 class Season < ActiveRecord::Base
+  has_many :musics
+
   validates :name, presence: true
   validates :start, presence: true
   validates :expiry, presence: true
