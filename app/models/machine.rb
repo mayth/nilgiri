@@ -1,6 +1,9 @@
 class Machine < ActiveRecord::Base
   has_many :musics
 
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   serialize :difficulties, Array
   serialize :playstyles, Array
 
