@@ -1,4 +1,6 @@
 Nilgiri::Application.routes.draw do
+  resources :seasons
+
   resources :posts
 
   resources :players
