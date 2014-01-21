@@ -21,11 +21,18 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'rails_admin'
+gem 'devise'
+
 # Key Derivation Function
 gem 'scrypt'
 
 # Application Server
 gem 'unicorn'
+
+group :development do
+  gem 'erb2haml'
+end
 
 group :development, :test do
   gem 'pry-rails'
