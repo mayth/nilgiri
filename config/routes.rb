@@ -1,14 +1,10 @@
 Nilgiri::Application.routes.draw do
+  root to: 'home#index'
   resources :scores
-
   resources :musics
-
   resources :machines
-
   resources :seasons
-
   resources :posts
-
   resources :players
 
   # The priority is based upon order of creation: first created -> highest priority.
