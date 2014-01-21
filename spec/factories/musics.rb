@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :music do
-    name "Music Name"
-    artist "Artist Name"
+    sequence(:name) {|n| "Music #{n}"}
+    sequence(:artist) {|n| "Artist #{n}"}
     machine
     season
   end
