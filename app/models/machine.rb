@@ -1,4 +1,6 @@
 class Machine < ActiveRecord::Base
+  has_many :musics
+
   serialize :difficulties, Array
   serialize :playstyles, Array
 
@@ -12,5 +14,10 @@ class Machine < ActiveRecord::Base
     else
       playstyle.blank?
     end
+  end
+
+  def musics_for(season = nil)
+    season = Season.for(:now) unless season
+    musics.where(season: season).order(:id) if season
   end
 end

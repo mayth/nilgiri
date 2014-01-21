@@ -54,4 +54,23 @@ describe Machine do
       end
     end
   end
+
+  describe '#musics_for' do
+    before do
+      @machine = create(:machine)
+      @season = create(:season)
+      @musics = []
+      2.times { @musics << create(:music, machine: @machine, season: @season) }
+    end
+    subject { @machine.musics_for(@season) }
+    it 'returns correct array' do
+      expect(subject.size).to eq 2
+      expect(subject[0].name).to eq @musics[0].name
+      expect(subject[0].artist).to eq @musics[0].artist
+      expect(subject[0].season).to eq @season
+      expect(subject[1].name).to eq @musics[1].name
+      expect(subject[1].artist).to eq @musics[1].artist
+      expect(subject[1].season).to eq @season
+    end
+  end
 end
