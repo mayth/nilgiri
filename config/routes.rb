@@ -1,4 +1,6 @@
 Nilgiri::Application.routes.draw do
+  resources :musics
+
   resources :machines
 
   resources :seasons
