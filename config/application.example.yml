@@ -1,0 +1,4 @@
+SECRET_KEY_BASE: secret key base
+DEVISE_SECRET_KEY: secret key
+DEVISE_PEPPER: pepper
+NEW_RELIC_LICENSE_KEY: newrelic key
