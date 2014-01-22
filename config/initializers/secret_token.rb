@@ -1,0 +1,1 @@
+Nilgiri::Application.config.secret_key_base = ENV['SECRET_KEY_BASE'] || 'ec03f6069742326713daf775b6d997b41c6047c4c7f0cf50f4f4d6bd42b3ed1d9e315b993008622d682499ae8a9be79870ff6e309bdef18aca7532d2ae1c24d6'
