@@ -2,9 +2,11 @@
 
 FactoryGirl.define do
   factory :player do
-    sequence(:name) {|n| "mayth#{n}"}
-    screen_name 'Mei Akizuru'
-    password "pwpwpwpw"
+    name "Mei Akizuru"
+    sequence(:email) {|n| "mailaddr-#{n}@example.com"}
     twitter_id "@maytheplic"
+    after(:build) do |p|
+      p.password = 'pwpwpwpw'
+    end
   end
 end

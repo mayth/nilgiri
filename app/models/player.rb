@@ -1,25 +1,13 @@
 require 'scrypt'
 
 class Player < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
   has_many :scores
 
-  validates :name, presence: true, uniqueness: true,
-    format: { with: /\A[a-zA-Z0-9_]+\z/ }
-  validates :password, presence: true
-
-  def screen_name
-    self[:screen_name].presence || self[:name]
-  end
-
-  def password=(pw)
-    self[:password] = pw.present? ?
-      SCrypt::Password.create(pw) :
-      nil
-  end
-
-  def password
-    self[:password] && SCrypt::Password.new(self[:password])
-  end
+  validates :name, presence: true
 
   def register_score(season: nil, music: nil, difficulty: nil, score: nil, playstyle: nil)
     [season, music, difficulty, score].each do |v|
@@ -40,14 +28,5 @@ class Player < ActiveRecord::Base
       )
     end
     s
-  end
-
-  def self.authorize(name, pass)
-    p = self.find_by(name: name)
-    if p && p.password == pass
-      p
-    else
-      nil
-    end
   end
 end

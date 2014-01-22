@@ -16,32 +16,9 @@ describe Player do
         expect(build(:player, name: '').save).to be_false
       end
       it 'should fail if password is empty' do
-        expect(build(:player, password: '').save).to be_false
-      end
-      it 'should fail if name is invalid' do
-        expect(build(:player, name: '--a').save).to be_false
-      end
-    end
-  end
-
-  describe '#screen_name' do
-    context 'when the player has a screen name' do
-      before do
-        @player = create(:player)
-      end
-      subject { @player }
-      it 'returns screen name' do
-        expect(subject.screen_name).to eq 'Mei Akizuru'
-      end
-    end
-
-    context 'when the player has no screen name' do
-      before do
-        @player = create(:player, screen_name: nil)
-      end
-      subject { @player }
-      it 'returns name' do
-        expect(subject.screen_name).to eq subject.name
+        p = build(:player)
+        p.password = ''
+        expect(p.save).to be_false
       end
     end
   end
@@ -93,24 +70,6 @@ describe Player do
           expect(subject.score).not_to eq 1
         end
       end
-    end
-  end
-
-  describe '.authorize' do
-    before do
-      @player = create(:player)
-    end
-
-    it 'succeeds with valid password' do
-      expect(Player.authorize(@player.name, 'pwpwpwpw')).to be_true
-    end
-
-    it 'fails with incorrect password' do
-      expect(Player.authorize(@player.name, 'qmqmqmqm')).to be_false
-    end
-
-    it 'fails if a player is not found' do
-      expect(Player.authorize('kogasa-chan', 'kawaii')).to be_false
     end
   end
 end
