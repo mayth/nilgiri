@@ -64,7 +64,11 @@ class MachinesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_machine
-      @machine = Machine.find(params[:id])
+      begin
+        @machine = Machine.friendly.find(params[:id])
+      rescue
+        @machine = Machine.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
