@@ -3,37 +3,71 @@ Nilgiri
 
 TEA party score registration tool
 
-[![Build Status](https://travis-ci.org/mayth/nilgiri.png?branch=master)](https://travis-ci.org/mayth/nilgiri)
+[![Build Status](https://travis-ci.org/mayth/nilgiri.png)](https://travis-ci.org/mayth/nilgiri)
 
 Requirements
 ============
 
-* Ruby 2.0
+* Ruby 2.1
 * Bundler
-* SQLite3 for development/testing
-* PostgreSQL for production
+* PostgreSQL
 
 Setup
 =====
 
-1. `git clone https://github.com/mayth/nilgiri.git`
-2. `cd nilgiri`
-3. `bundle install --path vendor/gems`
-4. `bundle exec rake ar:migrate`
-5. `bundle exec rake db:seed`
-6. `bundle exec padrino start`
+First, clone the repository.
+
+    % git clone https://github.com/mayth/nilgiri.git
+
+Install gems.
+
+    % bundle install --path vendor/gems
+
+Generate 'springified' executable in `bin/`. (For more information about `spring`, see: [rails/spring](https://github.com/rails/spring))
+
+    % bundle exec spring binstub --all
+
+Note: In the instructions below, we assume that `bin/` is added to `$PATH` (using [direnv](http://direnv.net)). If you do not so, use the executables in `bin/` explicitly, like `bin/rake`.
+
+Setup the application environment variables. Rename `config/application.example.yml` to `config/application.yml`, and edit it. (You can generate secret keys by `rake secret`)
+
+Prepare the database. First, create a user. (Be sure that you can create users and databases for PostgreSQL.)
+
+    % createuser nilgiri -P
+    % createdb nilgiri_development -O nilgiri
+    % createdb nilgiri_test -O nilgiri
+
+Or, you may grant to create databases for the new user. In this case, instead of run `createdb`,
+
+    % rake db:create
+
+Done the job, run the migrations and seeding.
+
+    % rake db:migrate
+    % rake db:seed
+
+Create the admin user.
+
+    % rake admin:create_user EMAIL='your-email-address@example.com' PASSWORD='password'
+
+Let's go!
+
+    % bundle exec foreman start
+
+And open `http://localhost:5000` with your browser.
 
 Deployment
 ==========
 
-Asset Precompile
-----------------
+Simply push the repository to heroku.
 
-`rake assets` generates precompiled assets in `app/assets/prebuilt`.
-If you want to deploy this app to heroku, you must do `heroku run rake assets`
-to precompile assets and your dyno must be waken up to prevent idling.
-CSS/Sass files this app has is too large to compile when it is requested :(
+Nilgiri uses [figaro](https://github.com/laserlemon/figaro), so the config vars can be set by `rake figaro:heroku`.
 
 Licence
 =======
-Licensed under MIT License. See 'LICENSE'.
+Nilgiri is licensed under the MIT License. See 'LICENSE'.
+
+Copyright
+=========
+
+Copyright (C) 2014 mayth (Mei Akizuru) [@maytheplic](https://twitter.com/maytheplic)
