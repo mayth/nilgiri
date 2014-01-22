@@ -1,0 +1,17 @@
+- if scores.any?
+  %table
+    %thead
+      %tr
+        %th Rank
+        %th Name
+        %th Score
+        %th Updated at
+    %tbody
+      - scores.each.with_index(1) do |score, rank|
+        %tr
+          %td= rank.ordinalize
+          %td= score.player.name
+          %td= score.score
+          %td= score.update_at
+- else
+  %p No scores.
