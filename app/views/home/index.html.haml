@@ -2,9 +2,13 @@
   %h1
     Nilgiri
     %small TEA party score registration tool
-  = link_to 'Submit Score', new_score_path, class: "large button success radius"
-  %br
-  = link_to 'Sign up', new_player_path
+  - if player_signed_in?
+    = link_to 'Submit Score', new_score_path, class: "large button success radius"
+  - else
+    = link_to 'Sign up', new_player_registration_path, class: "large button success radius"
+    %br
+    Already have an account?
+    = link_to 'Sign in', new_player_session_path
 
 .row
   %h1= link_to 'News', posts_path

@@ -1,0 +1,44 @@
+.row
+  .small-12.columns
+    %h1 Sign up
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+      = devise_error_messages!
+
+      .row
+        .small-12.large-2.columns
+          = f.label :email, class: 'right inline'
+        .small-12.large-4.columns.left
+          = f.text_field :email
+      .row
+        .small-12.large-2.columns
+          = f.label :password, class: 'right inline'
+        .small-12.large-4.columns.left
+          = f.password_field :password
+        .small-12.large-6.columns
+          %i At least 8 letters.
+      .row
+        .small-12.large-2.columns
+          = f.label :password_confirmation, class: 'right inline'
+        .small-12.large-4.columns.left
+          = f.password_field :password_confirmation
+      .row
+        .small-12.large-2.columns
+          = f.label :name, class: 'right inline'
+        .small-12.large-4.columns.left
+          = f.text_field :name
+        .small-12.large-6.columns
+          %i 'Name' is used to show to other players.
+      .row
+        .small-12.large-2.columns
+          = f.label :twitter_id, class: 'right inline'
+        .small-12.large-4.columns.left
+          .row.collapse
+            .small-2.columns
+              %span.prefix @
+            .small-10.columns
+              = f.text_field :twitter_id
+      .row
+        .small-12.columns
+          = f.submit 'Sign up', class: 'button'
+
+= render "players/shared/links"

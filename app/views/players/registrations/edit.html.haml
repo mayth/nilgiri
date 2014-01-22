@@ -1,0 +1,56 @@
+.row
+  .small-12.columns
+    %h1 Edit #{resource_name.to_s.humanize}
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = devise_error_messages!
+      .row
+        .small-12.large-2.columns
+          = f.label :email, class: 'right inline'
+        .small-12.large-4.columns.left
+          = f.email_field :email, autofocus: true, required: true
+        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+          .small-12.columns
+            Currently waiting confirmation for: #{resource.unconfirmed_email}
+      .row
+        .small-12.large-2.columns
+          = f.label :name, class: 'right inline'
+        .small-12.large-4.columns.left
+          = f.text_field :name, required: true
+      .row
+        .small-12.large-2.columns
+          = f.label :twitter_id, class: 'right inline'
+        .small-12.large-4.columns.left
+          .row.collapse
+            .small-2.columns
+              %span.prefix @
+            .small-10.columns
+              = f.text_field :twitter_id
+      .row
+        .small-12.large-2.columns
+          = f.label :password, class: 'right inline'
+        .small-12.large-4.columns.left
+          = f.password_field :password, autocomplete: 'off'
+        .small-12.large-6.columns
+          %i leave blank if you don't want to change it.
+      .row
+        .small-12.large-2.columns
+          = f.label :password_confirmation, class: 'right inline'
+        .small-12.large-4.columns.left
+          = f.password_field :password_confirmation, autocomplete: 'off'
+      .row
+        .small-12.large-2.columns
+          = f.label :current_password, class: 'right inline'
+        .small-12.large-4.columns.left
+          = f.password_field :current_password, required: true
+        .small-12.large-6.columns
+          %i we need your current password to confirm your changes.
+      .row
+        .small-12.columns
+          = f.submit "Update", class: 'button'
+
+    %h2 Cancel my account
+    %p
+      Unhappy?
+      = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'button alert'
+
+    = link_to "Back", :back

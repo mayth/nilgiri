@@ -1,14 +1,19 @@
 Nilgiri::Application.routes.draw do
-  devise_for :players
-  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   devise_for :users
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
+  devise_for :players, controllers: {
+    sessions: 'players/sessions',
+    registrations: 'players/registrations',
+    passwords: 'players/passwords'
+  }
   root to: 'home#index'
   resources :scores
   resources :musics
   resources :machines
   resources :seasons
   resources :posts
-  resources :players
+  resources :players, only: [:index, :show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

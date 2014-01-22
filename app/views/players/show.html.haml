@@ -1,18 +1,12 @@
-%p#notice= notice
+.row
+  .small-12.columns
+    %h1
+      = @player.name
+      - if @player.twitter_id.present?
+        %small= link_to "@#{@player.twitter_id}", "https://twitter.com/#{@player.twitter_id}"
+    - if @player == current_player
+      = link_to 'Edit Profile', edit_player_registration_path(@player)
 
-%p
-  %b Name:
-  = @player.name
-%p
-  %b Screen name:
-  = @player.screen_name
-%p
-  %b Password:
-  = @player.password
-%p
-  %b Twitter:
-  = @player.twitter_id
-
-= link_to 'Edit', edit_player_path(@player)
-\|
-= link_to 'Back', players_path
+.row
+  .small-12.columns
+    = link_to 'Back', players_path

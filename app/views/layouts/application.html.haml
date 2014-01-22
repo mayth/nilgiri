@@ -23,7 +23,13 @@
             %li
               - if @current_season.present?
                 %a{href: '#'} Season: #{@current_season.name}
-            %li= link_to 'Sign up', new_player_path
+            - if player_signed_in?
+              %li
+                = link_to current_player.name, player_path(current_player)
+              %li= link_to 'Sign out', destroy_player_session_path, method: :delete
+            - else
+              %li= link_to 'Sign up', new_player_registration_path
+              %li= link_to 'Sign in', new_player_session_path, class: 'tiny secondary radius button'
           %ul.left
             %li= link_to 'Submit Score', new_score_path
             %li= link_to 'Recent Scores', scores_path
