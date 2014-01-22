@@ -1,0 +1,12 @@
+.row
+  .small-12.columns
+    %h1
+      = @player.name
+      - if @player.twitter_id.present?
+        %small= link_to "@#{@player.twitter_id}", "https://twitter.com/#{@player.twitter_id}"
+    - if @player == current_player
+      = link_to 'Edit Profile', edit_player_registration_path(@player)
+
+.row
+  .small-12.columns
+    = link_to 'Back', players_path

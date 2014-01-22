@@ -1,0 +1,20 @@
+.row
+  .small-12.columns
+    %h1 Players
+
+    %table
+      %thead
+        %tr
+          %th Name
+          %th Twitter ID
+          %th
+      %tbody
+        - @players.each do |player|
+          %tr
+            %td= player.name
+            %td
+              - if player.twitter_id.present?
+                = link_to "@#{player.twitter_id}", "https://twitter.com/#{player.twitter_id}"
+              - else
+                (none)
+            %td= link_to 'Show', player
