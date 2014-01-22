@@ -22,10 +22,11 @@ group :doc do
 end
 
 gem 'rails_admin'
-gem 'devise'
 
-# Key Derivation Function
-gem 'scrypt'
+# Authentication
+gem 'devise'
+gem 'devise-encryptable'
+gem 'devise-scrypt'
 
 # Application Server
 gem 'unicorn'

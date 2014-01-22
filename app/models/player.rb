@@ -1,10 +1,9 @@
 require 'scrypt'
 
 class Player < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :encryptable
   has_many :scores
 
   validates :name, presence: true
