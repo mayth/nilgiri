@@ -11,7 +11,7 @@ Nilgiri::Application.routes.draw do
   resources :scores
   resources :musics
   resources :machines, only: [:index, :show]
-  resources :seasons
+  resources :seasons, only: [:index, :show]
   resources :posts
   resources :players, only: [:index, :show]
 end
