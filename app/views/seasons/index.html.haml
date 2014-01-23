@@ -1,25 +1,19 @@
-%h1 Listing seasons
+.row
+  .small-12.columns
+    %h1 Seasons
 
-%table
-  %tr
-    %th Name
-    %th Slug
-    %th Start
-    %th Expiry
-    %th
-    %th
-    %th
-
-  - @seasons.each do |season|
-    %tr
-      %td= season.name
-      %td= season.slug
-      %td= season.start
-      %td= season.expiry
-      %td= link_to 'Show', season
-      %td= link_to 'Edit', edit_season_path(season)
-      %td= link_to 'Destroy', season, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Season', new_season_path
+    - if @seasons.present?
+      %table
+        %thead
+          %tr
+            %th Name
+            %th Period
+            %th
+        %tbody
+          - @seasons.each do |season|
+            %tr
+              %td= season.name
+              %td #{season.start} - #{season.expiry}
+              %td= link_to 'Show', season
+    - else
+      %p No seasons.

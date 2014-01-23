@@ -1,18 +1,15 @@
-%p#notice= notice
+.row
+  .small-12.columns
+    %h1= @season.name
 
-%p
-  %b Name:
-  = @season.name
-%p
-  %b Slug:
-  = @season.slug
-%p
-  %b Start:
-  = @season.start
-%p
-  %b Expiry:
-  = @season.expiry
+    %p
+      %b Slug:
+      = @season.slug
+    %p
+      %b Start:
+      = @season.start
+    %p
+      %b Expiry:
+      = @season.expiry
 
-= link_to 'Edit', edit_season_path(@season)
-\|
-= link_to 'Back', seasons_path
+    = link_to 'Back', seasons_path
