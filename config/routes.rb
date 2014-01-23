@@ -8,9 +8,11 @@ Nilgiri::Application.routes.draw do
     passwords: 'players/passwords'
   }
   root to: 'home#index'
-  resources :scores
+  resources :scores, only: [:index, :new, :create, :destroy]
   resources :musics
-  resources :machines, only: [:index, :show]
+  resources :machines, only: [:index, :show] do
+    resources :musics, only: [:index, :show]
+  end
   resources :seasons, only: [:index, :show]
   resources :posts
   resources :players, only: [:index, :show]

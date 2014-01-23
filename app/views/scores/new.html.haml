@@ -1,5 +1,57 @@
-%h1 New score
+.row
+  .small-12.columns
+    %h1 Submit Score
 
-= render 'form'
+    - if @current_season.present?
+      = form_for @score do |f|
+        - if @score.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@score.errors.count, "error")} prohibited this score from being saved:"
+            %ul
+              - @score.errors.full_messages.each do |msg|
+                %li= msg
 
-= link_to 'Back', scores_path
+        = f.hidden_field :player_id, value: current_player.id
+        = f.hidden_field :season_id, value: @current_season.id
+        .row
+          .small-12.columns
+            %i Season: <b>#{@current_season.name}</b>
+
+        .row
+          .small-12.large-2.columns
+            %label.right.inline{for: 'machine'} Machine
+          .small-12.large-4.columns.left
+            %select#machine
+              %option{value: nil} Choose Machine
+              - for machine in Machine.pluck(:name, :slug)
+                %option{value: machine[1]}= machine[0]
+        .row
+          .small-12.large-2.columns
+            = f.label :music_id, class: "right inline"
+          .small-12.large-4.columns.left
+            = f.select :music_id, ['Choose Machine', ''], required: true
+        .row
+          .small-12.large-2.columns
+            = f.label :playstyle, class: "right inline"
+          .small-12.large-4.columns.left
+            = f.select :playstyle, ['Choose Machine', ''], required: true
+        .row
+          .small-12.large-2.columns
+            = f.label :difficulty, class: "right inline"
+          .small-12.large-4.columns.left
+            = f.select :difficulty, ['Choose Machine', ''], required: true
+        .row
+          .small-12.large-2.columns
+            = f.label :score, class: "right inline"
+          .small-12.large-4.columns.left
+            = f.number_field :score
+
+        .row
+          .small-12.columns
+            = f.submit 'Submit', class: "button"
+    - else
+      %p We're going on a short trip ;-)
+
+.row
+  .small-12.columns
+    = link_to 'Back', scores_path

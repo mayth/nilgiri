@@ -3,12 +3,25 @@ class MusicsController < ApplicationController
 
   # GET /musics
   # GET /musics.json
+  # GET /machines/machine_id/musics
+  # GET /machines/machine_id/musics.json
   def index
-    @musics = Music.all
+    if params[:machine_id]
+      begin
+        machine = Machine.friendly.find(params[:machine_id])
+      rescue
+        machine = Machine.find(params[:machine_id])
+      end
+      @musics = machine.musics
+    else
+      @musics = Music.all
+    end
   end
 
   # GET /musics/1
   # GET /musics/1.json
+  # GET /machines/machine_id/musics/1
+  # GET /machines/machine_id/musics/1.json
   def show
   end
 
@@ -64,7 +77,16 @@ class MusicsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_music
-      @music = Music.find(params[:id])
+      if params[:machine_id]
+        begin
+          machine = Machine.friendly.find(params[:machine_id])
+        rescue
+          machine = Machine.find(params[:machine_id])
+        end
+        @music = machine.musics.find(params[:id])
+      else
+        @music = Music.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -11,7 +11,7 @@
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "vendor/modernizr", "data-turbolinks-track" => true
     = csrf_meta_tags
-  %body{id: @page_id.presence}
+  %body
     %header.contain-to-grid
       %nav.top-bar{data: {topbar: true}}
         %ul.title-area
@@ -41,7 +41,7 @@
               %ul.dropdown
                 - for machine in Machine.all
                   %li= link_to machine.name, machine_path(machine)
-    .main-content
+    #main-content{data: { page_id: @page_id.presence }}
       .row
         - for kind in %i(alert success warning info)
           - if flash[kind].present?

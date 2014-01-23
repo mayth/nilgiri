@@ -1,29 +1,29 @@
-%h1 Listing scores
+.row
+  .small-12.columns
+    %h1 Recent Scores
 
-%table
-  %tr
-    %th Playstyle
-    %th Difficulty
-    %th Score
-    %th Player
-    %th Music
-    %th Season
-    %th
-    %th
-    %th
+    %table
+      %tr
+        %th Player
+        %th Season
+        %th Machine
+        %th Music
+        %th Playstyle
+        %th Difficulty
+        %th Score
+        - if player_signed_in?
+          %th
 
-  - @scores.each do |score|
-    %tr
-      %td= score.playstyle
-      %td= score.difficulty
-      %td= score.score
-      %td= score.player
-      %td= score.music
-      %td= score.season
-      %td= link_to 'Show', score
-      %td= link_to 'Edit', edit_score_path(score)
-      %td= link_to 'Destroy', score, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Score', new_score_path
+      - @scores.each do |score|
+        %tr
+          %td= link_to score.player.name, score.player
+          %td= link_to score.season.name, score.season
+          %td= link_to score.music.machine.name, score.music.machine
+          %td= score.music.name
+          %td= score.playstyle
+          %td= score.difficulty
+          %td= score.score
+          - if player_signed_in?
+            %td
+              - if current_player == score.player
+                = link_to 'Destroy', score, :method => :delete, :data => { :confirm => 'Are you sure?' }

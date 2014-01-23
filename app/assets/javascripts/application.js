@@ -15,6 +15,13 @@
 //= require jquery.turbolinks
 //= require turbolinks
 //= require foundation
+//= require site
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+
+var site = new Site();
+site.addAction('score_new', score_new);
+$(document).ready(function() {
+  site.doAction();
+});
