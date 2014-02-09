@@ -4,6 +4,13 @@
       = @post.title
       %small= @post.updated_at
     %p= @post.body
+  .small-12.columns
+    %p
+      Permalink:
+      %a= link_to "#{post_url @post}", post_url(@post)
+    %p
+      Posted at:
+      = @post.created_at
 
 .row
   .small-12.columns
