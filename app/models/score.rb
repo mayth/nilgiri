@@ -36,7 +36,8 @@ class Score < ActiveRecord::Base
     raise ArgumentError, 'Playstyle must not be given for this machine' if (!music.machine.playstyles.present? && playstyle.present?)
     q = where(music: music, difficulty: difficulty)
     q = q.where(playstyle: playstyle) if playstyle.present?
-    q = q.order(score: :desc, updated_at: :desc).limit(num)
+    q = q.order(score: :desc, updated_at: :desc)
+    q = q.limit(num) if num
     q
   end
 end
