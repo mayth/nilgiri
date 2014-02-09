@@ -2,36 +2,39 @@
   %h1= @machine.name
   .small-12.columns
     - if @current_season.present?
-      .row
-        .small-12.columns
-          %h2 Musics
-          %ul
-            - for music in @musics
-              %li= link_to music.name, anchor: music.id
-      .row
-        .small-12.columns
-          %h2 Ranking
-          - @ranking.each do |music, items|
-            .row
-              .small-12.columns
-                %h2{id: music.id}= music.name
-                - if @machine.playstyles.present?
-                  - items.each do |playstyle, items|
-                    %div{class: "large-#{12 / @machine.playstyles.size} columns"}
+      - if @musics.present?
+        .row
+          .small-12.columns
+            %h2 Musics
+            %ul
+              - for music in @musics
+                %li= link_to music.name, anchor: music.id
+        .row
+          .small-12.columns
+            %h2 Ranking
+            - @ranking.each do |music, items|
+              .row
+                .small-12.columns
+                  %h3{id: music.id}= music.name
+                  - if @machine.playstyles.present?
+                    - items.each do |playstyle, items|
+                      %div{class: "large-#{12 / @machine.playstyles.size} columns"}
+                        .row
+                          .small-12.columns
+                            %h4= playstyle
+                            - items.each do |difficulty, scores|
+                              .row
+                                .small-12.columns
+                                  %h5= difficulty
+                                  = render partial: 'rank', locals: { scores: scores }
+                  - else
+                    - items.each do |difficulty, scores|
                       .row
                         .small-12.columns
-                          %h3= playstyle
-                          - items.each do |difficulty, scores|
-                            .row
-                              .small-12.columns
-                                %h4= difficulty
-                                = partial 'machine/rank', locals: { scores: scores }
-                - else
-                  - items.each do |difficulty, scores|
-                    .row
-                      .small-12.columns
-                        %h3= difficulty
-                        = partial 'machine/rank', locals: { scores: scores }
+                          %h4= difficulty
+                          = render partial: 'rank', locals: { scores: scores }
+      - else
+        %p No contest is held for this machine...
     - else
       %p We're going on a short trip ;)
 
