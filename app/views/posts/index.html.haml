@@ -1,21 +1,16 @@
-%h1 Listing posts
+.row
+  .small-12.columns
+    %h1 Listing posts
+    %table
+      %tr
+        %th Title
+        %th Body
+        %th Updated at
+        %th
 
-%table
-  %tr
-    %th Title
-    %th Body
-    %th
-    %th
-    %th
-
-  - @posts.each do |post|
-    %tr
-      %td= post.title
-      %td= post.body
-      %td= link_to 'Show', post
-      %td= link_to 'Edit', edit_post_path(post)
-      %td= link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Post', new_post_path
+      - @posts.each do |post|
+        %tr
+          %td= post.title
+          %td= truncate(post.body, length: 80)
+          %td= post.updated_at
+          %td= link_to 'Show', post
