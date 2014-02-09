@@ -12,11 +12,14 @@ class Score < ActiveRecord::Base
   validates :season, presence: true
 
   def validate_playstyle
-    if music &&
-      music.machine &&
-      music.machine.playstyles &&
-      (!music.machine.valid_playstyle? playstyle)
-      errors.add(:playstyle, 'is not valid')
+    if music && music.machine
+      if music.machine.playstyles.present?
+        # for the machine which has some playstyles
+        errors.add(:playstyle, ' is not valid') unless music.machine.valid_playstyle? playstyle
+      else
+        # for the machine which has no playstyles
+        errors.add(:playstyle, ' must not be given') if playstyle.present?
+      end
     end
   end
 
@@ -24,5 +27,16 @@ class Score < ActiveRecord::Base
     if music && (!music.machine.valid_difficulty? difficulty)
       errors.add(:difficulty, 'is not valid')
     end
+  end
+
+  def self.get_top_scores(music, difficulty, playstyle: nil, num: 3)
+    raise ArgumentError, "Music must be given" unless music
+    raise ArgumentError, "Difficulty must be given" unless difficulty
+    raise ArgumentError, "Playstyle must be given for this machine" if (music.machine.playstyles.present? && !playstyle.present?)
+    raise ArgumentError, 'Playstyle must not be given for this machine' if (!music.machine.playstyles.present? && playstyle.present?)
+    q = where(music: music, difficulty: difficulty)
+    q = q.where(playstyle: playstyle) if playstyle.present?
+    q = q.order(score: :desc, updated_at: :desc).limit(num)
+    q
   end
 end

@@ -73,4 +73,23 @@ describe Machine do
       expect(subject[1].season).to eq @season
     end
   end
+
+  describe '#get_top_scores' do
+    before do
+      @machine = create(:machine, playstyles: %w(SP DP), difficulties: %w(NORMAL HYPER))
+      @season = create(:season)
+      @music = create(:music, machine: @machine, season: @season)
+      @difficulty = "HYPER"
+      @playstyle = "SP"
+      @players = 3.times.map { create(:player) }
+      @score_vals = [300, 800, 500]
+      @scores = 3.times.map{|n|
+        @players[n].register_score(season: @season, music: @music, difficulty: @difficulty,
+          score: @score_vals[n], playstyle: @playstyle).save!}
+    end
+    subject { @machine.get_top_scores(@season, num: 3) }
+    it 'returns top scores' do
+      expect(subject[@music]["SP"]["HYPER"].pluck(:score)).to eq @score_vals.sort.reverse
+    end
+  end
 end
