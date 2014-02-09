@@ -13,22 +13,33 @@
 .row
   %h1= link_to 'News', posts_path
   - if @top_post
-    %section.panel.small-6.columns
-      %h2
-        = link_to @top_post.title, post_path(@top_post)
-        %small= @top_post.update_at.strftime('%y-%m-%d')
-      %p.show-for-medium-up= truncate(@top_post.body, length: 100)
-      %p.show-for-small-only= truncate(@top_post.body, length: 30)
-    - if @posts.any?
-      %section.small-6.columns
-        %h2 More Articles
-        %ul
-          - for post in @posts
-            %li
-              .show-for-medium-up= link_to post.title, post_path(post)
-              .show-for-small-only= link_to truncate(post.title, length: 20), post_path(post)
-        - if @is_more_posts
-          %p= link_to 'more...', posts_path
+    .show-for-medium-up
+      %section#top-post.panel.small-6.columns
+        %h2
+          = link_to @top_post.title, post_path(@top_post)
+          %small= @top_post.updated_at.strftime('%Y-%m-%d')
+        %p.show-for-medium-up= truncate(@top_post.body, length: 100)
+        %p.show-for-small-only= truncate(@top_post.body, length: 30)
+      - if @recent_posts.present?
+        %section.small-6.columns
+          %h2 More Articles
+          %ul.small-block-grid-5
+            - for post in @recent_posts
+              %li
+                .show-for-medium-up
+                  = link_to post.title, post_path(post)
+                  %br
+                  %small= post.updated_at.strftime('%Y-%m-%d')
+                .show-for-small-only
+                  = link_to truncate(post.title, length: 20), post_path(post)
+          - if @is_more_posts
+            %p= link_to 'more...', posts_path
+    .show-for-small-only
+      %ul
+        %li
+          %b= link_to @top_post.title, @top_post
+        - @recent_posts.each do |post|
+          %li= link_to post.title, post
   - else
     %p No news articles.
 
@@ -64,7 +75,7 @@
                         .large-6.small-12.columns
                           %table
                             %caption= playstyle
-                            = partial 'base/rank', locals: { item: item }
+                            = render partial: 'rank', locals: { item: item }
                   - else
                     %table
-                      = partial 'base/rank', locals: { item: item }
+                      = render partial: 'rank', locals: { item: item }
