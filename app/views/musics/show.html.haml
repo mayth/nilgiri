@@ -24,33 +24,41 @@
                   .row
                     .small-12.columns
                       %h4= difficulty
-                      %table
-                        %thead
-                          %tr
-                            %th Rank
-                            %th Player
-                            %th Score
-                        %tbody
-                          - scores.each.with_index(1) do |score, rank|
+                      - if scores.present?
+                        %table
+                          %thead
                             %tr
-                              %td= rank.ordinalize
-                              %td= score.player.name
-                              %td= score.score
+                              %th Rank
+                              %th Player
+                              %th Score
+                          %tbody
+                            - scores.each.with_index(1) do |score, rank|
+                              %tr
+                                %td= rank.ordinalize
+                                %td= score.player.name
+                                %td= score.score
+                      - else
+                        No scores.
     - else
       - @scores.each do |difficulty, scores|
-        %h3= difficulty
-        %table
-          %thead
-            %tr
-              %th Rank
-              %th Player
-              %th Score
-          %tbody
-            - scores.each.with_index(1) do |score, rank|
-              %tr
-                %td= rank.ordinalize
-                %td= score.player.name
-                %td= score.score
+        .row
+          .small-12.columns
+            %h3= difficulty
+            - if scores.present?
+              %table
+                %thead
+                  %tr
+                    %th Rank
+                    %th Player
+                    %th Score
+                %tbody
+                  - scores.each.with_index(1) do |score, rank|
+                    %tr
+                      %td= rank.ordinalize
+                      %td= score.player.name
+                      %td= score.score
+            - else
+              No scores.
 
 .row
   .small-12.columns
