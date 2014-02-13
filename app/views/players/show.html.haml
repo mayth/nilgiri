@@ -9,4 +9,32 @@
 
 .row
   .small-12.columns
+    %h2 Scores
+    %table
+      %thead
+        %tr
+          %th Season
+          %th Machine
+          %th Music
+          %th Difficulty
+          %th Play style
+          %th Score
+          %th Updated at
+          - if @player == current_player
+            %th
+      %tbody
+        - @player.scores.order(updated_at: :desc).each do |score|
+          %tr
+            %td= link_to score.season.name, season_path(score.season)
+            %td= link_to score.music.machine.name, machine_path(score.music.machine)
+            %td= link_to score.music.name, music_path(score.music)
+            %td= score.difficulty
+            %td= score.playstyle.presence || 'N/A'
+            %td= score.score
+            %td= score.updated_at
+            - if @player == current_player
+              %td= link_to 'Destroy', score, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+.row
+  .small-12.columns
     = link_to 'Back', players_path
