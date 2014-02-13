@@ -38,7 +38,7 @@ class Machine < ActiveRecord::Base
         [style, get_top_scores_for_each_difficulty(music, style, num: num)]
       }]
     else
-      self.get_top_scores_for_each_difficulty(music, num: num)
+      get_top_scores_for_each_difficulty(music, num: num)
     end
   end
 

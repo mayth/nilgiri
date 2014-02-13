@@ -12,7 +12,7 @@ class Player < ActiveRecord::Base
     [season, music, difficulty, score].each do |v|
       raise ArgumentError unless v
     end
-    q = Score.where(player: self, season: season, music: music, difficulty: difficulty)
+    q = scores.where(season: season, music: music, difficulty: difficulty)
     q = q.where(playstyle: playstyle) if playstyle
     s = q.first
     if s

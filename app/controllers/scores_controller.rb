@@ -16,13 +16,21 @@ class ScoresController < ApplicationController
   # POST /scores
   # POST /scores.json
   def create
-    params[:score][:player_id] = current_player.id
-    params[:score][:season_id] = @current_season.id
-    @score = Score.new(score_params)
+    p = score_params
+    season = @current_season
+    music = Music.find(p[:music_id])
+    difficulty = p[:difficulty]
+    score = p[:score].to_i
+    playstyle = p[:playstyle].presence
+
+    @score = current_player.register_score(
+      season: season, music: music,
+      difficulty: difficulty, playstyle: playstyle,
+      score: score)
 
     respond_to do |format|
       if @score.save
-        format.html { redirect_to action: 'index', status: :created, notice: 'Score was successfully created.' }
+        format.html { redirect_to machine_path(@score.music.machine), success: 'Score was successfully created.' }
         format.json { render action: 'index', status: :created, location: @score }
       else
         @page_id = 'score_new'
