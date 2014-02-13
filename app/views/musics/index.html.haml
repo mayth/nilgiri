@@ -1,25 +1,18 @@
-%h1 Listing musics
+.row
+  .small-12.columns
+    %h1 Musics
+    %table
+      %tr
+        %th Name
+        %th Artist
+        %th Machine
+        %th Season
+        %th
 
-%table
-  %tr
-    %th Name
-    %th Artist
-    %th Machine
-    %th Season
-    %th
-    %th
-    %th
-
-  - @musics.each do |music|
-    %tr
-      %td= music.name
-      %td= music.artist
-      %td= music.machine
-      %td= music.season
-      %td= link_to 'Show', music
-      %td= link_to 'Edit', edit_music_path(music)
-      %td= link_to 'Destroy', music, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Music', new_music_path
+      - @musics.each do |music|
+        %tr
+          %td= music.name
+          %td= music.artist
+          %td= music.machine.name
+          %td= music.season.name
+          %td= link_to 'Show', music

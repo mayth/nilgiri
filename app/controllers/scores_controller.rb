@@ -16,6 +16,8 @@ class ScoresController < ApplicationController
   # POST /scores
   # POST /scores.json
   def create
+    params[:score][:player_id] = current_player.id
+    params[:score][:season_id] = @current_season.id
     @score = Score.new(score_params)
 
     respond_to do |format|

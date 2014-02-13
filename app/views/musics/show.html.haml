@@ -1,18 +1,57 @@
-%p#notice= notice
+.row
+  .small-12.columns
+    %h1
+      = @music.name
+      %small= @music.artist
+    %p
+      %b Machine:
+      = @music.machine.name
+    %p
+      %b Season:
+      = @music.season.name
 
-%p
-  %b Name:
-  = @music.name
-%p
-  %b Artist:
-  = @music.artist
-%p
-  %b Machine:
-  = @music.machine
-%p
-  %b Season:
-  = @music.season
+.row
+  .small-12.columns
+    %h2 Scores
+    - if @music.machine.playstyles.present?
+      .row
+        - @scores.each do |playstyle, difficulties|
+          %div{class: "large-#{12 / @music.machine.playstyles.size} columns"}
+            .row
+              .small-12.columns
+                %h3= playstyle
+                - difficulties.each do |difficulty, scores|
+                  .row
+                    .small-12.columns
+                      %h4= difficulty
+                      %table
+                        %thead
+                          %tr
+                            %th Rank
+                            %th Player
+                            %th Score
+                        %tbody
+                          - scores.each.with_index(1) do |score, rank|
+                            %tr
+                              %td= rank.ordinalize
+                              %td= score.player.name
+                              %td= score.score
+    - else
+      - @scores.each do |difficulty, scores|
+        %h3= difficulty
+        %table
+          %thead
+            %tr
+              %th Rank
+              %th Player
+              %th Score
+          %tbody
+            - scores.each.with_index(1) do |score, rank|
+              %tr
+                %td= rank.ordinalize
+                %td= score.player.name
+                %td= score.score
 
-= link_to 'Edit', edit_music_path(@music)
-\|
-= link_to 'Back', musics_path
+.row
+  .small-12.columns
+    = link_to 'Back', musics_path

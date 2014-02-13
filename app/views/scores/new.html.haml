@@ -11,7 +11,6 @@
               - @score.errors.full_messages.each do |msg|
                 %li= msg
 
-        = f.hidden_field :player_id, value: current_player.id
         = f.hidden_field :season_id, value: @current_season.id
         .row
           .small-12.columns
@@ -21,8 +20,8 @@
           .small-12.large-2.columns
             %label.right.inline{for: 'machine'} Machine
           .small-12.large-4.columns.left
-            %select#machine
-              %option{value: nil} Choose Machine
+            %select#machine{required: true}
+              %option{value: ""} Choose Machine
               - for machine in Machine.pluck(:name, :slug)
                 %option{value: machine[1]}= machine[0]
         .row

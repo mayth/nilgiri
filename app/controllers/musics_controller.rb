@@ -1,5 +1,5 @@
 class MusicsController < ApplicationController
-  before_action :set_music, only: [:show, :edit, :update, :destroy]
+  before_action :set_music, only: [:show]
 
   # GET /musics
   # GET /musics.json
@@ -13,6 +13,14 @@ class MusicsController < ApplicationController
         machine = Machine.find(params[:machine_id])
       end
       @musics = machine.musics
+      if params[:season_id].present?
+        begin
+          season = Season.friendly.find(params[:season_id])
+        rescue
+          season = Season.find(params[:season_id])
+        end
+        @musics = @musics.where(season: season)
+      end
     else
       @musics = Music.all
     end
@@ -23,55 +31,7 @@ class MusicsController < ApplicationController
   # GET /machines/machine_id/musics/1
   # GET /machines/machine_id/musics/1.json
   def show
-  end
-
-  # GET /musics/new
-  def new
-    @music = Music.new
-  end
-
-  # GET /musics/1/edit
-  def edit
-  end
-
-  # POST /musics
-  # POST /musics.json
-  def create
-    @music = Music.new(music_params)
-
-    respond_to do |format|
-      if @music.save
-        format.html { redirect_to @music, notice: 'Music was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @music }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @music.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /musics/1
-  # PATCH/PUT /musics/1.json
-  def update
-    respond_to do |format|
-      if @music.update(music_params)
-        format.html { redirect_to @music, notice: 'Music was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @music.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /musics/1
-  # DELETE /musics/1.json
-  def destroy
-    @music.destroy
-    respond_to do |format|
-      format.html { redirect_to musics_url }
-      format.json { head :no_content }
-    end
+    @scores = @music.machine.get_top_scores(@music.season, num: nil)[@music]
   end
 
   private
@@ -87,10 +47,5 @@ class MusicsController < ApplicationController
       else
         @music = Music.find(params[:id])
       end
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def music_params
-      params.require(:music).permit(:name, :artist, :machine_id, :season_id)
     end
 end

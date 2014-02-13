@@ -9,7 +9,7 @@ Nilgiri::Application.routes.draw do
   }
   root to: 'home#index'
   resources :scores, only: [:index, :new, :create, :destroy]
-  resources :musics
+  resources :musics, only: [:index, :show]
   resources :machines, only: [:index, :show] do
     resources :musics, only: [:index, :show]
   end
