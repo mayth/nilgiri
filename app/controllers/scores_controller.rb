@@ -4,7 +4,11 @@ class ScoresController < ApplicationController
   # GET /scores
   # GET /scores.json
   def index
-    @scores = Score.where(season: @current_season).order(updated_at: :desc)
+    if @current_season.present?
+      @scores = Score.where(season: @current_season).order(updated_at: :desc)
+    else
+      @scores = nil
+    end
   end
 
   # GET /scores/new

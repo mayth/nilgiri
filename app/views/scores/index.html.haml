@@ -2,32 +2,39 @@
   .small-12.columns
     %h1
       Recent Scores
-      %small for #{@current_season.name}
+      - if @current_season.present?
+        %small for #{@current_season.name}
 
-    %table
-      %tr
-        %th Player
-        %th Season
-        %th Machine
-        %th Music
-        %th Playstyle
-        %th Difficulty
-        %th Score
-        %th Updated at
-        - if player_signed_in?
-          %th
+    - if @current_season.present?
+      - if @scores.present?
+        %table
+          %tr
+            %th Player
+            %th Season
+            %th Machine
+            %th Music
+            %th Playstyle
+            %th Difficulty
+            %th Score
+            %th Updated at
+            - if player_signed_in?
+              %th
 
-      - @scores.each do |score|
-        %tr
-          %td= link_to score.player.name, score.player
-          %td= link_to score.season.name, score.season
-          %td= link_to score.music.machine.name, score.music.machine
-          %td= score.music.name
-          %td= score.playstyle
-          %td= score.difficulty
-          %td= score.score
-          %td= score.updated_at
-          - if player_signed_in?
-            %td
-              - if current_player == score.player
-                = link_to 'Destroy', score, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          - @scores.each do |score|
+            %tr
+              %td= link_to score.player.name, score.player
+              %td= link_to score.season.name, score.season
+              %td= link_to score.music.machine.name, score.music.machine
+              %td= score.music.name
+              %td= score.playstyle
+              %td= score.difficulty
+              %td= score.score
+              %td= score.updated_at
+              - if player_signed_in?
+                %td
+                  - if current_player == score.player
+                    = link_to 'Destroy', score, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      - else
+        %p No scores registered yet.
+    - else
+      %p We're going on a short trip ;)
