@@ -29,7 +29,7 @@ describe "Scores" do
       end
       context 'if some scores registered' do
         before do
-          @score = create(:score, season: @season)
+          @scores = 3.times.map { create(:score, season: @season) }
           get scores_path
         end
         it "succeeds" do
@@ -39,9 +39,11 @@ describe "Scores" do
           expect(response.body).to include @season.name
         end
         it "shows the scores" do
-          expect(response.body).to include @score.player.name
-          expect(response.body).to include @score.music.name
-          expect(response.body).to include @score.score.to_s
+          @scores.each do |score|
+            expect(response.body).to include score.player.name
+            expect(response.body).to include score.music.name
+            expect(response.body).to include score.score.to_s
+          end
         end
       end
     end
