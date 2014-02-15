@@ -3,6 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-ENV['SKIP_RAILS_ADMIN_INITIALIZER'] ||= true
-
 Nilgiri::Application.load_tasks
