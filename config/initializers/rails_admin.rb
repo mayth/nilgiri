@@ -2,8 +2,9 @@
 # See github.com/sferik/rails_admin for more informations
 
 RailsAdmin.config do |config|
-
-
+  config.authenticate_with do
+    warden.authenticate! scope: :user
+  end
   ################  Global configuration  ################
 
   # Set the admin name here (optional second array element will appear in red). For example:
