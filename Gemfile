@@ -51,10 +51,10 @@ group :development, :test do
   gem 'quiet_assets'
 
   # RSpec
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 2.14.0'
   gem 'rake_shared_context'
   gem 'database_rewinder'
-  gem 'guard-rspec'
+  gem 'guard-rspec', '~> 4.3.0'
   gem 'factory_girl_rails'
   gem 'spring'
   gem 'spring-commands-rspec'
